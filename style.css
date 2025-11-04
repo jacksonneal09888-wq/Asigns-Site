@@ -842,6 +842,10 @@ footer .social-links a:hover {
     .header-logo {
         height: 50px; /* Adjust logo size for mobile */
     }
+
+    .hero {
+        padding: 80px 15px 30px; /* Adjusted padding for mobile to push content below header and prevent cramping */
+    }
 }
 
 @media (max-width: 480px) { /* Smaller mobile devices */
@@ -862,6 +866,10 @@ footer .social-links a:hover {
     }
     .header-logo {
         height: 40px; /* Further adjust logo size for very small mobile */
+    }
+
+    .hero {
+        padding: 70px 10px 20px; /* Further adjusted padding for very small mobile */
     }
 }
 
