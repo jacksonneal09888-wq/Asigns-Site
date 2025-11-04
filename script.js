@@ -89,14 +89,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close nav when a link is clicked (for smooth scrolling)
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('nav-active');
-            burger.classList.remove('toggle');
-            navLinks.forEach(item => {
-                item.style.animation = ''; // Reset animation
-            });
+        link.addEventListener('click', (e) => {
+            // Check if the clicked link is part of the dropdown toggle
+            if (link.classList.contains('dropdown')) {
+                e.preventDefault(); // Prevent immediate navigation
+                link.classList.toggle('active'); // Toggle dropdown visibility
+            } else {
+                nav.classList.remove('nav-active');
+                burger.classList.remove('toggle');
+                navLinks.forEach(item => {
+                    item.style.animation = ''; // Reset animation
+                });
+            }
         });
     });
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const captionText = document.getElementById('caption');
+    const closeBtn = document.querySelector('.close-btn');
+    const galleryImages = document.querySelectorAll('.portfolio-section .gallery a');
+
+    let slideIndex = 0;
+
+    galleryImages.forEach((imgLink, index) => {
+        imgLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            lightbox.style.display = 'block';
+            lightboxImg.src = imgLink.href;
+            captionText.innerHTML = imgLink.dataset.title;
+            slideIndex = index;
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+    });
+
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+        }
+    });
+
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.style.display === 'block') {
+            if (e.key === 'ArrowLeft') {
+                plusSlides(-1);
+            } else if (e.key === 'ArrowRight') {
+                plusSlides(1);
+            } else if (e.key === 'Escape') {
+                lightbox.style.display = 'none';
+            }
+        }
+    });
+
+    // Function to change slides
+    window.plusSlides = (n) => {
+        showSlides(slideIndex += n);
+    };
+
+    function showSlides(n) {
+        const images = document.querySelectorAll('.portfolio-section .gallery a');
+        if (n >= images.length) { slideIndex = 0; }
+        if (n < 0) { slideIndex = images.length - 1; }
+        lightboxImg.src = images[slideIndex].href;
+        captionText.innerHTML = images[slideIndex].dataset.title;
+    }
 
     // File upload display name
     const projectFileInput = document.getElementById('projectFile');
