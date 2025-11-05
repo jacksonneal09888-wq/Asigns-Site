@@ -275,31 +275,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const inchesFromPixels = (pixels) => (pixels / PX_PER_INCH);
 
-        const addImageToCanvas = (dataUrl) => {
-            fabric.Image.fromURL(dataUrl, (img) => {
+        const MAX_FILE_SIZE_MB = 25;
+
+        const addFileToCanvas = (file) => {
+            if (!file) {
+                return;
+            }
+
+            if (!file.type || !file.type.startsWith('image/')) {
+                showOrderFeedback('Please upload an image file (PNG, JPG, or TIFF).', true);
+                return;
+            }
+
+            if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+                showOrderFeedback(`The file ${file.name} is larger than ${MAX_FILE_SIZE_MB}MB. Please upload a smaller image.`, true);
+                return;
+            }
+
+            const objectUrl = URL.createObjectURL(file);
+            const imgElement = new Image();
+
+            imgElement.onload = () => {
                 const canvasCenter = gangCanvas.getCenter();
                 const maxWidth = gangCanvas.getWidth() * 0.8;
                 const maxHeight = gangCanvas.getHeight() * 0.8;
-
+                const naturalWidth = imgElement.naturalWidth || imgElement.width;
+                const naturalHeight = imgElement.naturalHeight || imgElement.height;
                 const scaleFactor = Math.min(
-                    maxWidth / img.width,
-                    maxHeight / img.height,
+                    maxWidth / naturalWidth,
+                    maxHeight / naturalHeight,
                     1
                 );
 
-                img.set({
+                const fabricImage = new fabric.Image(imgElement, {
                     left: canvasCenter.left,
                     top: canvasCenter.top,
                     originX: 'center',
-                    originY: 'center',
-                    scaleX: scaleFactor,
-                    scaleY: scaleFactor
+                    originY: 'center'
                 });
 
-                gangCanvas.add(img);
-                gangCanvas.setActiveObject(img);
+                fabricImage.scale(scaleFactor);
+
+                gangCanvas.add(fabricImage);
+                gangCanvas.setActiveObject(fabricImage);
                 gangCanvas.requestRenderAll();
-            }, { crossOrigin: 'anonymous' });
+
+                URL.revokeObjectURL(objectUrl);
+                showOrderFeedback(`${file.name} added to your sheet.`, false);
+            };
+
+            imgElement.onerror = () => {
+                URL.revokeObjectURL(objectUrl);
+                showOrderFeedback(`We couldn't load ${file.name}. Please try a different file format.`, true);
+            };
+
+            imgElement.src = objectUrl;
         };
 
         const exportCanvasImage = (multiplier = 3) => {
@@ -409,16 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         artworkUploadInput.addEventListener('change', (event) => {
             const files = Array.from(event.target.files || []);
-            files.forEach((file) => {
-                const reader = new FileReader();
-                reader.onload = (loadEvent) => {
-                    const result = loadEvent.target?.result;
-                    if (typeof result === 'string') {
-                        addImageToCanvas(result);
-                    }
-                };
-                reader.readAsDataURL(file);
-            });
+            if (!files.length) {
+                return;
+            }
+            files.forEach(addFileToCanvas);
             event.target.value = '';
         });
 
