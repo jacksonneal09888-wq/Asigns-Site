@@ -430,6 +430,56 @@ nav {
     font-size: 1.3rem;
 }
 
+/* Services */
+.services-section {
+    margin-top: 90px;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.service-card {
+    background: var(--color-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 34px 30px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-strong);
+}
+
+.service-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(233, 69, 96, 0.12), rgba(233, 69, 96, 0.28));
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.service-card h3 {
+    margin: 0;
+}
+
+.service-card p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.96rem;
+}
+
 /* Products */
 .products-section {
     margin-top: 80px;
@@ -1368,6 +1418,7 @@ footer .social-links a:hover {
         gap: 16px 24px;
     }
 
+    .service-grid,
     .product-card-grid,
     .pricing-grid,
     .feature-grid {
@@ -1451,6 +1502,7 @@ footer .social-links a:hover {
         font-size: 1.4rem;
     }
 
+    .service-grid,
     .product-card-grid,
     .pricing-grid,
     .feature-grid,
