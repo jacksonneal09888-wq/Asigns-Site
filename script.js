@@ -93,15 +93,35 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check if the clicked link is part of the dropdown toggle
             if (link.classList.contains('dropdown')) {
                 e.preventDefault(); // Prevent immediate navigation
-                link.classList.toggle('active'); // Toggle dropdown visibility
+                const dropdownContent = link.querySelector('.dropdown-content');
+                if (dropdownContent) {
+                    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+                }
             } else {
                 nav.classList.remove('nav-active');
                 burger.classList.remove('toggle');
                 navLinks.forEach(item => {
                     item.style.animation = ''; // Reset animation
                 });
+                // Close any open dropdowns when a non-dropdown link is clicked
+                const openDropdowns = document.querySelectorAll('.dropdown-content');
+                openDropdowns.forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
             }
         });
+    });
+
+    // Close dropdowns when clicking outside
+    window.addEventListener('click', (e) => {
+        if (!e.target.matches('.dropdown a')) {
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
     });
 
     // Lightbox functionality

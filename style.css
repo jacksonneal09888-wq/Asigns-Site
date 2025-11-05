@@ -107,6 +107,52 @@ nav ul li a:hover {
     transform: translateY(-2px);
 }
 
+/* Dropdown for Services */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1a1a2e;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #e94560;
+    color: #fff;
+    transform: none; /* Override parent hover transform */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown .fas.fa-caret-down {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .fas.fa-caret-down {
+    transform: rotate(180deg);
+}
+
 /* Smooth scrolling for anchor links */
 html {
     scroll-behavior: smooth;
@@ -845,6 +891,30 @@ footer .social-links a:hover {
 
     .hero {
         padding: 80px 15px 30px; /* Adjusted padding for mobile to push content below header and prevent cramping */
+    }
+
+    /* Mobile dropdown adjustments */
+    .nav-links .dropdown {
+        width: 100%; /* Full width for dropdown in mobile nav */
+        text-align: center;
+    }
+
+    .nav-links .dropdown .dropdown-content {
+        position: static; /* Allow dropdown to flow naturally in mobile nav */
+        width: 100%;
+        background-color: #1a1a2e; /* Match nav background */
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .nav-links .dropdown .dropdown-content a {
+        padding: 10px 0;
+        font-size: 1.2rem;
+    }
+
+    .nav-links .dropdown .fas.fa-caret-down {
+        display: none; /* Hide caret on mobile as dropdown is always open */
     }
 }
 
