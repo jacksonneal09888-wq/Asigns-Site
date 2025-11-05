@@ -649,4 +649,322 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // T-shirt designer functionality
+    const teeCanvasElement = document.getElementById('teeCanvas');
+
+    if (teeCanvasElement && window.fabric) {
+        const TEE_MAX_FILE_MB = 20;
+        const teeCanvas = new fabric.Canvas('teeCanvas', {
+            backgroundColor: '#f8fafc',
+            preserveObjectStacking: true,
+            selection: true
+        });
+
+        const teeFeedback = document.getElementById('teeFeedback');
+        const teeColorSwatches = document.querySelectorAll('.tee-color-swatch');
+        const teeArtworkUpload = document.getElementById('teeArtworkUpload');
+        const teeTextInput = document.getElementById('teeTextInput');
+        const teeFontSelect = document.getElementById('teeFontSelect');
+        const teeTextColor = document.getElementById('teeTextColor');
+        const teeAddTextButton = document.getElementById('teeAddText');
+        const teeBringForwardButton = document.getElementById('teeBringForward');
+        const teeSendBackwardButton = document.getElementById('teeSendBackward');
+        const teeDuplicateButton = document.getElementById('teeDuplicate');
+        const teeDeleteButton = document.getElementById('teeDelete');
+        const teeDownloadButton = document.getElementById('teeDownloadMockup');
+        const teeResetButton = document.getElementById('teeResetCanvas');
+
+        const setTeeFeedback = (message, isError = false) => {
+            if (!teeFeedback) {
+                return;
+            }
+            teeFeedback.textContent = message;
+            teeFeedback.classList.remove('hidden');
+            teeFeedback.style.background = isError ? 'rgba(233, 69, 96, 0.18)' : 'rgba(59, 130, 246, 0.14)';
+        };
+
+        const teeBasePath = new fabric.Path('M140 70 L200 70 L225 40 L235 40 L260 70 L320 70 L350 130 L320 150 L320 470 L140 470 L140 150 L110 130 Z', {
+            fill: '#f6f6f6',
+            selectable: false,
+            evented: false,
+            stroke: 'rgba(15, 23, 42, 0.15)',
+            strokeWidth: 2
+        });
+        teeBasePath.set({ left: 230, top: 70, originX: 'center', originY: 'top' });
+        teeCanvas.add(teeBasePath);
+        teeCanvas.sendToBack(teeBasePath);
+
+        const teePrintableArea = new fabric.Rect({
+            left: teeCanvas.getWidth() / 2,
+            top: teeCanvas.getHeight() / 2 + 20,
+            width: 220,
+            height: 260,
+            originX: 'center',
+            originY: 'center',
+            stroke: 'rgba(148, 163, 184, 0.5)',
+            strokeWidth: 1,
+            strokeDashArray: [8, 6],
+            fill: 'rgba(255, 255, 255, 0.01)',
+            selectable: false,
+            evented: false,
+            excludeFromExport: true
+        });
+
+        teeCanvas.add(teePrintableArea);
+        teeCanvas.bringToFront(teePrintableArea);
+
+        const clampObjectToPrintableArea = (obj) => {
+            const areaBounds = teePrintableArea.getBoundingRect(true, true);
+            const objectBounds = obj.getBoundingRect(true, true);
+
+            let deltaX = 0;
+            let deltaY = 0;
+
+            if (objectBounds.left < areaBounds.left) {
+                deltaX = areaBounds.left - objectBounds.left;
+            }
+            if (objectBounds.top < areaBounds.top) {
+                deltaY = areaBounds.top - objectBounds.top;
+            }
+            if (objectBounds.left + objectBounds.width > areaBounds.left + areaBounds.width) {
+                deltaX = (areaBounds.left + areaBounds.width) - (objectBounds.left + objectBounds.width);
+            }
+            if (objectBounds.top + objectBounds.height > areaBounds.top + areaBounds.height) {
+                deltaY = (areaBounds.top + areaBounds.height) - (objectBounds.top + objectBounds.height);
+            }
+
+            if (deltaX || deltaY) {
+                obj.left += deltaX;
+                obj.top += deltaY;
+                obj.setCoords();
+            }
+        };
+
+        teeCanvas.on('object:moving', (event) => {
+            clampObjectToPrintableArea(event.target);
+        });
+
+        teeCanvas.on('object:scaling', (event) => {
+            clampObjectToPrintableArea(event.target);
+        });
+
+        const centerWithinPrintableArea = (object) => {
+            object.set({
+                originX: 'center',
+                originY: 'center',
+                left: teePrintableArea.left,
+                top: teePrintableArea.top
+            });
+            clampObjectToPrintableArea(object);
+            teeCanvas.add(object);
+            teeCanvas.setActiveObject(object);
+            teeCanvas.bringToFront(teePrintableArea);
+            teeCanvas.requestRenderAll();
+        };
+
+        teeCanvas.on('object:added', (event) => {
+            if (event.target !== teePrintableArea) {
+                teeCanvas.bringToFront(teePrintableArea);
+            }
+        });
+
+        const addFileToTeeCanvas = (file) => {
+            if (!file || !file.type.startsWith('image/')) {
+                setTeeFeedback('Please upload image files (PNG or JPG).', true);
+                return;
+            }
+
+            if (file.size > TEE_MAX_FILE_MB * 1024 * 1024) {
+                setTeeFeedback(`${file.name} is larger than ${TEE_MAX_FILE_MB}MB. Please upload a smaller file.`, true);
+                return;
+            }
+
+            const objectUrl = URL.createObjectURL(file);
+            const imgEl = new Image();
+
+            imgEl.onload = () => {
+                const maxWidth = teePrintableArea.width * 0.9;
+                const maxHeight = teePrintableArea.height * 0.9;
+                const scaleFactor = Math.min(maxWidth / imgEl.width, maxHeight / imgEl.height, 1);
+
+                const fabricImage = new fabric.Image(imgEl, {
+                    scaleX: scaleFactor,
+                    scaleY: scaleFactor
+                });
+
+                centerWithinPrintableArea(fabricImage);
+                setTeeFeedback(`${file.name} added to your mockup.`, false);
+                URL.revokeObjectURL(objectUrl);
+            };
+
+            imgEl.onerror = () => {
+                URL.revokeObjectURL(objectUrl);
+                setTeeFeedback(`We couldn't load ${file.name}. Try a different image.`, true);
+            };
+
+            imgEl.src = objectUrl;
+        };
+
+        teeColorSwatches.forEach((swatch) => {
+            if (swatch.dataset.color) {
+                swatch.style.backgroundColor = swatch.dataset.color;
+            }
+            swatch.addEventListener('click', () => {
+                teeColorSwatches.forEach((s) => s.classList.remove('is-active'));
+                swatch.classList.add('is-active');
+                const color = swatch.dataset.color || '#f6f6f6';
+                teeBasePath.set('fill', color);
+                teeCanvas.requestRenderAll();
+            });
+        });
+
+        if (!teeColorSwatches.length) {
+            teeBasePath.set('fill', '#f6f6f6');
+        }
+
+        teeArtworkUpload?.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files || []);
+            if (!files.length) {
+                return;
+            }
+            files.forEach(addFileToTeeCanvas);
+            event.target.value = '';
+        });
+
+        const syncTeeTextControls = (object) => {
+            if (object && object.type === 'i-text') {
+                teeTextInput.value = object.text || '';
+                teeTextColor.value = typeof object.fill === 'string' ? object.fill : '#111827';
+                teeFontSelect.value = object.fontFamily || 'Poppins';
+            }
+        };
+
+        teeCanvas.on('selection:created', (event) => {
+            syncTeeTextControls(event.selected && event.selected[0]);
+        });
+
+        teeCanvas.on('selection:updated', (event) => {
+            syncTeeTextControls(event.selected && event.selected[0]);
+        });
+
+        teeCanvas.on('selection:cleared', () => {
+            teeTextInput.value = '';
+        });
+
+        teeAddTextButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const textValue = teeTextInput.value.trim() || 'Your Text';
+            const fontFamily = teeFontSelect.value || 'Poppins';
+            const fillColor = teeTextColor.value || '#111827';
+            const activeObject = teeCanvas.getActiveObject();
+
+            if (activeObject && activeObject.type === 'i-text') {
+                activeObject.set({
+                    text: textValue,
+                    fontFamily,
+                    fill: fillColor
+                });
+                teeCanvas.requestRenderAll();
+                setTeeFeedback('Text updated.', false);
+                return;
+            }
+
+            const newText = new fabric.IText(textValue, {
+                fontFamily,
+                fill: fillColor,
+                fontSize: 42,
+                fontWeight: 600
+            });
+
+            centerWithinPrintableArea(newText);
+            setTeeFeedback('Text added to the design.', false);
+        });
+
+        teeDuplicateButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const activeObject = teeCanvas.getActiveObject();
+            if (!activeObject) {
+                return;
+            }
+            activeObject.clone((cloned) => {
+                cloned.set({ left: activeObject.left + 20, top: activeObject.top + 20 });
+                teeCanvas.add(cloned);
+                teeCanvas.setActiveObject(cloned);
+                teeCanvas.requestRenderAll();
+            });
+        });
+
+        teeDeleteButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const activeObjects = teeCanvas.getActiveObjects();
+            if (!activeObjects.length) {
+                return;
+            }
+            activeObjects.forEach((object) => {
+                if (object !== teeBasePath && object !== teePrintableArea) {
+                    teeCanvas.remove(object);
+                }
+            });
+            teeCanvas.discardActiveObject();
+            teeCanvas.requestRenderAll();
+        });
+
+        teeBringForwardButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const activeObject = teeCanvas.getActiveObject();
+            if (activeObject && activeObject !== teeBasePath) {
+                teeCanvas.bringForward(activeObject);
+                teeCanvas.requestRenderAll();
+            }
+        });
+
+        teeSendBackwardButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const activeObject = teeCanvas.getActiveObject();
+            if (activeObject && activeObject !== teeBasePath) {
+                teeCanvas.sendBackwards(activeObject);
+                teeCanvas.requestRenderAll();
+            }
+        });
+
+        teeResetButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const objects = teeCanvas.getObjects();
+            objects.forEach((object) => {
+                if (object !== teeBasePath && object !== teePrintableArea) {
+                    teeCanvas.remove(object);
+                }
+            });
+            teeCanvas.discardActiveObject();
+            teeCanvas.requestRenderAll();
+            setTeeFeedback('Canvas cleared. Start fresh!', false);
+        });
+
+        teeDownloadButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const hasDesign = teeCanvas.getObjects().some((object) => object !== teeBasePath && object !== teePrintableArea);
+            if (!hasDesign) {
+                setTeeFeedback('Add artwork or text before downloading.', true);
+                return;
+            }
+
+            const previousOpacity = teePrintableArea.opacity;
+            teePrintableArea.set('opacity', 0);
+            teeCanvas.requestRenderAll();
+
+            const dataUrl = teeCanvas.toDataURL({ format: 'png', multiplier: 2 });
+            const link = document.createElement('a');
+            const timestamp = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14);
+            link.href = dataUrl;
+            link.download = `Asigns_Tee_Mockup_${timestamp}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            teePrintableArea.set('opacity', previousOpacity);
+            teeCanvas.requestRenderAll();
+            setTeeFeedback('Mockup downloaded. Ready to share!', false);
+        });
+    }
 });

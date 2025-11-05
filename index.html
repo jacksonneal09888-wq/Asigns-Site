@@ -22,6 +22,7 @@
                 <li><a href="#pricing" class="nav-link-animate">Pricing</a></li>
                 <li><a href="#process" class="nav-link-animate">Process</a></li>
                 <li><a href="#gang-builder" class="nav-link-animate">Gang Builder</a></li>
+                <li><a href="#tshirt-designer" class="nav-link-animate">Tee Designer</a></li>
                 <li><a href="#websites" class="nav-link-animate">Websites</a></li>
                 <li><a href="#gallery" class="nav-link-animate">Gallery</a></li>
                 <li><a href="#faq" class="nav-link-animate">FAQ</a></li>
@@ -402,6 +403,85 @@
                     <button type="submit" class="btn btn-primary" id="sendOrderRequest"><i class="fas fa-paper-plane"></i> Send Order Request</button>
                 </form>
                 <div id="orderFeedback" class="order-feedback hidden"></div>
+            </div>
+        </section>
+
+        <section id="tshirt-designer" class="tee-designer-section section-padding">
+            <div class="section-header">
+                <h2>Interactive T-Shirt Designer</h2>
+                <p>Mock up custom tees in seconds. Pick a garment color, drop in your art, and see how it presses before we hit the printer.</p>
+            </div>
+            <div class="tee-designer-grid">
+                <div class="tee-controls">
+                    <div class="tee-card">
+                        <h3>1. Choose Garment Color</h3>
+                        <div class="tee-color-swatches">
+                            <button class="tee-color-swatch is-active" data-color="#f6f6f6" aria-label="White tee"></button>
+                            <button class="tee-color-swatch" data-color="#111827" aria-label="Black tee"></button>
+                            <button class="tee-color-swatch" data-color="#1d4ed8" aria-label="Royal blue tee"></button>
+                            <button class="tee-color-swatch" data-color="#f97316" aria-label="Safety orange tee"></button>
+                            <button class="tee-color-swatch" data-color="#047857" aria-label="Emerald tee"></button>
+                        </div>
+                    </div>
+
+                    <div class="tee-card">
+                        <h3>2. Add Artwork</h3>
+                        <label class="tee-upload" for="teeArtworkUpload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Upload PNG / JPG</span>
+                        </label>
+                        <input type="file" id="teeArtworkUpload" accept="image/*" multiple>
+                        <p class="tee-helper">Drag designs around the printable area. We'll keep them centered on press.</p>
+                    </div>
+
+                    <div class="tee-card">
+                        <h3>3. Add Custom Text</h3>
+                        <div class="tee-form-grid">
+                            <label for="teeTextInput">Text</label>
+                            <input type="text" id="teeTextInput" placeholder="Add your slogan">
+
+                            <label for="teeFontSelect">Font</label>
+                            <select id="teeFontSelect">
+                                <option value="Poppins">Poppins</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Oswald">Oswald</option>
+                                <option value="Raleway">Raleway</option>
+                            </select>
+
+                            <label for="teeTextColor">Color</label>
+                            <input type="color" id="teeTextColor" value="#111827">
+
+                            <button id="teeAddText" class="btn btn-small">Add / Update Text</button>
+                        </div>
+                    </div>
+
+                    <div class="tee-card">
+                        <h3>4. Manage Elements</h3>
+                        <div class="tee-actions">
+                            <button id="teeBringForward" class="btn btn-outline btn-small"><i class="fas fa-layer-group"></i> Forward</button>
+                            <button id="teeSendBackward" class="btn btn-outline btn-small"><i class="fas fa-layer-group"></i> Back</button>
+                            <button id="teeDuplicate" class="btn btn-outline btn-small"><i class="fas fa-copy"></i> Duplicate</button>
+                            <button id="teeDelete" class="btn btn-outline btn-small"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="tee-card tee-footer-actions">
+                        <button id="teeDownloadMockup" class="btn btn-block"><i class="fas fa-download"></i> Download Mockup</button>
+                        <button id="teeResetCanvas" class="btn btn-secondary btn-block"><i class="fas fa-undo"></i> Reset Canvas</button>
+                        <a href="#contact" class="btn btn-outline btn-block">Send Us This Design</a>
+                        <div id="teeFeedback" class="tee-feedback hidden"></div>
+                    </div>
+                </div>
+
+                <div class="tee-preview">
+                    <div class="tee-preview-header">
+                        <span>Tee Preview</span>
+                        <span class="tee-preview-sub">Printable area marked in grey</span>
+                    </div>
+                    <div class="tee-canvas-wrap">
+                        <canvas id="teeCanvas" width="460" height="540"></canvas>
+                    </div>
+                </div>
             </div>
         </section>
 

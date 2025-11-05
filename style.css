@@ -480,6 +480,181 @@ nav {
     font-size: 0.96rem;
 }
 
+/* Tee designer */
+.tee-designer-section {
+    margin-top: 120px;
+}
+
+.tee-designer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 36px;
+    align-items: start;
+}
+
+.tee-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.tee-card {
+    background: var(--color-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 26px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tee-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.tee-color-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tee-color-swatch {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    background: #fff;
+}
+
+.tee-color-swatch.is-active,
+.tee-color-swatch:focus-visible {
+    border-color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+.tee-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.tee-upload i {
+    font-size: 1.3rem;
+}
+
+#teeArtworkUpload {
+    display: none;
+}
+
+.tee-helper {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+}
+
+.tee-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+    align-items: center;
+}
+
+.tee-form-grid label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.tee-form-grid input,
+.tee-form-grid select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccd4e6;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.tee-form-grid button {
+    grid-column: span 2;
+    justify-self: start;
+}
+
+.tee-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tee-footer-actions .btn:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.tee-feedback {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--color-dark);
+    background: rgba(233, 69, 96, 0.12);
+}
+
+.tee-preview {
+    background: var(--color-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.tee-preview-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tee-preview-header span:first-child {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.tee-preview-sub {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+}
+
+.tee-canvas-wrap {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.1), rgba(15, 23, 42, 0.05));
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#teeCanvas {
+    background: #f8fafc;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.35);
+}
+
+.tee-canvas-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 24px;
+    border: 2px dashed rgba(148, 163, 184, 0.35);
+    border-radius: 18px;
+    pointer-events: none;
+}
+
 /* Products */
 .products-section {
     margin-top: 80px;
@@ -1425,6 +1600,14 @@ footer .social-links a:hover {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .tee-designer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tee-preview {
+        order: -1;
+    }
+
     .process-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -1508,6 +1691,19 @@ footer .social-links a:hover {
     .feature-grid,
     .gallery {
         grid-template-columns: 1fr;
+    }
+
+    .tee-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tee-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tee-footer-actions .btn:not(:last-child) {
+        margin-bottom: 8px;
     }
 
     .case-study-card--secondary {
