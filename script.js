@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxImg = document.getElementById('lightboxImg');
     const captionText = document.getElementById('caption');
     const closeBtn = document.querySelector('.close-btn');
-    const galleryImages = document.querySelectorAll('.portfolio-section .gallery a');
+    const galleryImages = document.querySelectorAll('.gallery-section .gallery a');
 
     let slideIndex = 0;
 
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function showSlides(n) {
-        const images = document.querySelectorAll('.portfolio-section .gallery a');
+        const images = document.querySelectorAll('.gallery-section .gallery a');
         if (n >= images.length) { slideIndex = 0; }
         if (n < 0) { slideIndex = images.length - 1; }
         lightboxImg.src = images[slideIndex].href;
@@ -607,6 +607,22 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = mailtoLink;
 
             showOrderFeedback('Order summary copied. Your layout downloaded—attach it to the email that just opened. Thank you!', false);
+        });
+    }
+
+    // FAQ accordion behaviour (single open at a time)
+    const faqDetails = document.querySelectorAll('.faq-grid details');
+    if (faqDetails.length) {
+        faqDetails.forEach(detail => {
+            detail.addEventListener('toggle', () => {
+                if (detail.open) {
+                    faqDetails.forEach(other => {
+                        if (other !== detail) {
+                            other.removeAttribute('open');
+                        }
+                    });
+                }
+            });
         });
     }
 });
