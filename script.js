@@ -813,20 +813,33 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.readAsDataURL(file);
         };
 
+        const updateSwatchState = (activeSwatch) => {
+            teeColorSwatches.forEach((swatch) => {
+                const isActive = swatch === activeSwatch;
+                swatch.classList.toggle('is-active', isActive);
+                swatch.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+
+            const swatchColor = activeSwatch?.dataset.color || '#f6f6f6';
+            teeBasePath.set('fill', swatchColor);
+            teeCanvas.requestRenderAll();
+        };
+
         teeColorSwatches.forEach((swatch) => {
-            if (swatch.dataset.color) {
-                swatch.style.backgroundColor = swatch.dataset.color;
+            const color = swatch.dataset.color;
+            if (color) {
+                swatch.style.backgroundColor = color;
             }
+            swatch.setAttribute('aria-pressed', swatch.classList.contains('is-active') ? 'true' : 'false');
             swatch.addEventListener('click', () => {
-                teeColorSwatches.forEach((s) => s.classList.remove('is-active'));
-                swatch.classList.add('is-active');
-                const color = swatch.dataset.color || '#f6f6f6';
-                teeBasePath.set('fill', color);
-                teeCanvas.requestRenderAll();
+                updateSwatchState(swatch);
             });
         });
 
-        if (!teeColorSwatches.length) {
+        if (teeColorSwatches.length) {
+            const activeSwatch = Array.from(teeColorSwatches).find((swatch) => swatch.classList.contains('is-active')) || teeColorSwatches[0];
+            updateSwatchState(activeSwatch);
+        } else {
             teeBasePath.set('fill', '#f6f6f6');
         }
 
