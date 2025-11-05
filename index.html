@@ -7,15 +7,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Asigns & Printing - Elevate Your Brand</title>
+    <link rel="stylesheet" href="style.css?v=20250210" id="mainStylesheet">
     <script>
         (function() {
             const isDevEnv = ['localhost', '127.0.0.1'].includes(location.hostname) || location.protocol === 'file:';
-            const version = isDevEnv ? `?v=${Date.now()}` : '?v=20250210';
-            window.__assetVersion = version;
-            const styleLink = document.createElement('link');
-            styleLink.rel = 'stylesheet';
-            styleLink.href = `style.css${version}`;
-            document.head.appendChild(styleLink);
+            if (!isDevEnv) {
+                return;
+            }
+            const devLink = document.createElement('link');
+            devLink.rel = 'stylesheet';
+            devLink.href = `style.css?v=${Date.now()}`;
+            devLink.onload = () => {
+                const existing = document.getElementById('mainStylesheet');
+                if (existing && existing.parentNode) {
+                    existing.parentNode.removeChild(existing);
+                }
+                devLink.id = 'mainStylesheet';
+            };
+            document.head.appendChild(devLink);
         })();
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -672,15 +681,16 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js" integrity="sha512-QHuHxZ3c2gsiAlQExDaoluZCsdhgEvI8XBi6SoStYL7xZnk2BT3wmUkNIxHpXGnnjdFVyySC44s6ngv0jPdoXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer id="mainScript" data-src="script.js?v=20250210"></script>
     <script>
         (function() {
+            const scriptEl = document.getElementById('mainScript');
+            if (!scriptEl) {
+                return;
+            }
             const isDevEnv = ['localhost', '127.0.0.1'].includes(location.hostname) || location.protocol === 'file:';
-            const fallbackVersion = isDevEnv ? `?v=${Date.now()}` : '?v=20250210';
-            const version = window.__assetVersion || fallbackVersion;
-            const appScript = document.createElement('script');
-            appScript.src = `script.js${version}`;
-            appScript.defer = true;
-            document.body.appendChild(appScript);
+            const src = isDevEnv ? `script.js?v=${Date.now()}` : scriptEl.dataset.src || 'script.js?v=20250210';
+            scriptEl.src = src;
         })();
     </script>
     <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
