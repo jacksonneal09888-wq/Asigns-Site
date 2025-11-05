@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Section scroll animations
     const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links li a'); // Select all nav links
 
     const observerOptions = {
         root: null,
@@ -68,39 +69,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile navigation toggle
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
+    const mobileNavLinks = document.querySelectorAll('.nav-links li'); // Renamed to avoid conflict
 
     burger.addEventListener('click', () => {
         // Toggle Nav
         nav.classList.toggle('nav-active');
 
-        // Animate Links
-        navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = '';
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-            }
-        });
+    // Animate Links
+    mobileNavLinks.forEach((link, index) => {
+        if (link.style.animation) {
+            link.style.animation = '';
+        } else {
+            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+        }
+    });
 
         // Burger Animation
         burger.classList.toggle('toggle');
     });
 
     // Close nav when a link is clicked (for smooth scrolling)
-    navLinks.forEach(link => {
+    mobileNavLinks.forEach(link => { // Use mobileNavLinks here
         link.addEventListener('click', (e) => {
             // Check if the clicked link is part of the dropdown toggle
-            if (link.classList.contains('dropdown')) {
+            if (link.parentElement.classList.contains('dropdown')) { // Check parent for dropdown class
                 e.preventDefault(); // Prevent immediate navigation
-                const dropdownContent = link.querySelector('.dropdown-content');
-                if (dropdownContent) {
+                const dropdownContent = link.querySelector('.dropdown-content'); // Get the dropdown content
+                if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
                     dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
                 }
             } else {
                 nav.classList.remove('nav-active');
                 burger.classList.remove('toggle');
-                navLinks.forEach(item => {
+                document.querySelectorAll('.nav-links li').forEach(item => { // Select all li elements for animation reset
                     item.style.animation = ''; // Reset animation
                 });
                 // Close any open dropdowns when a non-dropdown link is clicked
