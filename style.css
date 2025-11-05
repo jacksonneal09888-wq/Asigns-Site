@@ -899,48 +899,6 @@ footer .social-links a:hover {
         grid-template-columns: 1fr;
     }
 
-    /* Gun Prints Section Responsive */
-    .gun-prints-section .gun-content {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .gun-prints-section .gun-features {
-        grid-template-columns: 1fr;
-    }
-
-    .gun-prints-section .gun-gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .header-logo {
-        height: 50px; /* Adjust logo size for mobile */
-    }
-
-    .hero {
-        padding: 80px 15px 30px; /* Adjusted padding for mobile to push content below header and prevent cramping */
-    }
-
-    /* Mobile dropdown adjustments */
-    .nav-links .dropdown {
-        width: 100%; /* Full width for dropdown in mobile nav */
-        text-align: center;
-    }
-
-    .nav-links .dropdown .dropdown-content {
-        position: static; /* Allow dropdown to flow naturally in mobile nav */
-        width: 100%;
-        background-color: #1a1a2e; /* Match nav background */
-        box-shadow: none;
-        border-radius: 0;
-        padding: 0;
-    }
-
-    .nav-links .dropdown .dropdown-content a {
-        padding: 10px 0;
-        font-size: 1.2rem;
-    }
-
     .nav-links .dropdown .fas.fa-caret-down {
         display: none; /* Hide caret on mobile as dropdown is always open */
     }
@@ -1030,99 +988,6 @@ footer .social-links a:hover {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
-}
-
-/* Gun Prints Section */
-.gun-prints-section {
-    background-color: #f0f4f8; /* Light background for contrast */
-    padding: 80px 40px;
-    margin-bottom: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.gun-prints-section h2 {
-    color: #1a1a2e;
-    margin-bottom: 35px;
-}
-
-.gun-prints-section .gun-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    align-items: center;
-}
-
-.gun-prints-section p {
-    font-size: 1.15rem;
-    color: #555;
-    line-height: 1.7;
-    max-width: 800px;
-    margin-bottom: 20px;
-}
-
-.gun-prints-section .gun-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.gun-prints-section .feature-item {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gun-prints-section .feature-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.gun-prints-section .feature-item h3 {
-    color: #e94560;
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.gun-prints-section .feature-item p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 0;
-}
-
-.gun-prints-section .gun-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-    width: 100%;
-}
-
-.gun-prints-section .gun-gallery img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gun-prints-section .gun-gallery img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.gun-prints-section .btn {
-    margin-top: 40px;
 }
 
 /* DTF Prints Section */
@@ -1244,4 +1109,343 @@ footer .social-links a:hover {
 /* On hover, add a black background color with a little extra opacity */
 .prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.8);
+}
+
+/* Gang Sheet Builder */
+.gang-builder-section {
+    background: #ffffff;
+    margin: 80px auto;
+    padding: 60px 40px;
+    max-width: 1200px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+}
+
+.gang-builder-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.gang-builder-intro {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 40px;
+    color: #555;
+    font-size: 1.05rem;
+}
+
+.gang-builder-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.builder-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.builder-panel-group {
+    background: #f5f7fb;
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.builder-panel-group h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+    color: #1a1a2e;
+}
+
+.builder-panel-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1a1a2e;
+}
+
+.builder-panel-group input[type="number"],
+.builder-panel-group input[type="text"],
+.builder-panel-group input[type="tel"],
+.builder-panel-group input[type="date"],
+.builder-panel-group textarea,
+.builder-panel-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d0d6e4;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.builder-panel-group textarea {
+    resize: vertical;
+}
+
+.custom-size-inputs {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    align-items: flex-end;
+}
+
+.custom-size-field {
+    flex: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.canvas-dimensions {
+    margin: 14px 0 0;
+    font-size: 0.95rem;
+    color: #3d4a6d;
+}
+
+.upload-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1a1a2e;
+    transition: color 0.3s ease;
+}
+
+.upload-label:hover {
+    color: #e94560;
+}
+
+#artworkUpload {
+    display: none;
+}
+
+.text-options {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed #ccd4e6;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.text-options label {
+    margin-bottom: 0;
+}
+
+.text-options input[type="text"] {
+    grid-column: span 2;
+}
+
+.text-options button {
+    grid-column: span 2;
+    justify-self: start;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.builder-canvas-wrapper {
+    flex: 1.4;
+    background: #f5f7fb;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.canvas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.canvas-zoom {
+    display: flex;
+    gap: 8px;
+}
+
+.canvas-stage {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.canvas-stage::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 18px;
+    right: 18px;
+    border: 1px dashed rgba(26, 26, 46, 0.2);
+    pointer-events: none;
+}
+
+#gangCanvas {
+    width: 100%;
+    max-width: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(248, 248, 248, 1),
+        rgba(248, 248, 248, 1) 10px,
+        rgba(243, 243, 243, 1) 10px,
+        rgba(243, 243, 243, 1) 20px
+    );
+    border-radius: 12px;
+    display: block;
+}
+
+.helper-text {
+    font-size: 0.9rem;
+    color: #5a678a;
+    margin-top: 12px;
+}
+
+.builder-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin: 32px 0 0;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    background: #ffffff;
+    color: #1a1a2e;
+    border: 1px solid #d0d6e4;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #1a1a2e;
+    border: 1px solid #d0d6e4;
+}
+
+.btn-outline:hover,
+.btn-secondary:hover {
+    border-color: #e94560;
+    color: #e94560;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+.btn-icon {
+    background: #ffffff;
+    border: 1px solid #d0d6e4;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-icon:hover {
+    color: #e94560;
+    border-color: #e94560;
+}
+
+.btn-primary {
+    background: #1a1a2e;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #12122b;
+}
+
+.order-request {
+    margin-top: 40px;
+    background: #f5f7fb;
+    padding: 30px;
+    border-radius: 18px;
+}
+
+.order-request h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1a1a2e;
+}
+
+.order-request form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-row {
+    display: flex;
+    gap: 18px;
+}
+
+.form-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field input {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d0d6e4;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.order-feedback {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(233, 69, 96, 0.08);
+    color: #1a1a2e;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 1024px) {
+    .gang-builder-layout {
+        flex-direction: column;
+    }
+
+    .builder-canvas-wrapper {
+        width: 100%;
+    }
+
+    .builder-actions {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .gang-builder-section {
+        padding: 40px 20px;
+    }
+
+    .text-options {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
 }

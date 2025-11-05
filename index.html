@@ -30,9 +30,9 @@
                         <a href="#website-design">Website Design & Creation</a>
                         <a href="#tshirt-design">T-Shirt Design</a>
                         <a href="#dtf-prints">DTF Prints</a>
-                        <a href="#gun-prints">Gun Prints</a>
                     </div>
                 </li>
+                <li><a href="#gang-builder" class="nav-link-animate">Gang Sheet Builder</a></li>
                 <li><a href="#portfolio" class="nav-link-animate">Portfolio</a></li>
                 <li><a href="#about" class="nav-link-animate">About Us</a></li>
                 <li><a href="#testimonials" class="nav-link-animate">Testimonials</a></li>
@@ -105,73 +105,145 @@
                     <h3>DTF Prints</h3>
                     <p>High-quality Direct-to-Film (DTF) prints for vibrant and durable custom apparel.</p>
                 </div>
-                <div class="service-item">
-                    <i class="fas fa-gun service-icon"></i> <!-- Using a gun icon for Gun Prints -->
-                    <h3>Gun Prints</h3>
-                    <p>Custom firearm prints for personalization and unique designs.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="gun-prints" class="gun-prints-section">
-            <h2>Gun Prints</h2>
-            <div class="gun-content">
-                <p>Personalize your firearms with our high-quality gun printing services. We offer custom designs and durable finishes to make your firearm truly unique. Our process ensures precision and adherence to all safety standards.</p>
-                <div class="gun-features">
-                    <div class="feature-item">
-                        <h3>Custom Designs</h3>
-                        <p>Bring your unique vision to life with personalized firearm designs.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>Durable Finish</h3>
-                        <p>Our prints are designed to withstand wear and tear, ensuring longevity.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>Precision Application</h3>
-                        <p>Expert application for crisp, clear, and accurate designs.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>Safety Compliant</h3>
-                        <p>All services are performed with strict adherence to safety regulations.</p>
-                    </div>
-                </div>
-                <div class="gun-gallery">
-                    <img src="Material/IMG_5010.jpeg" alt="Gun Print Example 1">
-                    <img src="Material/IMG_5243.jpeg" alt="Gun Print Example 2">
-                    <img src="Material/IMG_5250.jpeg" alt="Gun Print Example 3">
-                </div>
-                <a href="#contact" class="btn">Send Your Gun Print Design</a>
             </div>
         </section>
 
         <section id="dtf-prints" class="dtf-prints-section">
             <h2>DTF Prints</h2>
             <div class="dtf-content">
-                <p>Direct-to-Film (DTF) printing is a revolutionary technology that allows for vibrant, full-color designs to be transferred onto a wide range of fabrics. Whether you need custom t-shirts, hoodies, or other apparel, our DTF prints offer exceptional detail, durability, and a soft feel.</p>
-                <div class="dtf-features">
-                    <div class="feature-item">
-                        <h3>Vibrant Colors</h3>
-                        <p>Achieve stunning, true-to-life colors that pop on any garment.</p>
+                <p>🚚 Same Day Shipping</p>
+                <p>🌟 High Quality</p>
+                <p>🇺🇸 Best Price in USA</p>
+                <p>💳 Secure Payments</p>
+
+                <h3>Free DTF Sample</h3>
+                <p>Experience the excellence of our DTF printing firsthand with a free sample. See and feel the vibrant colors, detailed designs, and high-quality finish before committing. We’re confident that once you try our DTF samples, you’ll choose us for all your printing needs.</p>
+                <a href="#contact" class="btn">Get a Free Sample</a>
+
+                <h3>DTF Transfers by Size</h3>
+                <p>Customize your prints with DTF transfers available in various sizes to suit your specific needs. Whether you need small logos or large designs, our DTF transfers provide the perfect solution. Enjoy the freedom to create and the assurance of top-tier quality.</p>
+                <a href="#contact" class="btn">Shop Now</a>
+
+                <h3>DTF Gang Sheet</h3>
+                <p>Maximize your printing efficiency with our DTF gang sheets. Print multiple designs on a single sheet, reducing waste and saving costs. Ideal for businesses looking to streamline their production process, our gang sheets offer flexibility and convenience.</p>
+                <a href="#gang-builder" class="btn">Build Your Gang Sheet</a>
+            </div>
+        </section>
+
+        <section id="gang-builder" class="gang-builder-section">
+            <h2>Interactive DTF Gang Sheet Builder</h2>
+            <p class="gang-builder-intro">Upload your artwork, lay out your gang sheet, and send us everything we need to get your prints rolling.</p>
+
+            <div class="gang-builder-layout">
+                <div class="builder-panel">
+                    <div class="builder-panel-group">
+                        <h3>1. Choose Sheet Size</h3>
+                        <label for="sheetSize">Preset size</label>
+                        <select id="sheetSize">
+                            <option value="22x24">22" x 24"</option>
+                            <option value="22x36">22" x 36"</option>
+                            <option value="24x48">24" x 48"</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <div id="customSizeInputs" class="custom-size-inputs hidden">
+                            <div class="custom-size-field">
+                                <label for="customWidth">Width (in)</label>
+                                <input type="number" id="customWidth" min="10" max="60" step="0.5" value="22">
+                            </div>
+                            <div class="custom-size-field">
+                                <label for="customHeight">Height (in)</label>
+                                <input type="number" id="customHeight" min="10" max="60" step="0.5" value="24">
+                            </div>
+                            <button class="btn btn-small" id="applyCustomSize">Apply Size</button>
+                        </div>
+                        <p class="canvas-dimensions">Current layout: <span id="canvasDimensionsLabel">22" x 24"</span></p>
                     </div>
-                    <div class="feature-item">
-                        <h3>High Durability</h3>
-                        <p>Our DTF prints are highly resistant to cracking and fading, ensuring long-lasting wear.</p>
+
+                    <div class="builder-panel-group">
+                        <h3>2. Add Artwork & Text</h3>
+                        <label class="upload-label" for="artworkUpload">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload artwork (PNG recommended)
+                        </label>
+                        <input type="file" id="artworkUpload" accept="image/*" multiple>
+                        <button class="btn btn-outline" id="addTextButton"><i class="fas fa-font"></i> Add Text</button>
+                        <div class="text-options hidden" id="textOptions">
+                            <label for="textInput">Text</label>
+                            <input type="text" id="textInput" placeholder="Add text content">
+                            <label for="textColor">Color</label>
+                            <input type="color" id="textColor" value="#000000">
+                            <label for="textSize">Font size</label>
+                            <input type="number" id="textSize" min="8" max="200" value="36">
+                            <button class="btn btn-small" id="applyTextChanges">Apply Changes</button>
+                        </div>
                     </div>
-                    <div class="feature-item">
-                        <h3>Versatile Application</h3>
-                        <p>Suitable for various fabric types, including cotton, polyester, blends, and more.</p>
+
+                    <div class="builder-panel-group">
+                        <h3>3. Manage Selection</h3>
+                        <div class="action-buttons">
+                            <button class="btn btn-outline" id="duplicateObject"><i class="fas fa-copy"></i> Duplicate</button>
+                            <button class="btn btn-outline" id="deleteObject"><i class="fas fa-trash"></i> Delete</button>
+                            <button class="btn btn-outline" id="bringForward"><i class="fas fa-layer-group"></i> Bring Forward</button>
+                            <button class="btn btn-outline" id="sendBackward"><i class="fas fa-layer-group"></i> Send Backward</button>
+                        </div>
+                        <p class="helper-text">Tip: Click any item on the sheet to move, resize, or rotate it.</p>
                     </div>
-                    <div class="feature-item">
-                        <h3>Soft Feel</h3>
-                        <p>Enjoy a lightweight and soft-hand feel, making your custom apparel comfortable to wear.</p>
+
+                    <div class="builder-panel-group">
+                        <h3>4. Order Details</h3>
+                        <label for="sheetQuantity">Sheet quantity</label>
+                        <input type="number" id="sheetQuantity" min="1" value="1">
+                        <label for="finishingNotes">Notes for our team</label>
+                        <textarea id="finishingNotes" rows="3" placeholder="Add any special instructions..."></textarea>
                     </div>
                 </div>
-                <div class="dtf-gallery">
-                    <img src="Material/IMG_5253.jpeg" alt="DTF Print Example 1">
-                    <img src="Material/IMG_5482.jpeg" alt="DTF Print Example 2">
-                    <img src="Material/LA JAROCHA-1.png" alt="DTF Print Example 3">
+
+                <div class="builder-canvas-wrapper">
+                    <div class="canvas-header">
+                        <span>Gang Sheet Preview</span>
+                        <div class="canvas-zoom">
+                            <button class="btn btn-icon" id="zoomOut" aria-label="Zoom out"><i class="fas fa-search-minus"></i></button>
+                            <button class="btn btn-icon" id="zoomReset" aria-label="Reset zoom"><i class="fas fa-compress"></i></button>
+                            <button class="btn btn-icon" id="zoomIn" aria-label="Zoom in"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="canvas-stage">
+                        <canvas id="gangCanvas" width="660" height="720"></canvas>
+                    </div>
+                    <p class="helper-text">The grey border represents your printable area. Keep critical artwork away from the edge.</p>
                 </div>
-                <a href="#contact" class="btn">Get a Quote for DTF Prints</a>
+            </div>
+
+            <div class="builder-actions">
+                <button class="btn" id="downloadLayout"><i class="fas fa-download"></i> Download Layout</button>
+                <button class="btn btn-secondary" id="clearCanvas"><i class="fas fa-undo-alt"></i> Clear Sheet</button>
+            </div>
+
+            <div class="order-request">
+                <h3>Send Your Order Request</h3>
+                <form id="orderRequestForm">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="customerName">Full name</label>
+                            <input type="text" id="customerName" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="customerEmail">Email</label>
+                            <input type="email" id="customerEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="customerPhone">Phone (optional)</label>
+                            <input type="tel" id="customerPhone">
+                        </div>
+                        <div class="form-field">
+                            <label for="desiredShipDate">Desired ship date</label>
+                            <input type="date" id="desiredShipDate">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="sendOrderRequest"><i class="fas fa-paper-plane"></i> Send Order Request</button>
+                </form>
+                <div id="orderFeedback" class="order-feedback hidden"></div>
             </div>
         </section>
 
@@ -299,6 +371,7 @@
         <button class="btn accept-cookies">Accept</button>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js" integrity="sha512-QHuHxZ3c2gsiAlQExDaoluZCsdhgEvI8XBi6SoStYL7xZnk2BT3wmUkNIxHpXGnnjdFVyySC44s6ngv0jPdoXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="script.js"></script>
     <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 </body>
