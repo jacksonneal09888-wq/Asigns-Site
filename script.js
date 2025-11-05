@@ -292,44 +292,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const objectUrl = URL.createObjectURL(file);
-            const imgElement = new Image();
+            const reader = new FileReader();
 
-            imgElement.onload = () => {
-                const canvasCenter = gangCanvas.getCenter();
-                const maxWidth = gangCanvas.getWidth() * 0.8;
-                const maxHeight = gangCanvas.getHeight() * 0.8;
-                const naturalWidth = imgElement.naturalWidth || imgElement.width;
-                const naturalHeight = imgElement.naturalHeight || imgElement.height;
-                const scaleFactor = Math.min(
-                    maxWidth / naturalWidth,
-                    maxHeight / naturalHeight,
-                    1
-                );
+            reader.onload = () => {
+                const result = reader.result;
+                if (typeof result !== 'string') {
+                    showOrderFeedback('We were unable to read that file. Please try again.', true);
+                    return;
+                }
 
-                const fabricImage = new fabric.Image(imgElement, {
-                    left: canvasCenter.left,
-                    top: canvasCenter.top,
-                    originX: 'center',
-                    originY: 'center'
-                });
+                fabric.Image.fromURL(result, (fabricImage) => {
+                    const canvasCenter = gangCanvas.getCenter();
+                    const maxWidth = gangCanvas.getWidth() * 0.8;
+                    const maxHeight = gangCanvas.getHeight() * 0.8;
+                    const naturalWidth = fabricImage.width || maxWidth;
+                    const naturalHeight = fabricImage.height || maxHeight;
+                    const scaleFactor = Math.min(
+                        maxWidth / naturalWidth,
+                        maxHeight / naturalHeight,
+                        1
+                    );
 
-                fabricImage.scale(scaleFactor);
+                    fabricImage.set({
+                        left: canvasCenter.left,
+                        top: canvasCenter.top,
+                        originX: 'center',
+                        originY: 'center'
+                    });
 
-                gangCanvas.add(fabricImage);
-                gangCanvas.setActiveObject(fabricImage);
-                gangCanvas.requestRenderAll();
+                    fabricImage.scale(scaleFactor);
 
-                URL.revokeObjectURL(objectUrl);
-                showOrderFeedback(`${file.name} added to your sheet.`, false);
+                    gangCanvas.add(fabricImage);
+                    gangCanvas.setActiveObject(fabricImage);
+                    gangCanvas.requestRenderAll();
+                    showOrderFeedback(`${file.name} added to your sheet.`, false);
+                }, { crossOrigin: null });
             };
 
-            imgElement.onerror = () => {
-                URL.revokeObjectURL(objectUrl);
+            reader.onerror = () => {
                 showOrderFeedback(`We couldn't load ${file.name}. Please try a different file format.`, true);
             };
 
-            imgElement.src = objectUrl;
+            reader.readAsDataURL(file);
         };
 
         const exportCanvasImage = (multiplier = 3) => {
@@ -780,30 +784,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const objectUrl = URL.createObjectURL(file);
-            const imgEl = new Image();
+            const reader = new FileReader();
 
-            imgEl.onload = () => {
-                const maxWidth = teePrintableArea.width * 0.9;
-                const maxHeight = teePrintableArea.height * 0.9;
-                const scaleFactor = Math.min(maxWidth / imgEl.width, maxHeight / imgEl.height, 1);
+            reader.onload = () => {
+                const result = reader.result;
+                if (typeof result !== 'string') {
+                    setTeeFeedback('We were unable to read that file. Please try again.', true);
+                    return;
+                }
 
-                const fabricImage = new fabric.Image(imgEl, {
-                    scaleX: scaleFactor,
-                    scaleY: scaleFactor
-                });
+                fabric.Image.fromURL(result, (fabricImage) => {
+                    const maxWidth = teePrintableArea.width * 0.9;
+                    const maxHeight = teePrintableArea.height * 0.9;
+                    const naturalWidth = fabricImage.width || maxWidth;
+                    const naturalHeight = fabricImage.height || maxHeight;
+                    const scaleFactor = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight, 1);
 
-                centerWithinPrintableArea(fabricImage);
-                setTeeFeedback(`${file.name} added to your mockup.`, false);
-                URL.revokeObjectURL(objectUrl);
+                    fabricImage.scale(scaleFactor);
+                    centerWithinPrintableArea(fabricImage);
+                    setTeeFeedback(`${file.name} added to your mockup.`, false);
+                }, { crossOrigin: null });
             };
 
-            imgEl.onerror = () => {
-                URL.revokeObjectURL(objectUrl);
+            reader.onerror = () => {
                 setTeeFeedback(`We couldn't load ${file.name}. Try a different image.`, true);
             };
 
-            imgEl.src = objectUrl;
+            reader.readAsDataURL(file);
         };
 
         teeColorSwatches.forEach((swatch) => {
