@@ -899,6 +899,20 @@ footer .social-links a:hover {
         grid-template-columns: 1fr;
     }
 
+    /* Gun Prints Section Responsive */
+    .gun-prints-section .gun-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .gun-prints-section .gun-features {
+        grid-template-columns: 1fr;
+    }
+
+    .gun-prints-section .gun-gallery {
+        grid-template-columns: 1fr;
+    }
+
     .header-logo {
         height: 50px; /* Adjust logo size for mobile */
     }
@@ -1016,6 +1030,99 @@ footer .social-links a:hover {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Gun Prints Section */
+.gun-prints-section {
+    background-color: #f0f4f8; /* Light background for contrast */
+    padding: 80px 40px;
+    margin-bottom: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.gun-prints-section h2 {
+    color: #1a1a2e;
+    margin-bottom: 35px;
+}
+
+.gun-prints-section .gun-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.gun-prints-section p {
+    font-size: 1.15rem;
+    color: #555;
+    line-height: 1.7;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.gun-prints-section .gun-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.gun-prints-section .feature-item {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gun-prints-section .feature-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.gun-prints-section .feature-item h3 {
+    color: #e94560;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.gun-prints-section .feature-item p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 0;
+}
+
+.gun-prints-section .gun-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.gun-prints-section .gun-gallery img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gun-prints-section .gun-gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.gun-prints-section .btn {
+    margin-top: 40px;
 }
 
 /* DTF Prints Section */
