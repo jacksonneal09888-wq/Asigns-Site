@@ -349,7 +349,11 @@
             <div class="gallery-grid">
                 <article class="gallery-card">
                     <div class="gallery-media video">
-                        <video controls playsinline poster="Material/40362f0d-92a8-4115-bcc6-cc35861cf6f6.jpeg">
+                        <img src="Material/40362f0d-92a8-4115-bcc6-cc35861cf6f6.jpeg" alt="Car wrap preview" class="gallery-poster">
+                        <button class="gallery-play" aria-label="Play car wrap video">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <video preload="none" playsinline controls class="gallery-video" tabindex="-1">
                             <source src="Material/car-wrap.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>

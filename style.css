@@ -1434,6 +1434,51 @@ nav {
 
 .gallery-media video {
     background: #000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-media.video .gallery-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.gallery-play i {
+    pointer-events: none;
+}
+
+.gallery-play:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.gallery-card.is-playing .gallery-poster,
+.gallery-card.is-playing .gallery-play {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gallery-card.is-playing .gallery-video {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .gallery-card__body {
