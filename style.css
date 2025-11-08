@@ -214,6 +214,142 @@ section.visible {
     color: rgba(255, 255, 255, 0.8);
 }
 
+.vendor-section {
+    margin-top: 80px;
+    padding: 70px 60px;
+    border-radius: var(--radius-lg);
+    background: #ffffff;
+    box-shadow: var(--shadow-soft);
+}
+
+.vendor-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+}
+
+.vendor-copy h2 {
+    margin: 0 0 18px;
+    font-size: 2.6rem;
+}
+
+.vendor-copy p {
+    margin: 0 0 20px;
+    color: var(--color-muted);
+    font-size: 1.05rem;
+}
+
+.vendor-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.vendor-list li {
+    padding-left: 24px;
+    position: relative;
+    color: var(--color-dark);
+    font-weight: 500;
+}
+
+.vendor-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
+.vendor-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+}
+
+.vendor-metric {
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    background: #f9fafb;
+}
+
+.vendor-metric__value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.vendor-metric__label {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--color-muted);
+}
+
+.assurance-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    margin: 40px 0;
+    background: #f6f7fb;
+    border-radius: var(--radius-lg);
+}
+
+.assurance-card {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 28px;
+    box-shadow: var(--shadow-soft);
+}
+
+.assurance-card h3 {
+    margin: 0 0 12px;
+}
+
+.assurance-card p {
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.industries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.industries-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.industries-list li {
+    padding-left: 20px;
+    position: relative;
+    color: var(--color-dark);
+}
+
+.industries-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
 .dtf-badge {
     display: inline-flex;
     padding: 6px 16px;
@@ -228,21 +364,6 @@ section.visible {
 .dtf-badge.secondary {
     background: rgba(233, 69, 96, 0.25);
     color: #fff;
-}
-
-.dtf-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: auto;
-}
-
-.dtf-tag {
-    padding: 8px 18px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 0.9rem;
 }
 
 /* Header */
@@ -558,7 +679,7 @@ nav {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-soft);
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 18px;
     align-items: center;
 }
@@ -584,8 +705,8 @@ nav {
 
 .service-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
 }
 
 .service-card {
@@ -1810,6 +1931,10 @@ footer .social-links a:hover {
         flex: 1 1 280px;
     }
 
+    .vendor-grid {
+        grid-template-columns: 1fr;
+    }
+
     .cta-banner {
         flex-direction: column;
         text-align: center;
@@ -1913,9 +2038,12 @@ footer .social-links a:hover {
         font-size: 0.95rem;
     }
 
-    .dtf-tag {
-        width: 100%;
-        text-align: center;
+    .vendor-section {
+        padding: 48px 24px;
+    }
+
+    .assurance-section {
+        padding: 30px 20px;
     }
 
     .gang-builder-section {
