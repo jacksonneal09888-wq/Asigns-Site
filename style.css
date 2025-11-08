@@ -1402,27 +1402,65 @@ nav {
     margin: 120px 0 40px;
 }
 
-.gallery-section h2 {
-    text-align: center;
-    margin-bottom: 12px;
-    font-size: 2.6rem;
-}
-
-.gallery {
+.gallery-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
 }
 
-.gallery img {
-    border-radius: var(--radius-md);
+.gallery-card {
+    background: var(--color-card);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.gallery img:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-strong);
+.gallery-media {
+    position: relative;
+    padding-top: 60%;
+    overflow: hidden;
+}
+
+.gallery-media img,
+.gallery-media video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-media video {
+    background: #000;
+}
+
+.gallery-card__body {
+    padding: 20px 22px 24px;
+}
+
+.gallery-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(233, 69, 96, 0.1);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.gallery-card__body h3 {
+    margin: 0 0 6px;
+    font-size: 1.3rem;
+}
+
+.gallery-card__body p {
+    margin: 0;
+    color: var(--color-muted);
 }
 
 /* Testimonials */
@@ -1827,7 +1865,7 @@ footer .social-links a:hover {
         justify-content: flex-start;
     }
 
-    .gallery {
+    .gallery-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -1905,7 +1943,7 @@ footer .social-links a:hover {
     .product-card-grid,
     .pricing-grid,
     .feature-grid,
-    .gallery {
+    .gallery-grid {
         grid-template-columns: 1fr;
     }
 
