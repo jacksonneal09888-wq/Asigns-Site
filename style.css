@@ -523,30 +523,37 @@ nav {
     gap: 16px;
 }
 
-.hero-metrics {
+.hero-services {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 16px;
-    align-self: stretch;
+    margin-top: 32px;
 }
 
-.hero-metric {
+.hero-service-card {
+    display: flex;
+    gap: 12px;
+    align-items: center;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
     border-radius: var(--radius-md);
-    padding: 22px;
+    padding: 18px 20px;
     color: #fff;
 }
 
-.hero-metric__value {
-    display: block;
-    font-size: 2rem;
-    font-weight: 700;
+.hero-service-card i {
+    font-size: 1.5rem;
+    color: var(--color-accent);
 }
 
-.hero-metric__label {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.7);
+.hero-service-card h3 {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+}
+
+.hero-service-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 /* Subpage hero */
