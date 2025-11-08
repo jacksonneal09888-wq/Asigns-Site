@@ -1,0 +1,12 @@
+{
+  "name": "asigns-site",
+  "version": "1.0.0",
+  "description": "Static marketing site for Asigns & Printing",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asigns & Printing – Gang Sheet Builder</title>
+    <link rel="stylesheet" href="style.css?v=20250216">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html#home" class="logo-animate">
+                    <img src="Material/A SIGNS LOGO.png" alt="Asigns & Printing Logo" class="header-logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home" class="nav-link-animate">Home</a></li>
+                <li><a href="index.html#services" class="nav-link-animate">Services</a></li>
+                <li><a href="index.html#pricing" class="nav-link-animate">Pricing</a></li>
+                <li><a href="gang-builder.html" class="nav-link-animate">Gang Sheet Builder</a></li>
+                <li><a href="tee-designer.html" class="nav-link-animate">Tee Designer</a></li>
+                <li><a href="index.html#websites" class="nav-link-animate">Websites</a></li>
+                <li><a href="index.html#gallery" class="nav-link-animate">Gallery</a></li>
+                <li><a href="index.html#faq" class="nav-link-animate">FAQ</a></li>
+                <li><a href="index.html#contact" class="nav-link-animate">Contact</a></li>
+            </ul>
+            <div class="burger" aria-label="Open navigation" role="button" tabindex="0">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="subpage-hero">
+            <div class="subpage-hero__content">
+                <span class="hero-eyebrow">Tools</span>
+                <h1>Build and proof your DTF gang sheets online.</h1>
+                <p>Upload artwork, arrange placements, and send the full spec sheet directly to our production team. The builder keeps sizing, notes, and contact details together so nothing gets lost.</p>
+                <div class="hero-actions">
+                    <a href="index.html#pricing" class="btn">View Pricing</a>
+                    <a href="index.html#contact" class="btn btn-outline-light">Talk with production</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gang builder section -->
+        <section id="gang-builder" class="gang-builder-section">
+            <h2>Interactive DTF Gang Sheet Builder</h2>
+            <p class="gang-builder-intro">Upload your artwork, lay out your gang sheet, and send us everything we need to get your prints rolling.</p>
+
+            <div class="gang-builder-layout">
+                <div class="builder-panel">
+                    <div class="builder-panel-group">
+                        <h3>1. Choose Sheet Size</h3>
+                        <label for="sheetSize">Preset size</label>
+                        <select id="sheetSize">
+                            <option value="22x24">22" x 24"</option>
+                            <option value="22x36">22" x 36"</option>
+                            <option value="24x48">24" x 48"</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <div id="customSizeInputs" class="custom-size-inputs hidden">
+                            <div class="custom-size-field">
+                                <label for="customWidth">Width (in)</label>
+                                <input type="number" id="customWidth" min="10" max="60" step="0.5" value="22">
+                            </div>
+                            <div class="custom-size-field">
+                                <label for="customHeight">Height (in)</label>
+                                <input type="number" id="customHeight" min="10" max="60" step="0.5" value="24">
+                            </div>
+                            <button class="btn btn-small" id="applyCustomSize">Apply Size</button>
+                        </div>
+                        <p class="canvas-dimensions">Current layout: <span id="canvasDimensionsLabel">22" x 24"</span></p>
+                    </div>
+
+                    <div class="builder-panel-group">
+                        <h3>2. Add Artwork &amp; Text</h3>
+                        <label class="upload-label" for="artworkUpload">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload artwork (PNG recommended)
+                        </label>
+                        <input type="file" id="artworkUpload" accept="image/*" multiple>
+                        <button class="btn btn-outline" id="addTextButton"><i class="fas fa-font"></i> Add Text</button>
+                        <div class="text-options hidden" id="textOptions">
+                            <label for="textInput">Text</label>
+                            <input type="text" id="textInput" placeholder="Add text content">
+                            <label for="textColor">Color</label>
+                            <input type="color" id="textColor" value="#000000">
+                            <label for="textSize">Font size</label>
+                            <input type="number" id="textSize" min="8" max="200" value="36">
+                            <button class="btn btn-small" id="applyTextChanges">Apply Changes</button>
+                        </div>
+                    </div>
+
+                    <div class="builder-panel-group">
+                        <h3>3. Manage Selection</h3>
+                        <div class="action-buttons">
+                            <button class="btn btn-outline" id="duplicateObject"><i class="fas fa-copy"></i> Duplicate</button>
+                            <button class="btn btn-outline" id="deleteObject"><i class="fas fa-trash"></i> Delete</button>
+                            <button class="btn btn-outline" id="bringForward"><i class="fas fa-layer-group"></i> Bring Forward</button>
+                            <button class="btn btn-outline" id="sendBackward"><i class="fas fa-layer-group"></i> Send Backward</button>
+                        </div>
+                        <p class="helper-text">Tip: Click any item on the sheet to move, resize, or rotate it.</p>
+                    </div>
+
+                    <div class="builder-panel-group">
+                        <h3>4. Order Details</h3>
+                        <label for="sheetQuantity">Sheet quantity</label>
+                        <input type="number" id="sheetQuantity" min="1" value="1">
+                        <label for="finishingNotes">Notes for our team</label>
+                        <textarea id="finishingNotes" rows="3" placeholder="Add any special instructions..."></textarea>
+                    </div>
+                </div>
+
+                <div class="builder-canvas-wrapper">
+                    <div class="canvas-header">
+                        <span>Gang Sheet Preview</span>
+                        <div class="canvas-zoom">
+                            <button class="btn btn-icon" id="zoomOut" aria-label="Zoom out"><i class="fas fa-search-minus"></i></button>
+                            <button class="btn btn-icon" id="zoomReset" aria-label="Reset zoom"><i class="fas fa-compress"></i></button>
+                            <button class="btn btn-icon" id="zoomIn" aria-label="Zoom in"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="canvas-stage">
+                        <canvas id="gangCanvas" width="660" height="720"></canvas>
+                    </div>
+                    <p class="helper-text">The grey border represents your printable area. Keep critical artwork away from the edge.</p>
+                </div>
+            </div>
+
+            <div class="builder-actions">
+                <button class="btn" id="downloadLayout"><i class="fas fa-download"></i> Download Layout</button>
+                <button class="btn btn-secondary" id="clearCanvas"><i class="fas fa-undo-alt"></i> Clear Sheet</button>
+            </div>
+
+            <div class="order-request">
+                <h3>Send Your Order Request</h3>
+                <form id="orderRequestForm">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="customerName">Full name</label>
+                            <input type="text" id="customerName" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="customerEmail">Email</label>
+                            <input type="email" id="customerEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="customerPhone">Phone (optional)</label>
+                            <input type="tel" id="customerPhone">
+                        </div>
+                        <div class="form-field">
+                            <label for="desiredShipDate">Desired ship date</label>
+                            <input type="date" id="desiredShipDate">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="sendOrderRequest"><i class="fas fa-paper-plane"></i> Send Order Request</button>
+                </form>
+                <div id="orderFeedback" class="order-feedback hidden"></div>
+            </div>
+        </section>
+
+        <section class="subpage-cta">
+            <h3>Need finishing or logistics support?</h3>
+            <p>Attach your exported layout when you reach out and our production coordinators will confirm pricing, delivery windows, and finishing options.</p>
+            <a href="index.html#contact" class="btn">Contact Production</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Asigns &amp; Printing. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/109847272199158" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <div class="cookie-consent">
+        <p>This website uses cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data.</p>
+        <button class="btn accept-cookies">Accept</button>
+    </div>
+
+    <script src="script.js?v=20250216" defer></script>
+    <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+</body>
+</html>
