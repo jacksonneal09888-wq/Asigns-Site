@@ -125,62 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Lightbox functionality
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const captionText = document.getElementById('caption');
-    const closeBtn = document.querySelector('.close-btn');
-    const galleryImages = document.querySelectorAll('.gallery-section .gallery a');
-
-    let slideIndex = 0;
-
-    galleryImages.forEach((imgLink, index) => {
-        imgLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            lightbox.style.display = 'block';
-            lightboxImg.src = imgLink.href;
-            captionText.innerHTML = imgLink.dataset.title;
-            slideIndex = index;
-        });
-    });
-
-    closeBtn.addEventListener('click', () => {
-        lightbox.style.display = 'none';
-    });
-
-    // Close lightbox when clicking outside the image
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            lightbox.style.display = 'none';
-        }
-    });
-
-    // Keyboard navigation for lightbox
-    document.addEventListener('keydown', (e) => {
-        if (lightbox.style.display === 'block') {
-            if (e.key === 'ArrowLeft') {
-                plusSlides(-1);
-            } else if (e.key === 'ArrowRight') {
-                plusSlides(1);
-            } else if (e.key === 'Escape') {
-                lightbox.style.display = 'none';
-            }
-        }
-    });
-
-    // Function to change slides
-    window.plusSlides = (n) => {
-        showSlides(slideIndex += n);
-    };
-
-    function showSlides(n) {
-        const images = document.querySelectorAll('.gallery-section .gallery a');
-        if (n >= images.length) { slideIndex = 0; }
-        if (n < 0) { slideIndex = images.length - 1; }
-        lightboxImg.src = images[slideIndex].href;
-        captionText.innerHTML = images[slideIndex].dataset.title;
-    }
-
     // File upload display name
     const projectFileInput = document.getElementById('projectFile');
     const fileNameSpan = document.getElementById('fileName');
