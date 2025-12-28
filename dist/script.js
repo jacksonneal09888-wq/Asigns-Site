@@ -227,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const PRESET_SIZES = {
             '22x24': { width: 22, height: 24 },
             '22x36': { width: 22, height: 36 },
-            '24x48': { width: 24, height: 48 }
+            '22x48': { width: 22, height: 48 },
+            '22x60': { width: 22, height: 60 }
         };
         let sheetSizeState = { width: 22, height: 24 };
         let currentZoom = 1;
