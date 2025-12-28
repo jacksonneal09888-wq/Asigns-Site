@@ -609,9 +609,8 @@ nav {
 .hero-visual {
     min-height: 320px;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 167, 40, 0.25);
-    background: rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(6px);
+    border: 1px solid transparent;
+    background: transparent;
 }
 
 .hero-copy > * {
