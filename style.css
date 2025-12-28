@@ -606,13 +606,6 @@ nav {
     margin-top: 32px;
 }
 
-.hero-visual {
-    min-height: 320px;
-    border-radius: var(--radius-lg);
-    border: 1px solid transparent;
-    background: transparent;
-}
-
 .hero-copy > * {
     opacity: 0;
     transform: translateY(16px);
@@ -2262,10 +2255,6 @@ footer .social-links a:hover {
 
     .hero p {
         margin: 0 auto 28px;
-    }
-
-    .hero-visual {
-        display: none;
     }
 
     .hero-metrics {
