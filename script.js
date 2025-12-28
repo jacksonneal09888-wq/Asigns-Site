@@ -48,6 +48,59 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
+    // Card-level reveal animations
+    const revealItems = document.querySelectorAll('.reveal');
+    if (revealItems.length) {
+        const revealObserver = new IntersectionObserver((entries, revealObserverInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserverInstance.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        revealItems.forEach(item => {
+            revealObserver.observe(item);
+        });
+    }
+
+    // Stat counters
+    const countItems = document.querySelectorAll('[data-count]');
+    if (countItems.length) {
+        const animateCount = (el) => {
+            const target = parseInt(el.dataset.count, 10) || 0;
+            const prefix = el.dataset.prefix || '';
+            const suffix = el.dataset.suffix || '';
+            const duration = 1200;
+            const startTime = performance.now();
+
+            const update = (now) => {
+                const progress = Math.min((now - startTime) / duration, 1);
+                const current = Math.floor(progress * target);
+                el.textContent = `${prefix}${current.toLocaleString()}${suffix}`;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            };
+
+            requestAnimationFrame(update);
+        };
+
+        const countObserver = new IntersectionObserver((entries, countObserverInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCount(entry.target);
+                    countObserverInstance.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.6 });
+
+        countItems.forEach(item => {
+            countObserver.observe(item);
+        });
+    }
+
     // Back to top button functionality
     const backToTopBtn = document.getElementById('backToTopBtn');
 
