@@ -3,10 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asigns & Printing – Tee Designer</title>
-    <link rel="stylesheet" href="style.css?v=20250216">
+    <title>T-Shirt Designer | Asigns & Printing</title>
+    <meta name="description" content="Mock up custom t-shirts online — pick a garment color, add artwork and text, and send your design to our production team for a quote.">
+    <link rel="canonical" href="https://asignsinc.com/tee-designer.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Asigns & Printing">
+    <meta property="og:title" content="T-Shirt Designer | Asigns & Printing">
+    <meta property="og:description" content="Mock up custom t-shirts online and send your design to our production team for a quote.">
+    <meta property="og:url" content="https://asignsinc.com/tee-designer.html">
+    <meta property="og:image" content="https://asignsinc.com/Material/0dd1a7f8-be16-44ec-a731-c8d05d20c307.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="style.css?v=20260723">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Analytics (GA4) - TODO: replace G-XXXXXXXXXX with real Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
 </head>
 <body>
     <header>
@@ -20,6 +37,7 @@
                 <li><a href="index.html#home" class="nav-link-animate">Home</a></li>
                 <li><a href="index.html#services" class="nav-link-animate">Services</a></li>
                 <li><a href="index.html#pricing" class="nav-link-animate">Pricing</a></li>
+                <li><a href="shop.html" class="nav-link-animate">Shop</a></li>
                 <li><a href="gang-builder.html" class="nav-link-animate">Gang Sheet Builder</a></li>
                 <li><a href="tee-designer.html" class="nav-link-animate">Tee Designer</a></li>
                 <li><a href="index.html#websites" class="nav-link-animate">Websites</a></li>
@@ -109,6 +127,37 @@
                     <p id="teeFeedback" class="tee-feedback hidden"></p>
                 </div>
             </div>
+
+            <div class="order-request">
+                <h3>Send Your Order Request</h3>
+                <p class="gang-builder-intro">Download your mockup for reference, then send us the details below and we'll follow up with pricing and turnaround.</p>
+                <form id="teeOrderForm">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="teeCustomerName">Full name</label>
+                            <input type="text" id="teeCustomerName" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="teeCustomerEmail">Email</label>
+                            <input type="email" id="teeCustomerEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="teeCustomerPhone">Phone (optional)</label>
+                            <input type="tel" id="teeCustomerPhone">
+                        </div>
+                        <div class="form-field">
+                            <label for="teeQuantity">Quantity</label>
+                            <input type="number" id="teeQuantity" min="1" value="1">
+                        </div>
+                    </div>
+                    <label for="teeOrderNotes">Notes for our team</label>
+                    <textarea id="teeOrderNotes" rows="3" placeholder="Garment style, sizes needed, deadline..."></textarea>
+                    <button type="submit" class="btn btn-primary" id="teeSendOrderRequest"><i class="fas fa-paper-plane"></i> Send Order Request</button>
+                </form>
+                <div id="teeOrderFeedback" class="order-feedback hidden"></div>
+            </div>
         </section>
 
         <section class="subpage-cta">
@@ -119,11 +168,9 @@
     </main>
 
     <footer>
-        <p>© 2025 Asigns &amp; Printing. All rights reserved.</p>
+        <p>© 2026 Asigns &amp; Printing. All rights reserved. · <a href="resources.html">Guides</a></p>
         <div class="social-links">
             <a href="https://www.facebook.com/109847272199158" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
         </div>
     </footer>
 
@@ -132,7 +179,8 @@
         <button class="btn accept-cookies">Accept</button>
     </div>
 
-    <script src="script.js?v=20250216" defer></script>
+    <script src="script.js?v=20260723" defer></script>
+    <script src="asigns-chat.js?v=20260723" defer></script>
     <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 </body>
 </html>

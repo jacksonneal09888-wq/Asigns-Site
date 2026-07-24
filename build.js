@@ -4,7 +4,7 @@ const path = require('path');
 
 const ROOT = __dirname;
 const DIST = path.join(ROOT, 'dist');
-const SKIP_NAMES = new Set(['node_modules', 'dist', '.git']);
+const SKIP_NAMES = new Set(['node_modules', 'dist', '.git', 'backend', 'references']);
 const SKIP_FILES = new Set(['package.json', 'package-lock.json', 'build.js', '.DS_Store']);
 
 const log = (message) => console.log(`[build] ${message}`);

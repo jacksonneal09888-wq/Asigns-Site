@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Asigns & Printing</title>
+    <meta name="description" content="Order DTF gang sheets, custom apparel, signs, vehicle graphics, and vinyl lettering online from Asigns & Printing in Siler City, NC.">
+    <link rel="canonical" href="https://asignsinc.com/shop.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Asigns & Printing">
+    <meta property="og:title" content="Shop | Asigns & Printing">
+    <meta property="og:description" content="Order DTF gang sheets, custom apparel, signs, vehicle graphics, and vinyl lettering online.">
+    <meta property="og:url" content="https://asignsinc.com/shop.html">
+    <meta property="og:image" content="https://asignsinc.com/Material/0dd1a7f8-be16-44ec-a731-c8d05d20c307.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="style.css?v=20260723">
+    <link rel="stylesheet" href="shop.css?v=20260723">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Analytics (GA4) - TODO: replace G-XXXXXXXXXX with real Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html#home" class="logo-animate">
+                    <img src="Material/A SIGNS LOGO.png" alt="Asigns & Printing Logo" class="header-logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home" class="nav-link-animate">Home</a></li>
+                <li><a href="index.html#services" class="nav-link-animate">Services</a></li>
+                <li><a href="index.html#pricing" class="nav-link-animate">Pricing</a></li>
+                <li><a href="shop.html" class="nav-link-animate">Shop</a></li>
+                <li><a href="gang-builder.html" class="nav-link-animate">Gang Sheet Builder</a></li>
+                <li><a href="tee-designer.html" class="nav-link-animate">Tee Designer</a></li>
+                <li><a href="index.html#gallery" class="nav-link-animate">Gallery</a></li>
+                <li><a href="index.html#faq" class="nav-link-animate">FAQ</a></li>
+                <li><a href="index.html#contact" class="nav-link-animate">Contact</a></li>
+            </ul>
+            <div class="burger" aria-label="Open navigation" role="button" tabindex="0">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="subpage-hero">
+            <div class="subpage-hero__content">
+                <span class="hero-eyebrow">Shop</span>
+                <h1>Everything we print, in one place.</h1>
+                <p>Add products to your cart, tell us the details, and our production team will follow up with a firm quote and timeline — no account needed.</p>
+            </div>
+        </section>
+
+        <section id="shop" class="shop-section section-padding">
+            <div class="shop-layout">
+                <aside class="shop-filters">
+                    <h3>Categories</h3>
+                    <button class="shop-filter is-active" data-filter="all">All Products</button>
+                    <button class="shop-filter" data-filter="dtf">DTF Gang Sheets</button>
+                    <button class="shop-filter" data-filter="apparel">Custom Apparel</button>
+                    <button class="shop-filter" data-filter="signs">Signs & Banners</button>
+                    <button class="shop-filter" data-filter="vehicle">Vehicle Graphics</button>
+                    <button class="shop-filter" data-filter="vinyl">Vinyl & Lettering</button>
+                </aside>
+                <div class="shop-grid" id="shopGrid"></div>
+            </div>
+        </section>
+    </main>
+
+    <div class="cart-tray" id="cartTray">
+        <button class="cart-tray__summary" id="cartToggle">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cartCount">0 items</span>
+            <span id="cartTotal"></span>
+            <i class="fas fa-chevron-up cart-tray__chevron"></i>
+        </button>
+        <div class="cart-tray__panel" id="cartPanel">
+            <div class="cart-items" id="cartItems"></div>
+            <button class="btn btn-block" id="cartCheckoutBtn">Request Quote / Order</button>
+        </div>
+    </div>
+
+    <div class="order-sheet" id="orderSheet">
+        <div class="order-sheet__backdrop" id="orderSheetBackdrop"></div>
+        <div class="order-sheet__panel">
+            <button class="order-sheet__close" id="orderSheetClose" aria-label="Close">×</button>
+            <h3>Send Your Order Request</h3>
+            <p class="order-sheet__note">We'll confirm firm pricing, artwork requirements, and turnaround by email or phone.</p>
+            <div class="order-sheet__items" id="orderSheetItems"></div>
+            <form id="orderSheetForm">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="shopCustomerName">Full name</label>
+                        <input type="text" id="shopCustomerName" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="shopCustomerEmail">Email</label>
+                        <input type="email" id="shopCustomerEmail" required>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label for="shopCustomerPhone">Phone (optional)</label>
+                    <input type="tel" id="shopCustomerPhone">
+                </div>
+                <div class="form-field">
+                    <label for="shopOrderNotes">Notes (quantities, artwork, deadlines)</label>
+                    <textarea id="shopOrderNotes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Send Order Request</button>
+            </form>
+            <div id="orderSheetFeedback" class="order-feedback hidden"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Asigns &amp; Printing. All rights reserved. · <a href="resources.html">Guides</a></p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/109847272199158" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </footer>
+
+    <div class="cookie-consent">
+        <p>This website uses cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data.</p>
+        <button class="btn accept-cookies">Accept</button>
+    </div>
+
+    <script src="script.js?v=20260723" defer></script>
+    <script src="shop.js?v=20260723" defer></script>
+    <script src="asigns-chat.js?v=20260723" defer></script>
+    <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+</body>
+</html>

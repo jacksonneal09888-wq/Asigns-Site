@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Shared with shop.js / asigns-chat.js — TODO: update after `wrangler deploy`
+    const ORDERS_API_URL = 'https://asigns-worker.YOUR-SUBDOMAIN.workers.dev/api/orders';
+
     const cookieConsent = document.querySelector('.cookie-consent');
     const acceptCookiesBtn = document.querySelector('.accept-cookies');
 
@@ -630,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showOrderFeedback(`Layout downloaded as ${fileName}.`, false);
         });
 
-        orderForm.addEventListener('submit', (event) => {
+        orderForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const name = customerNameInput.value.trim();
             const email = customerEmailInput.value.trim();
@@ -648,18 +651,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const fileName = downloadCanvasImage();
-            const summary = buildOrderSummary(name, email, phone, shipDate);
+            const itemsSummary = summarizeCanvasObjects();
+            const quantity = quantityInput.value || '1';
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(summary).catch(() => {});
+            showOrderFeedback('Sending your order request…', false);
+
+            try {
+                const response = await fetch(ORDERS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        phone,
+                        category: 'dtf-gang-sheet',
+                        items: [{
+                            sheetSize: `${sheetSizeState.width}x${sheetSizeState.height}`,
+                            quantity,
+                            layout: itemsSummary,
+                        }],
+                        notes: `${notesInput.value.trim() || 'None'}\nDesired ship date: ${shipDate || 'Not specified'}\nDownloaded layout file: ${fileName} (customer keeps a copy to attach if needed)`,
+                    }),
+                });
+                if (!response.ok) throw new Error('Request failed');
+                showOrderFeedback('Order request sent! Your layout also downloaded as a backup — our team will follow up shortly.', false);
+            } catch (error) {
+                showOrderFeedback(`Something went wrong sending your request — please call or text us at 336-215-0518 and mention your downloaded file ${fileName}.`, true);
             }
-
-            const mailtoBody = encodeURIComponent(`${summary}\n\nAttachment: ${fileName}\n(Please include the downloaded PNG when you email us.)`);
-            const mailtoLink = `mailto:orders@asignsprinting.com?subject=${encodeURIComponent('DTF Gang Sheet Order Request')}&body=${mailtoBody}`;
-
-            window.location.href = mailtoLink;
-
-            showOrderFeedback('Order summary copied. Your layout downloaded—attach it to the email that just opened. Thank you!', false);
         });
     }
 
@@ -1011,5 +1029,136 @@ document.addEventListener('DOMContentLoaded', () => {
             teeCanvas.requestRenderAll();
             setTeeFeedback('Mockup downloaded. Ready to share!', false);
         });
+
+        const teeOrderForm = document.getElementById('teeOrderForm');
+        const teeOrderFeedback = document.getElementById('teeOrderFeedback');
+
+        const summarizeTeeCanvas = () => {
+            const activeSwatch = document.querySelector('.tee-color-swatch.is-active');
+            const garment = activeSwatch ? (activeSwatch.getAttribute('aria-label') || 'Custom color') : 'Not selected';
+            const objects = teeCanvas.getObjects().filter((object) => object !== teeBasePath && object !== teePrintableArea);
+
+            if (!objects.length) {
+                return `Garment: ${garment}\nNo artwork or text added yet.`;
+            }
+
+            const items = objects.map((obj, index) => {
+                if (obj.type === 'i-text') return `${index + 1}. Text "${obj.text}"`;
+                return `${index + 1}. Artwork layer`;
+            }).join('\n');
+
+            return `Garment: ${garment}\n${items}`;
+        };
+
+        teeOrderForm?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const name = document.getElementById('teeCustomerName').value.trim();
+            const email = document.getElementById('teeCustomerEmail').value.trim();
+            const phone = document.getElementById('teeCustomerPhone').value.trim();
+            const quantity = document.getElementById('teeQuantity').value || '1';
+            const notes = document.getElementById('teeOrderNotes').value.trim();
+
+            if (!name || !email) {
+                teeOrderFeedback.textContent = 'Please enter your name and email before sending your request.';
+                teeOrderFeedback.classList.remove('hidden');
+                teeOrderFeedback.style.background = 'rgba(233, 69, 96, 0.18)';
+                return;
+            }
+
+            teeOrderFeedback.textContent = 'Sending your order request…';
+            teeOrderFeedback.classList.remove('hidden');
+            teeOrderFeedback.style.background = 'rgba(59, 130, 246, 0.14)';
+
+            try {
+                const response = await fetch(ORDERS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        phone,
+                        category: 'apparel',
+                        items: [{ quantity, design: summarizeTeeCanvas() }],
+                        notes: notes || 'None',
+                    }),
+                });
+                if (!response.ok) throw new Error('Request failed');
+                teeOrderFeedback.textContent = "Thanks! We've got your order request — download your mockup above and attach it if we follow up by email.";
+                teeOrderFeedback.style.background = 'rgba(40, 167, 69, 0.12)';
+                teeOrderForm.reset();
+            } catch (error) {
+                teeOrderFeedback.textContent = 'Something went wrong sending your request — please call or text us at 336-215-0518 instead.';
+                teeOrderFeedback.style.background = 'rgba(233, 69, 96, 0.18)';
+            }
+        });
     }
+
+    // Signage quote form submission
+    const signageQuoteForm = document.getElementById('signageQuoteForm');
+    const signageQuoteFeedback = document.getElementById('signageQuoteFeedback');
+
+    signageQuoteForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payload = {
+            name: document.getElementById('signageName').value,
+            email: document.getElementById('signageEmail').value,
+            phone: document.getElementById('signagePhone').value,
+            category: 'signage',
+            items: [{
+                type: document.getElementById('signageType').value,
+                size: document.getElementById('signageSize').value || 'Not specified',
+                quantity: document.getElementById('signageQuantity').value || '1',
+                installNeeded: document.getElementById('signageInstall').value,
+            }],
+            notes: document.getElementById('signageNotes').value,
+        };
+
+        signageQuoteFeedback.textContent = 'Sending your quote request…';
+        signageQuoteFeedback.classList.remove('hidden');
+
+        try {
+            const response = await fetch(ORDERS_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            if (!response.ok) throw new Error('Request failed');
+            signageQuoteFeedback.textContent = "Thanks! We've got your signage request and will follow up with pricing shortly.";
+            signageQuoteForm.reset();
+        } catch (error) {
+            signageQuoteFeedback.textContent = 'Something went wrong sending your request — please call or text us at 336-215-0518 instead.';
+        }
+    });
+
+    // Contact form submission
+    const CONTACT_API_URL = 'https://asigns-worker.YOUR-SUBDOMAIN.workers.dev/api/contact';
+    const contactForm = document.getElementById('contactForm');
+    const contactFeedback = document.getElementById('contactFeedback');
+
+    contactForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payload = {
+            name: document.getElementById('contactName').value,
+            email: document.getElementById('contactEmail').value,
+            message: document.getElementById('contactMessage').value,
+        };
+
+        contactFeedback.textContent = 'Sending your message…';
+        contactFeedback.classList.remove('hidden');
+
+        try {
+            const response = await fetch(CONTACT_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            if (!response.ok) throw new Error('Request failed');
+            contactFeedback.textContent = "Thanks! We've received your message and will be in touch shortly.";
+            contactForm.reset();
+        } catch (error) {
+            contactFeedback.textContent = 'Something went wrong sending your message — please call or text us at 336-215-0518 instead.';
+        }
+    });
 });
