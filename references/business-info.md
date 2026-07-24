@@ -61,6 +61,6 @@ Order form sends email to: same as above
 
 Google Sheet calendar? N
 
-Bot name: Ace (Asigns & Printing AI assistant)
+Bot name: Asigns Bot (Asigns & Printing AI assistant)
 Bot personality: Friendly, sharp, helpful
 ```

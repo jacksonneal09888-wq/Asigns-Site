@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const ORDERS_API_URL = 'https://asigns-worker.YOUR-SUBDOMAIN.workers.dev/api/orders';
+  const ORDERS_API_URL = 'https://asigns-worker.jacksonneal09888.workers.dev/api/orders';
 
   const PRODUCTS = [
     { id: 'dtf-22x24', cat: 'dtf', name: '22" × 24" DTF Gang Sheet', price: 20, unit: 'sheet', desc: 'Fast-turn size, no minimums. Build your layout in the Gang Sheet Builder.', icon: '🧵', link: 'gang-builder.html' },

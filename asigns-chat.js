@@ -1,5 +1,5 @@
 /*
-  Asigns & Printing AI chat widget ("Ace").
+  Asigns & Printing AI chat widget ("Asigns Bot").
   Self-contained: injects its own CSS + DOM, needs no other markup on the page.
 
   TODO before going live: point API_URL at the deployed Worker
@@ -9,7 +9,7 @@
 (function () {
   'use strict';
 
-  const API_URL = 'https://asigns-worker.YOUR-SUBDOMAIN.workers.dev/api/chat';
+  const API_URL = 'https://asigns-worker.jacksonneal09888.workers.dev/api/chat';
   const PHONE_TEL = '+13362150518';
   const PHONE_DISPLAY = '336-215-0518';
 
@@ -160,20 +160,20 @@
   function init() {
     injectStyles();
 
-    const launcher = el('button', { class: 'ace-launcher', 'aria-label': 'Chat with Ace' }, [
+    const launcher = el('button', { class: 'ace-launcher', 'aria-label': 'Chat with Asigns Bot' }, [
       el('span', { html: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.4 1.05 4.58 2.77 6.19L4 22l5.09-1.75C10.03 20.4 11 20.5 12 20.5c5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg>' }),
     ]);
 
     const nudge = el('div', { class: 'ace-nudge' }, [
       el('button', { 'aria-label': 'Dismiss' }, [document.createTextNode('×')]),
-      document.createTextNode("Questions about pricing or turnaround? I'm Ace — happy to help!"),
+      document.createTextNode("Questions about pricing or turnaround? I'm Asigns Bot — happy to help!"),
     ]);
 
     const closeBtn = el('button', { class: 'ace-close', 'aria-label': 'Close chat' }, [document.createTextNode('×')]);
 
     const header = el('div', { class: 'ace-header' }, [
       el('div', {}, [
-        el('div', { class: 'ace-header-title' }, [document.createTextNode('Ace — Asigns & Printing')]),
+        el('div', { class: 'ace-header-title' }, [document.createTextNode('Asigns Bot — Asigns & Printing')]),
         el('div', { class: 'ace-header-sub' }, [document.createTextNode('Usually replies in seconds')]),
       ]),
       closeBtn,
@@ -198,7 +198,7 @@
     function showHome() {
       body.innerHTML = '';
       body.appendChild(el('div', { class: 'ace-greeting' }, [
-        document.createTextNode("Hi, I'm Ace! Need a quote, a rush order, or just have a question? I can point you the right way."),
+        document.createTextNode("Hi, I'm Asigns Bot! Need a quote, a rush order, or just have a question? I can point you the right way."),
       ]));
       body.appendChild(el('div', { class: 'ace-cta-row' }, [
         el('a', { class: 'ace-cta ace-cta-call', href: 'tel:' + PHONE_TEL }, [document.createTextNode('📞 Call ' + PHONE_DISPLAY)]),

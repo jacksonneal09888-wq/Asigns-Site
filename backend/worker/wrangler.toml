@@ -8,7 +8,7 @@ binding = "AI"
 [[d1_databases]]
 binding = "DB"
 database_name = "asigns-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "e9f9ea96-0e1e-4661-b4c7-e537bb3151a5"
 
 [vars]
 ALLOWED_ORIGIN = "https://asignsinc.com"

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Shared with shop.js / asigns-chat.js — TODO: update after `wrangler deploy`
-    const ORDERS_API_URL = 'https://asigns-worker.YOUR-SUBDOMAIN.workers.dev/api/orders';
+    const ORDERS_API_URL = 'https://asigns-worker.jacksonneal09888.workers.dev/api/orders';
 
     const cookieConsent = document.querySelector('.cookie-consent');
     const acceptCookiesBtn = document.querySelector('.accept-cookies');
@@ -1132,7 +1132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Contact form submission
-    const CONTACT_API_URL = 'https://asigns-worker.YOUR-SUBDOMAIN.workers.dev/api/contact';
+    const CONTACT_API_URL = 'https://asigns-worker.jacksonneal09888.workers.dev/api/contact';
     const contactForm = document.getElementById('contactForm');
     const contactFeedback = document.getElementById('contactFeedback');
 
