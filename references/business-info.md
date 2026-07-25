@@ -8,7 +8,7 @@ What it does: Full-service sign shop, print shop, and apparel decorator — sign
 Address: 420 E 3rd St, Siler City, NC 27344
 Main Phone: 336-215-0518
 Text/Alternate Phone: 336-215-0518
-Email: (contact form only — formsubmit.co, no public inbox on file)
+Email: asigns025@gmail.com (contact form + order notifications sent here via Resend)
 Website: asignsinc.com
 
 Hours:
@@ -20,7 +20,7 @@ Hours:
   Sat: Closed
   Sun: Closed
 
-Languages spoken: English (site copy is English-only; bot should still offer Spanish per standard pattern)
+Languages spoken: English and Spanish — site has a full EN/ES toggle (i18n.js), bot responds in Spanish when addressed in Spanish
 
 Brand colors (hex):
   Primary: #ffa728 (gold)
@@ -37,26 +37,35 @@ Pages needed:
   [ ] Member/Student Portal
   [ ] Kiosk
   [ ] Booking/Scheduling
-  [ ] Blog/News
+  [x] Blog/News — resources.html (DTF prep + heat press guides)
   [x] Other: Gang Sheet Builder (gang-builder.html), Tee Designer (tee-designer.html) — existing interactive tools, kept as-is
 
 Services / Programs offered:
   1. Custom signage (design, print, install)
   2. Vehicle wraps & magnets
-  3. Banners, flags, yard signs, window graphics, vinyl lettering, LED/lighted signs
-  4. Digital printing & graphic design
-  5. DTF (direct-to-film) transfers & gang sheets
-  6. Custom apparel / T-shirt printing (24-hour rush available)
-  7. Website design & creation
+  3. Banners, flags, yard signs, window graphics, vinyl lettering
+  4. Window tint (vehicle)
+  5. Digital printing & graphic design
+  6. DTF (direct-to-film) transfers & gang sheets
+  7. Custom apparel / T-shirt printing (24-hour rush available)
+  8. Website design & creation
 
-Products to sell (Shop page):
+Products to sell (Shop page — real starting prices as of the owner's current price sheet):
   Category 1 — DTF Gang Sheets: 22"x24" $20, 22"x36" $30 (most popular), 22"x48" $40, 22"x60" $50 — links to gang-builder.html
-  Category 2 — Custom Apparel: T-shirts, hoodies, rush 24-hr orders — links to tee-designer.html, price TBD/contact
-  Category 3 — Signs & Banners: business signs, banners, flags, yard signs — price TBD/contact
-  Category 4 — Vehicle Graphics: wraps, magnets, window graphics — price TBD/contact
-  Category 5 — Vinyl & Lettering: custom vinyl lettering, LED/lighted signs — price TBD/contact
+  Category 2 — Signs & Banners: Yard Signs $15 ea, Corrugated from $15, PVC from $45, Aluminum from $65,
+    ACM/Dibond from $85, Storefront (quote), Monument (quote), Real Estate from $20, Construction from $65,
+    Magnetic Vehicle Signs from $75/pair, Vinyl Banners $6.50/sq ft, Mesh Banners $8/sq ft, Retractable from $165
+  Category 3 — Vinyl Lettering: Door from $45, Window from $55, Store Hours from $35, Wall from $85, Reflective (quote)
+  Category 4 — Vehicle Graphics: Door Logos $95, Lettering from $175, Partial Wrap from $850, Half Wrap from $1,500,
+    Full Car from $2,500, Full Pickup from $2,900, Cargo Van from $3,000, Box Truck from $3,800, Trailer from $2,500
+  Category 5 — Window Tint: 2 Front Windows $99, Sedan from $250, SUV from $300, Pickup from $250, Commercial (quote)
+  Category 6 — Printing Services: Business Cards (500) $59, Flyers (100) $69, Postcards from $79, Brochures from $199,
+    Rack Cards from $89, Stickers from $45, Labels from $55, Posters from $20, Blueprints from $5
+  Category 7 — Custom Apparel: T-Shirts from $15.99, Richardson Hats from $16.99, Embroidered Hats from $19.95,
+    Polo Shirts from $29.95, Hoodies from $35, Safety Shirts from $18, Team Uniforms (quote, 25+ tiered) — links to tee-designer.html
+  Category 8 — Graphic Design: Logo from $150, Business Card $40, Flyer $65, Banner $65, Social Media Ad $45, Menu from $95
 
-Contact form sends email to: via formsubmit.co (destination address not present in repo — needs owner's email before going live)
+Contact form sends email to: asigns025@gmail.com via Resend (Worker /api/contact + /api/orders, reply-to set to the customer)
 Order form sends email to: same as above
 
 Google Sheet calendar? N
