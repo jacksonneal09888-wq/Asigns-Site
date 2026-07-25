@@ -86,7 +86,7 @@ async function saveOrder(env: Bindings, args: OrderArgs) {
     .run();
 }
 
-function notifyOrder(env: Bindings, ctx: ExecutionContext, args: OrderArgs, source: string) {
+function notifyOrder(env: Bindings, ctx: Pick<ExecutionContext, 'waitUntil'>, args: OrderArgs, source: string) {
   ctx.waitUntil(
     sendNotificationEmail(
       env,
@@ -116,7 +116,7 @@ async function saveContact(env: Bindings, args: ContactArgs) {
     .run();
 }
 
-function notifyContact(env: Bindings, ctx: ExecutionContext, args: ContactArgs, source: string) {
+function notifyContact(env: Bindings, ctx: Pick<ExecutionContext, 'waitUntil'>, args: ContactArgs, source: string) {
   ctx.waitUntil(
     sendNotificationEmail(
       env,
@@ -127,7 +127,17 @@ function notifyContact(env: Bindings, ctx: ExecutionContext, args: ContactArgs, 
   );
 }
 
-const CHAT_TOOLS = [
+type ChatTool = {
+  name: string;
+  description: string;
+  parameters: {
+    type: string;
+    properties: Record<string, { type: string; description: string }>;
+    required: string[];
+  };
+};
+
+const CHAT_TOOLS: ChatTool[] = [
   {
     name: 'submit_order',
     description:
