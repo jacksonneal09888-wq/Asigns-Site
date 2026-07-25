@@ -13,8 +13,8 @@
     <meta property="og:url" content="https://asignsinc.com/shop.html">
     <meta property="og:image" content="https://asignsinc.com/Material/0dd1a7f8-be16-44ec-a731-c8d05d20c307.jpeg">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="style.css?v=20260725">
-    <link rel="stylesheet" href="shop.css?v=20260725">
+    <link rel="stylesheet" href="style.css?v=20260725b">
+    <link rel="stylesheet" href="shop.css?v=20260725b">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Google Analytics (GA4) - TODO: replace G-XXXXXXXXXX with real Measurement ID -->
@@ -80,6 +80,9 @@
                     <button class="shop-filter" data-filter="printing" data-i18n="shop.filterPrinting">Printing Services</button>
                     <button class="shop-filter" data-filter="apparel" data-i18n="shop.filterApparel">Custom Apparel</button>
                     <button class="shop-filter" data-filter="design" data-i18n="shop.filterDesign">Graphic Design</button>
+                    <button class="shop-filter" data-filter="web" data-i18n="shop.filterWeb">Website Creation</button>
+                    <button class="shop-filter" data-filter="branding" data-i18n="shop.filterBranding">Business Branding</button>
+                    <button class="shop-filter" data-filter="packages" data-i18n="shop.filterPackages">Packages</button>
                 </aside>
                 <div class="shop-grid" id="shopGrid"></div>
             </div>
@@ -125,6 +128,14 @@
                     <label for="shopOrderNotes" data-i18n="shop.orderNotesLabel">Notes (quantities, artwork, deadlines)</label>
                     <textarea id="shopOrderNotes" rows="3"></textarea>
                 </div>
+                <div class="payment-info">
+                    <h4><i class="fas fa-hand-holding-dollar"></i> <span data-i18n="shop.paymentH4">Payment via Zelle</span></h4>
+                    <p><span data-i18n="shop.paymentInfoPre">Once we confirm your final price, send payment via Zelle to</span> <strong>336-215-0518</strong> <span data-i18n="shop.paymentInfoPost">using your bank's app — no account setup needed on your end.</span></p>
+                    <label class="payment-checkbox">
+                        <input type="checkbox" id="shopPaidViaZelle">
+                        <span data-i18n="shop.paidCheckbox">I've already sent payment via Zelle</span>
+                    </label>
+                </div>
                 <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> <span data-i18n="shop.orderSubmit">Send Order Request</span></button>
             </form>
             <div id="orderSheetFeedback" class="order-feedback hidden"></div>
@@ -143,10 +154,10 @@
         <button class="btn accept-cookies" data-i18n="cookie.accept">Accept</button>
     </div>
 
-    <script src="i18n.js?v=20260725" defer></script>
-    <script src="script.js?v=20260725" defer></script>
-    <script src="shop.js?v=20260725" defer></script>
-    <script src="asigns-chat.js?v=20260725" defer></script>
+    <script src="i18n.js?v=20260725b" defer></script>
+    <script src="script.js?v=20260725b" defer></script>
+    <script src="shop.js?v=20260725b" defer></script>
+    <script src="asigns-chat.js?v=20260725b" defer></script>
     <button id="backToTopBtn" title="Go to top" data-i18n-title="ui.goToTop"><i class="fas fa-arrow-up"></i></button>
 </body>
 </html>

@@ -64,9 +64,19 @@ Products to sell (Shop page — real starting prices as of the owner's current p
   Category 7 — Custom Apparel: T-Shirts from $15.99, Richardson Hats from $16.99, Embroidered Hats from $19.95,
     Polo Shirts from $29.95, Hoodies from $35, Safety Shirts from $18, Team Uniforms (quote, 25+ tiered) — links to tee-designer.html
   Category 8 — Graphic Design: Logo from $150, Business Card $40, Flyer $65, Banner $65, Social Media Ad $45, Menu from $95
+  Category 9 — Website Creation: One-Page from $399, 5-Page Business from $799, E-Commerce from $1,499,
+    Redesign from $499, Domain Setup from $50, Hosting Setup from $100, Google Business Profile Setup from $150,
+    Maintenance from $75/month
+  Category 10 — Business Branding: Brand Identity Package from $450, Letterheads from $75, Envelopes from $85,
+    Social Media Branding Kit from $199, Facebook & Instagram Business Setup from $150
+    (Business Cards/Brochures/Flyers/Rack Cards/Menu Design/Logo Design overlap with Printing/Design categories above — not duplicated)
+  Category 11 — Packages: Complete Business Starter Package from $1,499 (logo, 5-page website, business cards,
+    social media setup, Google Business Profile, yard sign or banner, basic brand guidelines)
 
 Contact form sends email to: asigns025@gmail.com via Resend (Worker /api/contact + /api/orders, reply-to set to the customer)
 Order form sends email to: same as above
+
+Payment methods: Zelle, sent to 336-215-0518 (shown in the shop's order form; customer sends after final price is confirmed, with an "I've already paid" checkbox that flags the order notes)
 
 Google Sheet calendar? N
 

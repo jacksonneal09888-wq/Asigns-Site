@@ -254,6 +254,46 @@
     gap: 6px;
 }
 
+.payment-info {
+    background: rgba(255, 167, 40, 0.08);
+    border: 1px solid rgba(255, 167, 40, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin: 4px 0 14px;
+}
+
+.payment-info h4 {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: var(--color-primary-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.payment-info p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: var(--color-slate);
+    line-height: 1.5;
+}
+
+.payment-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--color-slate);
+    cursor: pointer;
+}
+
+.payment-checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
 @media (max-width: 860px) {
     .shop-layout { grid-template-columns: 1fr; }
     .shop-filters {

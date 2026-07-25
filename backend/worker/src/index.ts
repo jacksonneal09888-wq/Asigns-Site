@@ -45,6 +45,7 @@ take the next step (call, text, visit the shop page, or use the online design to
 - Text:    336-215-0518
 - Website: asignsinc.com
 - Hours:   Mon–Fri 9:00 AM–5:00 PM, Sat–Sun Closed
+- Payment: Zelle accepted, sent to 336-215-0518 (send only after the final price is confirmed)
 
 ## Services / Products & Starting Prices
 All prices below are real starting prices from the current price sheet. "From $X" means the
@@ -88,8 +89,21 @@ Polo Shirts from $29.95 · Hoodies from $35 · Safety Shirts from $18 · Team Un
 Logo Design from $150 · Business Card Design $40 · Flyer Design $65 · Banner Design $65 ·
 Social Media Ad $45 · Menu Design from $95
 
-### Also offered
-Website design & creation (Shopify, WooCommerce, custom builds) — quote-based
+### Website Creation
+One-Page Website from $399 · 5-Page Business Website from $799 · E-Commerce Website from $1,499 ·
+Website Redesign from $499 · Domain Name Setup from $50 · Web Hosting Setup from $100 ·
+Google Business Profile Setup from $150 · Website Maintenance from $75/month
+
+### Business Branding
+Brand Identity Package (logo, colors, fonts, guidelines) from $450 · Letterheads from $75 ·
+Envelopes from $85 · Social Media Branding Kit from $199 · Facebook & Instagram Business Setup
+from $150 (Business Cards, Brochures, Flyers, Rack Cards, Menu Design, and Logo Design are also
+available — see Printing Services and Graphic Design above for those prices)
+
+### Packages
+Complete Business Starter Package — from $1,499. Includes: custom logo, professional website (up
+to 5 pages), business cards, social media setup, Google Business Profile, a yard sign or banner,
+and basic brand guidelines.
 
 ## Website Navigation
 Guide users using these action tags (the front-end converts them into clickable buttons):

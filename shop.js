@@ -75,6 +75,26 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'design-banner', cat: 'design', name: 'Banner Design', price: 65, unit: 'design', desc: 'Custom banner artwork sized and ready for print.', icon: '🚩' },
     { id: 'design-social', cat: 'design', name: 'Social Media Ad', price: 45, unit: 'design', desc: 'Custom graphic sized for social media promotion.', icon: '📱' },
     { id: 'design-menu', cat: 'design', name: 'Menu Design', price: 95, unit: 'design', startingAt: true, desc: 'Restaurant and food service menu design, print-ready.', icon: '📋' },
+
+    // Website Creation
+    { id: 'web-onepage', cat: 'web', name: 'One-Page Website', price: 399, unit: 'site', startingAt: true, desc: 'A single-page site to get your business online fast.', icon: '💻' },
+    { id: 'web-5page', cat: 'web', name: '5-Page Business Website', price: 799, unit: 'site', startingAt: true, desc: 'A full small-business site — home, about, services, and more.', icon: '💻' },
+    { id: 'web-ecommerce', cat: 'web', name: 'E-Commerce Website', price: 1499, unit: 'site', startingAt: true, desc: 'A full online store with product listings and checkout.', icon: '🛒' },
+    { id: 'web-redesign', cat: 'web', name: 'Website Redesign', price: 499, unit: 'site', startingAt: true, desc: 'Modernize and refresh an existing website.', icon: '💻' },
+    { id: 'web-domain', cat: 'web', name: 'Domain Name Setup', price: 50, unit: 'setup', startingAt: true, desc: 'Domain purchase and setup handled for you.', icon: '🌐' },
+    { id: 'web-hosting', cat: 'web', name: 'Web Hosting Setup', price: 100, unit: 'setup', startingAt: true, desc: 'Hosting account setup and configuration.', icon: '🌐' },
+    { id: 'web-gbp', cat: 'web', name: 'Google Business Profile Setup', price: 150, unit: 'setup', startingAt: true, desc: 'Get your business set up and optimized on Google.', icon: '📍' },
+    { id: 'web-maintenance', cat: 'web', name: 'Website Maintenance', price: 75, unit: 'month', startingAt: true, desc: 'Ongoing updates, backups, and support for your site.', icon: '🔧' },
+
+    // Business Branding
+    { id: 'brand-identity', cat: 'branding', name: 'Brand Identity Package', price: 450, unit: 'package', startingAt: true, desc: 'Logo, color palette, fonts, and brand guidelines in one package.', icon: '🎨' },
+    { id: 'brand-letterhead', cat: 'branding', name: 'Letterheads', price: 75, unit: 'design', startingAt: true, desc: 'Custom letterhead design and printing for official documents.', icon: '📄' },
+    { id: 'brand-envelopes', cat: 'branding', name: 'Envelopes', price: 85, unit: 'design', startingAt: true, desc: 'Branded envelope design and printing.', icon: '✉️' },
+    { id: 'brand-social', cat: 'branding', name: 'Social Media Branding Kit', price: 199, unit: 'kit', startingAt: true, desc: 'Profile images, cover photos, and post templates matched to your brand.', icon: '📱' },
+    { id: 'brand-fbig', cat: 'branding', name: 'Facebook & Instagram Business Setup', price: 150, unit: 'setup', startingAt: true, desc: 'Get your business pages set up and ready to post.', icon: '📱' },
+
+    // Packages
+    { id: 'package-starter', cat: 'packages', name: 'Complete Business Starter Package', price: 1499, unit: 'package', startingAt: true, featured: true, desc: 'Custom logo, professional website (up to 5 pages), business cards, social media setup, Google Business Profile, yard sign or banner, and basic brand guidelines.', icon: '🚀' },
   ];
 
   const CATEGORY_LABEL = {
@@ -86,6 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
     printing: 'Printing Services',
     apparel: 'Custom Apparel',
     design: 'Graphic Design',
+    web: 'Website Creation',
+    branding: 'Business Branding',
+    packages: 'Packages',
   };
 
   const shopGrid = document.getElementById('shopGrid');
@@ -237,13 +260,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return { id, name: product.name, qty: cart[id], price: product.price };
     });
 
+    const paidViaZelle = document.getElementById('shopPaidViaZelle').checked;
+    const notes = document.getElementById('shopOrderNotes').value;
+
     const payload = {
       name: document.getElementById('shopCustomerName').value,
       email: document.getElementById('shopCustomerEmail').value,
       phone: document.getElementById('shopCustomerPhone').value,
       category: 'shop-cart',
       items,
-      notes: document.getElementById('shopOrderNotes').value,
+      notes: paidViaZelle ? `[Customer marked: already sent payment via Zelle]\n${notes}`.trim() : notes,
     };
 
     orderSheetFeedback.textContent = tt('shop.sending', 'Sending your order request…');
