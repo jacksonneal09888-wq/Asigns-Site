@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'signs-realestate', cat: 'signs', name: 'Real Estate Signs', price: 20, unit: 'sign', startingAt: true, desc: 'For sale, for rent, and open house signage with rider options.', icon: '🏠' },
     { id: 'signs-construction', cat: 'signs', name: 'Construction Signs', price: 65, unit: 'sign', startingAt: true, desc: 'Job site and safety signage built for outdoor conditions.', icon: '🚧' },
     { id: 'signs-magnetic', cat: 'signs', name: 'Magnetic Vehicle Signs', price: 75, unit: 'pair', startingAt: true, desc: 'Removable door magnets — quick branding for any vehicle.', icon: '🧲' },
-    { id: 'signs-vinylbanner', cat: 'signs', name: 'Vinyl Banners', price: 6.50, unit: 'sq. ft.', desc: 'Vibrant, durable banners for events, sales, and grand openings.', icon: '🚩' },
+    { id: 'signs-vinylbanner', cat: 'signs', name: 'Vinyl Banners', price: 6.50, unit: 'sq. ft.', desc: 'Vibrant, durable banners for events, sales, and grand openings.', icon: '🚩', image: 'Material/generic/vinyl-banner.jpg' },
     { id: 'signs-meshbanner', cat: 'signs', name: 'Mesh Banners', price: 8.00, unit: 'sq. ft.', desc: 'Wind-resistant mesh vinyl, ideal for fences and large outdoor spans.', icon: '🚩' },
     { id: 'signs-retractable', cat: 'signs', name: 'Retractable Banners', price: 165, unit: 'banner', startingAt: true, desc: 'Portable roll-up banner stands for trade shows and storefronts.', icon: '📊' },
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Window Tint
     { id: 'tint-front2', cat: 'tint', name: '2 Front Windows', price: 99, unit: 'vehicle', desc: 'Driver and passenger front window tint.', icon: '🚙' },
-    { id: 'tint-sedan', cat: 'tint', name: 'Sedan (Full Vehicle)', price: 250, unit: 'vehicle', startingAt: true, desc: 'Full vehicle window tint package for sedans.', icon: '🚗' },
+    { id: 'tint-sedan', cat: 'tint', name: 'Sedan (Full Vehicle)', price: 250, unit: 'vehicle', startingAt: true, desc: 'Full vehicle window tint package for sedans.', icon: '🚗', image: 'Material/generic/window-tint.jpg' },
     { id: 'tint-suv', cat: 'tint', name: 'SUV (Full Vehicle)', price: 300, unit: 'vehicle', startingAt: true, desc: 'Full vehicle window tint package for SUVs.', icon: '🚙' },
     { id: 'tint-pickup', cat: 'tint', name: 'Pickup (Full Vehicle)', price: 250, unit: 'vehicle', startingAt: true, desc: 'Full vehicle window tint package for pickup trucks.', icon: '🛻' },
     { id: 'tint-commercial', cat: 'tint', name: 'Commercial Vehicles', price: null, desc: 'Window tint for fleet and commercial vehicles.', icon: '🚚' },
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'print-rackcards', cat: 'printing', name: 'Rack Cards', price: 89, unit: 'pack', startingAt: true, desc: 'Display-rack ready cards for lobbies and storefronts.', icon: '📇' },
     { id: 'print-stickers', cat: 'printing', name: 'Stickers', price: 45, unit: 'pack', startingAt: true, desc: 'Custom die-cut or sheet stickers for products and promo.', icon: '🏷️' },
     { id: 'print-labels', cat: 'printing', name: 'Labels', price: 55, unit: 'pack', startingAt: true, desc: 'Product and packaging labels, custom shapes available.', icon: '🏷️' },
-    { id: 'print-posters', cat: 'printing', name: 'Posters', price: 20, unit: 'each', startingAt: true, desc: 'Large-format posters for events and displays.', icon: '🖼️' },
+    { id: 'print-posters', cat: 'printing', name: 'Posters', price: 20, unit: 'each', startingAt: true, desc: 'Large-format posters for events and displays.', icon: '🖼️', image: 'Material/generic/large-format-printing.jpg' },
     { id: 'print-blueprints', cat: 'printing', name: 'Blueprints', price: 5, unit: 'each', startingAt: true, desc: 'Large-format blueprint and technical drawing prints.', icon: '📐' },
 
     // Custom Apparel
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'apparel-uniforms', cat: 'apparel', name: 'Team Uniforms', price: null, desc: '25+ pieces with tiered pricing. Tell us quantity and garment style for a quote.', icon: '📦' },
 
     // Graphic Design
-    { id: 'design-logo', cat: 'design', name: 'Logo Design', price: 150, unit: 'design', startingAt: true, desc: 'Custom logo design with revisions and final source files.', icon: '🎨' },
+    { id: 'design-logo', cat: 'design', name: 'Logo Design', price: 150, unit: 'design', startingAt: true, desc: 'Custom logo design with revisions and final source files.', icon: '🎨', image: 'Material/generic/graphic-design.jpg' },
     { id: 'design-bizcard', cat: 'design', name: 'Business Card Design', price: 40, unit: 'design', desc: 'Print-ready business card design to match your brand.', icon: '💳' },
     { id: 'design-flyer', cat: 'design', name: 'Flyer Design', price: 65, unit: 'design', desc: 'Custom flyer layout and design, print-ready.', icon: '📄' },
     { id: 'design-banner', cat: 'design', name: 'Banner Design', price: 65, unit: 'design', desc: 'Custom banner artwork sized and ready for print.', icon: '🚩' },
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'web-maintenance', cat: 'web', name: 'Website Maintenance', price: 75, unit: 'month', startingAt: true, desc: 'Ongoing updates, backups, and support for your site.', icon: '🔧' },
 
     // Business Branding
-    { id: 'brand-identity', cat: 'branding', name: 'Brand Identity Package', price: 450, unit: 'package', startingAt: true, desc: 'Logo, color palette, fonts, and brand guidelines in one package.', icon: '🎨' },
+    { id: 'brand-identity', cat: 'branding', name: 'Brand Identity Package', price: 450, unit: 'package', startingAt: true, desc: 'Logo, color palette, fonts, and brand guidelines in one package.', icon: '🎨', image: 'Material/generic/branding.jpg' },
     { id: 'brand-letterhead', cat: 'branding', name: 'Letterheads', price: 75, unit: 'design', startingAt: true, desc: 'Custom letterhead design and printing for official documents.', icon: '📄' },
     { id: 'brand-envelopes', cat: 'branding', name: 'Envelopes', price: 85, unit: 'design', startingAt: true, desc: 'Branded envelope design and printing.', icon: '✉️' },
     { id: 'brand-social', cat: 'branding', name: 'Social Media Branding Kit', price: 199, unit: 'kit', startingAt: true, desc: 'Profile images, cover photos, and post templates matched to your brand.', icon: '📱' },
