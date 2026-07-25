@@ -152,8 +152,7 @@
 
 .cart-tray__summary #cartTotal { margin-left: auto; font-weight: 700; color: var(--color-primary-light); }
 .cart-tray__chevron { transition: transform 0.2s ease; }
-.cart-tray.is-open .cart-tray__chevron,
-.cart-panel.is-open ~ .cart-tray__chevron { transform: rotate(180deg); }
+.cart-tray.is-open .cart-tray__chevron { transform: rotate(180deg); }
 
 .cart-tray__panel {
     max-height: 0;

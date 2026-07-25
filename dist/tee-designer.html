@@ -34,21 +34,26 @@
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html#home" class="nav-link-animate">Home</a></li>
-                <li><a href="index.html#services" class="nav-link-animate">Services</a></li>
-                <li><a href="index.html#pricing" class="nav-link-animate">Pricing</a></li>
-                <li><a href="shop.html" class="nav-link-animate">Shop</a></li>
-                <li><a href="gang-builder.html" class="nav-link-animate">Gang Sheet Builder</a></li>
-                <li><a href="tee-designer.html" class="nav-link-animate">Tee Designer</a></li>
-                <li><a href="index.html#websites" class="nav-link-animate">Websites</a></li>
-                <li><a href="index.html#gallery" class="nav-link-animate">Gallery</a></li>
-                <li><a href="index.html#faq" class="nav-link-animate">FAQ</a></li>
-                <li><a href="index.html#contact" class="nav-link-animate">Contact</a></li>
+                <li><a href="index.html#home" class="nav-link-animate" data-i18n="nav.home">Home</a></li>
+                <li><a href="index.html#services" class="nav-link-animate" data-i18n="nav.services">Services</a></li>
+                <li><a href="index.html#pricing" class="nav-link-animate" data-i18n="nav.pricing">Pricing</a></li>
+                <li><a href="shop.html" class="nav-link-animate" data-i18n="nav.shop">Shop</a></li>
+                <li><a href="gang-builder.html" class="nav-link-animate" data-i18n="nav.gangBuilder">Gang Sheet Builder</a></li>
+                <li><a href="tee-designer.html" class="nav-link-animate" data-i18n="nav.teeDesigner">Tee Designer</a></li>
+                <li><a href="index.html#websites" class="nav-link-animate" data-i18n="nav.websites">Websites</a></li>
+                <li><a href="index.html#gallery" class="nav-link-animate" data-i18n="nav.gallery">Gallery</a></li>
+                <li><a href="index.html#faq" class="nav-link-animate" data-i18n="nav.faq">FAQ</a></li>
+                <li><a href="index.html#contact" class="nav-link-animate" data-i18n="nav.contact">Contact</a></li>
             </ul>
-            <div class="burger" aria-label="Open navigation" role="button" tabindex="0">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+            <div class="nav-actions">
+                <button class="lang-toggle" data-lang-toggle type="button" aria-label="Switch to Spanish">
+                    <i class="fas fa-globe"></i> <span class="lang-toggle-label">Español</span>
+                </button>
+                <div class="burger" aria-label="Open navigation" role="button" tabindex="0">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
             </div>
         </nav>
     </header>
@@ -56,25 +61,25 @@
     <main>
         <section class="subpage-hero">
             <div class="subpage-hero__content">
-                <span class="hero-eyebrow">Tools</span>
-                <h1>Visualize apparel runs before they hit the press.</h1>
-                <p>Use the Tee Designer to test garment colors, artwork placements, and text treatments. Share the mockup with our team when you’re ready to quote or schedule production.</p>
+                <span class="hero-eyebrow" data-i18n="tools.eyebrow">Tools</span>
+                <h1 data-i18n="teeHero.h1">Visualize apparel runs before they hit the press.</h1>
+                <p data-i18n="teeHero.p">Use the Tee Designer to test garment colors, artwork placements, and text treatments. Share the mockup with our team when you’re ready to quote or schedule production.</p>
                 <div class="hero-actions">
-                    <a href="index.html#services" class="btn">See Apparel Services</a>
-                    <a href="index.html#contact" class="btn btn-outline-light">Submit a project</a>
+                    <a href="index.html#services" class="btn" data-i18n="teeHero.btn1">See Apparel Services</a>
+                    <a href="index.html#contact" class="btn btn-outline-light" data-i18n="teeHero.btn2">Submit a project</a>
                 </div>
             </div>
         </section>
 
         <section id="tshirt-designer" class="tee-designer-section section-padding">
             <div class="section-header">
-                <h2>Interactive T-Shirt Designer</h2>
-                <p>Mock up custom tees in seconds. Pick a garment color, drop in your art, and see how it presses before we hit the printer.</p>
+                <h2 data-i18n="tee.h2">Interactive T-Shirt Designer</h2>
+                <p data-i18n="tee.intro">Mock up custom tees in seconds. Pick a garment color, drop in your art, and see how it presses before we hit the printer.</p>
             </div>
             <div class="tee-designer-grid">
                 <div class="tee-controls">
                     <div class="tee-card">
-                        <h3>1. Choose Garment Color</h3>
+                        <h3 data-i18n="tee.step1">1. Choose Garment Color</h3>
                         <div class="tee-color-swatches">
                             <button class="tee-color-swatch is-active" data-color="#f5f5f5" aria-label="Classic White tee"></button>
                             <button class="tee-color-swatch" data-color="#e5e7eb" aria-label="Heather Grey tee"></button>
@@ -88,28 +93,28 @@
                     </div>
 
                     <div class="tee-card">
-                        <h3>2. Add Artwork</h3>
+                        <h3 data-i18n="tee.step2">2. Add Artwork</h3>
                         <label class="tee-upload" for="teeArtworkUpload">
                             <i class="fas fa-cloud-upload-alt"></i>
-                            <span>Upload PNG / JPG</span>
+                            <span data-i18n="tee.uploadArtwork">Upload PNG / JPG</span>
                         </label>
                         <input type="file" id="teeArtworkUpload" accept="image/*" multiple>
-                        <p class="tee-helper">Drag design layers to reposition and scale them inside the printable window.</p>
+                        <p class="tee-helper" data-i18n="tee.dragHelper">Drag design layers to reposition and scale them inside the printable window.</p>
                     </div>
 
                     <div class="tee-card">
-                        <h3>3. Add Text</h3>
-                        <label for="teeTextInput" class="tee-label">Text</label>
-                        <input type="text" id="teeTextInput" placeholder="Enter message">
-                        <label for="teeFontSelect" class="tee-label">Font</label>
+                        <h3 data-i18n="tee.step3">3. Add Text</h3>
+                        <label for="teeTextInput" class="tee-label" data-i18n="tee.text">Text</label>
+                        <input type="text" id="teeTextInput" placeholder="Enter message" data-i18n-placeholder="tee.textPh">
+                        <label for="teeFontSelect" class="tee-label" data-i18n="tee.font">Font</label>
                         <select id="teeFontSelect">
                             <option value="Poppins">Poppins</option>
                             <option value="Bebas Neue">Bebas Neue</option>
                             <option value="Inter">Inter</option>
                         </select>
-                        <label for="teeTextColor" class="tee-label">Color</label>
+                        <label for="teeTextColor" class="tee-label" data-i18n="tee.color">Color</label>
                         <input type="color" id="teeTextColor" value="#111827">
-                        <button id="teeAddText" class="btn btn-secondary">Add Text</button>
+                        <button id="teeAddText" class="btn btn-secondary" data-i18n="tee.addText">Add Text</button>
                     </div>
                 </div>
                 <div class="tee-preview">
@@ -121,66 +126,68 @@
                     </div>
                     <canvas id="teeCanvas" width="500" height="520"></canvas>
                     <div class="tee-footer-actions">
-                        <button class="btn btn-secondary" id="teeResetCanvas">Reset</button>
-                        <button class="btn" id="teeDownloadMockup"><i class="fas fa-download"></i> Download Mockup</button>
+                        <button class="btn btn-secondary" id="teeResetCanvas" data-i18n="tee.reset">Reset</button>
+                        <button class="btn" id="teeDownloadMockup"><i class="fas fa-download"></i> <span data-i18n="tee.download">Download Mockup</span></button>
                     </div>
                     <p id="teeFeedback" class="tee-feedback hidden"></p>
                 </div>
             </div>
 
             <div class="order-request">
-                <h3>Send Your Order Request</h3>
-                <p class="gang-builder-intro">Download your mockup for reference, then send us the details below and we'll follow up with pricing and turnaround.</p>
+                <h3 data-i18n="gang.sendOrder">Send Your Order Request</h3>
+                <p class="gang-builder-intro" data-i18n="tee.orderIntro">Download your mockup for reference, then send us the details below and we'll follow up with pricing and turnaround.</p>
                 <form id="teeOrderForm">
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="teeCustomerName">Full name</label>
+                            <label for="teeCustomerName" data-i18n="ui.fullName">Full name</label>
                             <input type="text" id="teeCustomerName" required>
                         </div>
                         <div class="form-field">
-                            <label for="teeCustomerEmail">Email</label>
+                            <label for="teeCustomerEmail" data-i18n="ui.email">Email</label>
                             <input type="email" id="teeCustomerEmail" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="teeCustomerPhone">Phone (optional)</label>
+                            <label for="teeCustomerPhone" data-i18n="ui.phoneOptional">Phone (optional)</label>
                             <input type="tel" id="teeCustomerPhone">
                         </div>
                         <div class="form-field">
-                            <label for="teeQuantity">Quantity</label>
+                            <label for="teeQuantity" data-i18n="tee.quantity">Quantity</label>
                             <input type="number" id="teeQuantity" min="1" value="1">
                         </div>
                     </div>
-                    <label for="teeOrderNotes">Notes for our team</label>
-                    <textarea id="teeOrderNotes" rows="3" placeholder="Garment style, sizes needed, deadline..."></textarea>
-                    <button type="submit" class="btn btn-primary" id="teeSendOrderRequest"><i class="fas fa-paper-plane"></i> Send Order Request</button>
+                    <label for="teeOrderNotes" data-i18n="tee.notesLabel">Notes for our team</label>
+                    <textarea id="teeOrderNotes" rows="3" placeholder="Garment style, sizes needed, deadline..." data-i18n-placeholder="tee.notesPh"></textarea>
+                    <button type="submit" class="btn btn-primary" id="teeSendOrderRequest"><i class="fas fa-paper-plane"></i> <span data-i18n="tee.sendOrder">Send Order Request</span></button>
                 </form>
                 <div id="teeOrderFeedback" class="order-feedback hidden"></div>
             </div>
         </section>
 
         <section class="subpage-cta">
-            <h3>Ready to produce your apparel run?</h3>
-            <p>Send your mockup and notes to our team and we’ll confirm print specs, finishing, and delivery dates.</p>
-            <a href="index.html#contact" class="btn">Contact Production</a>
+            <h3 data-i18n="tee.readyH3">Ready to produce your apparel run?</h3>
+            <p data-i18n="tee.readyP">Send your mockup and notes to our team and we’ll confirm print specs, finishing, and delivery dates.</p>
+            <a href="index.html#contact" class="btn" data-i18n="gang.contactProduction">Contact Production</a>
         </section>
     </main>
 
     <footer>
-        <p>© 2026 Asigns &amp; Printing. All rights reserved. · <a href="resources.html">Guides</a></p>
+        <p><span data-i18n="footer.copyright">© 2026 Asigns &amp; Printing. All rights reserved.</span> · <a href="resources.html" data-i18n="footer.guides">Guides</a></p>
         <div class="social-links">
             <a href="https://www.facebook.com/109847272199158" target="_blank"><i class="fab fa-facebook-f"></i></a>
         </div>
     </footer>
 
     <div class="cookie-consent">
-        <p>This website uses cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data.</p>
-        <button class="btn accept-cookies">Accept</button>
+        <p data-i18n="cookie.text">This website uses cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data.</p>
+        <button class="btn accept-cookies" data-i18n="cookie.accept">Accept</button>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js" integrity="sha512-QHuHxZ3c2gsiAlQExDaoluZCsdhgEvI8XBi6SoStYL7xZnk2BT3wmUkNIxHpXGnnjdFVyySC44s6ngv0jPdoXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="i18n.js?v=20260723" defer></script>
     <script src="script.js?v=20260723" defer></script>
     <script src="asigns-chat.js?v=20260723" defer></script>
-    <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+    <button id="backToTopBtn" title="Go to top" data-i18n-title="ui.goToTop"><i class="fas fa-arrow-up"></i></button>
 </body>
 </html>

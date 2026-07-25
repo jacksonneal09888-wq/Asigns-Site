@@ -141,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cartToggle.addEventListener('click', () => {
     cartPanel.classList.toggle('is-open');
+    cartTray.classList.toggle('is-open');
   });
 
   cartCheckoutBtn.addEventListener('click', () => {

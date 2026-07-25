@@ -6,7 +6,32 @@ type Bindings = {
   DB: D1Database;
   ALLOWED_ORIGIN: string;
   ADMIN_KEY: string;
+  RESEND_API_KEY: string;
+  NOTIFY_EMAIL: string;
 };
+
+async function sendNotificationEmail(env: Bindings, subject: string, text: string, replyTo?: string) {
+  if (!env.RESEND_API_KEY || !env.NOTIFY_EMAIL) return;
+
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Asigns & Printing Website <onboarding@resend.dev>',
+        to: [env.NOTIFY_EMAIL],
+        ...(replyTo ? { reply_to: replyTo } : {}),
+        subject,
+        text,
+      }),
+    });
+  } catch (err) {
+    // Notification email is best-effort — never block the form submission on it.
+  }
+}
 
 const SYSTEM_PROMPT = `You are Asigns Bot — the friendly, knowledgeable AI guide for Asigns & Printing,
 a sign, print, and apparel shop in Siler City, NC. You help customers get quick answers about
@@ -124,6 +149,26 @@ app.post('/api/orders', async (c) => {
     .bind(body.name, body.email, body.phone ?? null, body.category ?? null, JSON.stringify(body.items), body.notes ?? null)
     .run();
 
+  c.executionCtx.waitUntil(
+    sendNotificationEmail(
+      c.env,
+      `New ${body.category ?? 'order'} request from ${body.name}`,
+      [
+        `New order/quote request from the website (${body.category ?? 'unspecified category'})`,
+        '',
+        `Name: ${body.name}`,
+        `Email: ${body.email}`,
+        `Phone: ${body.phone ?? 'Not provided'}`,
+        '',
+        'Items:',
+        JSON.stringify(body.items, null, 2),
+        '',
+        `Notes: ${body.notes ?? 'None'}`,
+      ].join('\n'),
+      body.email
+    )
+  );
+
   return c.json({ ok: true });
 });
 
@@ -137,6 +182,23 @@ app.post('/api/contact', async (c) => {
   await c.env.DB.prepare(`INSERT INTO contact_messages (name, email, message) VALUES (?, ?, ?)`)
     .bind(body.name, body.email, body.message)
     .run();
+
+  c.executionCtx.waitUntil(
+    sendNotificationEmail(
+      c.env,
+      `New website message from ${body.name}`,
+      [
+        'New contact form message from the website',
+        '',
+        `Name: ${body.name}`,
+        `Email: ${body.email}`,
+        '',
+        'Message:',
+        body.message,
+      ].join('\n'),
+      body.email
+    )
+  );
 
   return c.json({ ok: true });
 });

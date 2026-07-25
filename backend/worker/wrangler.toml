@@ -12,3 +12,4 @@ database_id = "e9f9ea96-0e1e-4661-b4c7-e537bb3151a5"
 
 [vars]
 ALLOWED_ORIGIN = "https://asignsinc.com"
+NOTIFY_EMAIL = "asigns025@gmail.com"

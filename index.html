@@ -67,21 +67,26 @@
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html#home" class="nav-link-animate">Home</a></li>
-                <li><a href="index.html#services" class="nav-link-animate">Services</a></li>
-                <li><a href="index.html#pricing" class="nav-link-animate">Pricing</a></li>
-                <li><a href="shop.html" class="nav-link-animate">Shop</a></li>
-                <li><a href="gang-builder.html" class="nav-link-animate">Gang Sheet Builder</a></li>
-                <li><a href="tee-designer.html" class="nav-link-animate">Tee Designer</a></li>
-                <li><a href="index.html#websites" class="nav-link-animate">Websites</a></li>
-                <li><a href="index.html#gallery" class="nav-link-animate">Gallery</a></li>
-                <li><a href="index.html#faq" class="nav-link-animate">FAQ</a></li>
-                <li><a href="index.html#contact" class="nav-link-animate">Contact</a></li>
+                <li><a href="index.html#home" class="nav-link-animate" data-i18n="nav.home">Home</a></li>
+                <li><a href="index.html#services" class="nav-link-animate" data-i18n="nav.services">Services</a></li>
+                <li><a href="index.html#pricing" class="nav-link-animate" data-i18n="nav.pricing">Pricing</a></li>
+                <li><a href="shop.html" class="nav-link-animate" data-i18n="nav.shop">Shop</a></li>
+                <li><a href="gang-builder.html" class="nav-link-animate" data-i18n="nav.gangBuilder">Gang Sheet Builder</a></li>
+                <li><a href="tee-designer.html" class="nav-link-animate" data-i18n="nav.teeDesigner">Tee Designer</a></li>
+                <li><a href="index.html#websites" class="nav-link-animate" data-i18n="nav.websites">Websites</a></li>
+                <li><a href="index.html#gallery" class="nav-link-animate" data-i18n="nav.gallery">Gallery</a></li>
+                <li><a href="index.html#faq" class="nav-link-animate" data-i18n="nav.faq">FAQ</a></li>
+                <li><a href="index.html#contact" class="nav-link-animate" data-i18n="nav.contact">Contact</a></li>
             </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+            <div class="nav-actions">
+                <button class="lang-toggle" data-lang-toggle type="button" aria-label="Switch to Spanish">
+                    <i class="fas fa-globe"></i> <span class="lang-toggle-label">Español</span>
+                </button>
+                <div class="burger" aria-label="Open navigation" role="button" tabindex="0">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
             </div>
         </nav>
     </header>
@@ -93,16 +98,16 @@
             <div class="hero-wrapper">
                 <div class="hero-copy">
                     <img src="Material/A SIGNS LOGO.png" alt="Asigns & Printing logo" class="hero-logo">
-                    <span class="hero-eyebrow">SIGNS • PRINTING • APPAREL</span>
-                    <h1 class="text-gradient-blue">Signs, Wraps & Apparel Made Local</h1>
-                    <p>From storefront signs to vehicle wraps to rush-order tees — designed, printed, and installed right here in Siler City, NC.</p>
+                    <span class="hero-eyebrow" data-i18n="hero.eyebrow">SIGNS • PRINTING • APPAREL</span>
+                    <h1 class="text-gradient-blue" data-i18n="hero.h1">Signs, Wraps & Apparel Made Local</h1>
+                    <p data-i18n="hero.p">From storefront signs to vehicle wraps to rush-order tees — designed, printed, and installed right here in Siler City, NC.</p>
                     <div class="hero-actions">
-                        <a href="#contact" class="btn">Start a Project</a>
-                        <a href="#services" class="btn btn-outline">View Services</a>
+                        <a href="#contact" class="btn" data-i18n="hero.ctaStart">Start a Project</a>
+                        <a href="#services" class="btn btn-outline" data-i18n="hero.ctaServices">View Services</a>
                     </div>
                     <ul class="hero-trust-row">
                         <li><i class="fas fa-map-marker-alt"></i> Siler City, NC</li>
-                        <li><i class="fas fa-clock"></i> Mon–Fri 9am–5pm</li>
+                        <li><i class="fas fa-clock"></i> <span data-i18n="hero.trustHours">Mon–Fri 9am–5pm</span></li>
                         <li><i class="fas fa-phone"></i> <a href="tel:+13362150518">336-215-0518</a></li>
                     </ul>
                 </div>
@@ -111,52 +116,52 @@
 
         <section class="path-section section-padding">
             <div class="section-header">
-                <h2 class="text-gradient">What are you here for?</h2>
-                <p>Jump straight to the tools and info for your project.</p>
+                <h2 class="text-gradient" data-i18n="path.h2">What are you here for?</h2>
+                <p data-i18n="path.p">Jump straight to the tools and info for your project.</p>
             </div>
             <div class="path-grid">
                 <a href="#signage-quote" class="path-card reveal" style="--delay: 0.05s;">
                     <i class="fas fa-sign"></i>
-                    <h3>Signs & Vehicle Graphics</h3>
-                    <p>Storefront signs, banners, wraps, magnets, and window graphics.</p>
-                    <span class="path-card__cta">Get a signage quote →</span>
+                    <h3 data-i18n="path.signage.h3">Signs & Vehicle Graphics</h3>
+                    <p data-i18n="path.signage.p">Storefront signs, banners, wraps, magnets, and window graphics.</p>
+                    <span class="path-card__cta" data-i18n="path.signage.cta">Get a signage quote →</span>
                 </a>
                 <a href="gang-builder.html" class="path-card reveal" style="--delay: 0.1s;">
                     <i class="fas fa-tshirt"></i>
-                    <h3>Apparel & DTF Printing</h3>
-                    <p>Gang sheets, custom tees, and rush apparel runs.</p>
-                    <span class="path-card__cta">Start designing →</span>
+                    <h3 data-i18n="path.apparel.h3">Apparel & DTF Printing</h3>
+                    <p data-i18n="path.apparel.p">Gang sheets, custom tees, and rush apparel runs.</p>
+                    <span class="path-card__cta" data-i18n="path.apparel.cta">Start designing →</span>
                 </a>
                 <a href="#websites" class="path-card reveal" style="--delay: 0.15s;">
                     <i class="fas fa-laptop-code"></i>
-                    <h3>Websites & Digital</h3>
-                    <p>Custom site builds and ongoing digital support.</p>
-                    <span class="path-card__cta">See our work →</span>
+                    <h3 data-i18n="path.web.h3">Websites & Digital</h3>
+                    <p data-i18n="path.web.p">Custom site builds and ongoing digital support.</p>
+                    <span class="path-card__cta" data-i18n="path.web.cta">See our work →</span>
                 </a>
             </div>
         </section>
 
         <section id="specialize" class="specialize-section section-padding">
             <div class="section-header section-header--left">
-                <h2 class="text-gradient">We Specialize In:</h2>
-                <p>Full-service signs, printing, and installs built for fast-moving local brands.</p>
+                <h2 class="text-gradient" data-i18n="specialize.h2">We Specialize In:</h2>
+                <p data-i18n="specialize.p">Full-service signs, printing, and installs built for fast-moving local brands.</p>
             </div>
             <div class="specialize-grid">
                 <ul class="specialize-list">
-                    <li class="specialize-card reveal" style="--delay: 0.05s;"><i class="fas fa-check"></i><span>Business Signs</span></li>
-                    <li class="specialize-card reveal" style="--delay: 0.1s;"><i class="fas fa-check"></i><span>Banners &amp; Posters</span></li>
-                    <li class="specialize-card reveal" style="--delay: 0.15s;"><i class="fas fa-check"></i><span>Vehicle Magnets</span></li>
-                    <li class="specialize-card reveal" style="--delay: 0.2s;"><i class="fas fa-check"></i><span>Window Graphics</span></li>
-                    <li class="specialize-card reveal" style="--delay: 0.25s;"><i class="fas fa-check"></i><span>Yard Signs</span></li>
-                    <li class="specialize-card reveal" style="--delay: 0.3s;"><i class="fas fa-check"></i><span>Custom Vinyl Lettering</span></li>
-                    <li class="specialize-card reveal" style="--delay: 0.35s;"><i class="fas fa-check"></i><span>LED &amp; Lighted Signs</span></li>
+                    <li class="specialize-card reveal" style="--delay: 0.05s;"><i class="fas fa-check"></i><span data-i18n="specialize.item1">Business Signs</span></li>
+                    <li class="specialize-card reveal" style="--delay: 0.1s;"><i class="fas fa-check"></i><span data-i18n="specialize.item2">Banners &amp; Posters</span></li>
+                    <li class="specialize-card reveal" style="--delay: 0.15s;"><i class="fas fa-check"></i><span data-i18n="specialize.item3">Vehicle Magnets</span></li>
+                    <li class="specialize-card reveal" style="--delay: 0.2s;"><i class="fas fa-check"></i><span data-i18n="specialize.item4">Window Graphics</span></li>
+                    <li class="specialize-card reveal" style="--delay: 0.25s;"><i class="fas fa-check"></i><span data-i18n="specialize.item5">Yard Signs</span></li>
+                    <li class="specialize-card reveal" style="--delay: 0.3s;"><i class="fas fa-check"></i><span data-i18n="specialize.item6">Custom Vinyl Lettering</span></li>
+                    <li class="specialize-card reveal" style="--delay: 0.35s;"><i class="fas fa-check"></i><span data-i18n="specialize.item7">LED &amp; Lighted Signs</span></li>
                 </ul>
                 <aside class="specialize-callout reveal" style="--delay: 0.2s;">
-                    <span class="callout-tag">Rush Apparel</span>
-                    <h3 class="text-gradient-blue">Custom T-Shirts in 24 Hours</h3>
-                    <p>Need shirts fast? We design, print, and prep in-house so you can launch without delays.</p>
-                    <a href="#contact" class="btn btn-small">Get a rush quote</a>
-                    <p class="callout-note">Local pickup and delivery available.</p>
+                    <span class="callout-tag" data-i18n="specialize.calloutTag">Rush Apparel</span>
+                    <h3 class="text-gradient-blue" data-i18n="specialize.calloutH3">Custom T-Shirts in 24 Hours</h3>
+                    <p data-i18n="specialize.calloutP">Need shirts fast? We design, print, and prep in-house so you can launch without delays.</p>
+                    <a href="#contact" class="btn btn-small" data-i18n="specialize.calloutBtn">Get a rush quote</a>
+                    <p class="callout-note" data-i18n="specialize.calloutNote">Local pickup and delivery available.</p>
                 </aside>
             </div>
         </section>
@@ -166,15 +171,15 @@
                 <div class="stats-grid">
                     <div class="stat-card reveal" style="--delay: 0.05s;">
                         <span class="stat-value" data-count="1000" data-prefix="+">0</span>
-                        <span class="stat-label">Signs Installed</span>
+                        <span class="stat-label" data-i18n="stats.signs">Signs Installed</span>
                     </div>
                     <div class="stat-card reveal" style="--delay: 0.12s;">
                         <span class="stat-value" data-count="24">0</span>
-                        <span class="stat-label">Hour T-Shirt Turnaround</span>
+                        <span class="stat-label" data-i18n="stats.hours">Hour T-Shirt Turnaround</span>
                     </div>
                     <div class="stat-card reveal" style="--delay: 0.18s;">
                         <span class="stat-value" data-count="5">0</span>
-                        <span class="stat-label">Star Local Reviews</span>
+                        <span class="stat-label" data-i18n="stats.reviews">Star Local Reviews</span>
                     </div>
                 </div>
             </div>
@@ -182,237 +187,237 @@
 
         <section id="services" class="services-section section-padding">
             <div class="section-header">
-                <h2 class="text-gradient">Custom Signs, Wraps, and Apparel in One Place</h2>
-                <p>From storefront signs to full vehicle wraps and rush-order shirts, we design, print, and install everything under one roof in Siler City, NC.</p>
+                <h2 class="text-gradient" data-i18n="services.h2">Custom Signs, Wraps, and Apparel in One Place</h2>
+                <p data-i18n="services.p">From storefront signs to full vehicle wraps and rush-order shirts, we design, print, and install everything under one roof in Siler City, NC.</p>
             </div>
             <div class="service-grid">
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-sign"></i>
                     </div>
-                    <h3>Custom Signage</h3>
-                    <p>From concept to installation, we create bespoke signs that capture your brand's essence and attract attention.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.signage.h3">Custom Signage</h3>
+                    <p data-i18n="services.signage.p">From concept to installation, we create bespoke signs that capture your brand's essence and attract attention.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-car-side"></i>
                     </div>
-                    <h3>Vehicle Wraps</h3>
-                    <p>Transform your fleet into mobile billboards with high-quality, durable vehicle wraps that make a lasting impression.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.wraps.h3">Vehicle Wraps</h3>
+                    <p data-i18n="services.wraps.p">Transform your fleet into mobile billboards with high-quality, durable vehicle wraps that make a lasting impression.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-flag"></i>
                     </div>
-                    <h3>Banners &amp; Flags</h3>
-                    <p>Promote your events and sales with vibrant banners and flags designed for maximum visibility and impact.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.banners.h3">Banners &amp; Flags</h3>
+                    <p data-i18n="services.banners.p">Promote your events and sales with vibrant banners and flags designed for maximum visibility and impact.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-print"></i>
                     </div>
-                    <h3>Digital Printing</h3>
-                    <p>High-resolution digital printing for all your marketing materials, ensuring crisp images and vivid colors.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.digital.h3">Digital Printing</h3>
+                    <p data-i18n="services.digital.p">High-resolution digital printing for all your marketing materials, ensuring crisp images and vivid colors.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-pencil-ruler"></i>
                     </div>
-                    <h3>Graphic Design</h3>
-                    <p>Our expert designers work with you to create stunning visuals that communicate your message effectively.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.design.h3">Graphic Design</h3>
+                    <p data-i18n="services.design.p">Our expert designers work with you to create stunning visuals that communicate your message effectively.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-tools"></i>
                     </div>
-                    <h3>Installation &amp; Maintenance</h3>
-                    <p>Professional installation and ongoing maintenance services to ensure your signage always looks its best.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.install.h3">Installation &amp; Maintenance</h3>
+                    <p data-i18n="services.install.p">Professional installation and ongoing maintenance services to ensure your signage always looks its best.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-laptop-code"></i>
                     </div>
-                    <h3>Website Design &amp; Creation</h3>
-                    <p>Crafting stunning and functional websites tailored to your brand's needs, from concept to launch.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.web.h3">Website Design &amp; Creation</h3>
+                    <p data-i18n="services.web.p">Crafting stunning and functional websites tailored to your brand's needs, from concept to launch.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-tshirt"></i>
                     </div>
-                    <h3>T-Shirt Design</h3>
-                    <p>Custom t-shirt designs that make a statement and promote your brand with style.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.tee.h3">T-Shirt Design</h3>
+                    <p data-i18n="services.tee.p">Custom t-shirt designs that make a statement and promote your brand with style.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
                 <article class="service-card reveal">
                     <div class="service-icon">
                         <i class="fas fa-shirt"></i>
                     </div>
-                    <h3>DTF Prints</h3>
-                    <p>High-quality Direct-to-Film (DTF) prints for vibrant and durable custom apparel.</p>
-                    <a href="#contact" class="service-link">Learn more</a>
+                    <h3 data-i18n="services.dtf.h3">DTF Prints</h3>
+                    <p data-i18n="services.dtf.p">High-quality Direct-to-Film (DTF) prints for vibrant and durable custom apparel.</p>
+                    <a href="#contact" class="service-link" data-i18n="services.learnMore">Learn more</a>
                 </article>
             </div>
         </section>
 
         <section class="cta-banner cta-banner--dark">
             <div class="cta-banner__content">
-                <h3>Need art tweaks, color matching, or fulfillment?</h3>
-                <p>Our in-house designers and logistics team can prep files, match Pantones, and drop-ship to your customers.</p>
+                <h3 data-i18n="ctaDark.h3">Need art tweaks, color matching, or fulfillment?</h3>
+                <p data-i18n="ctaDark.p">Our in-house designers and logistics team can prep files, match Pantones, and drop-ship to your customers.</p>
             </div>
-            <a href="#contact" class="btn btn-light">Talk with a specialist</a>
+            <a href="#contact" class="btn btn-light" data-i18n="ctaDark.btn">Talk with a specialist</a>
         </section>
 
         <section id="pricing" class="pricing-section section-padding">
             <div class="section-header">
-                <h2 class="text-gradient">DTF Gang Sheet Price List</h2>
-                <p>High-quality colors, 24-hour turnaround, and no minimums on our most popular sheet sizes.</p>
+                <h2 class="text-gradient" data-i18n="pricing.h2">DTF Gang Sheet Price List</h2>
+                <p data-i18n="pricing.p">High-quality colors, 24-hour turnaround, and no minimums on our most popular sheet sizes.</p>
             </div>
             <div class="pricing-grid">
                 <article class="pricing-card reveal">
                     <h3>22" × 24"</h3>
-                    <p class="pricing-card__dimension">Sheet size</p>
+                    <p class="pricing-card__dimension" data-i18n="pricing.dimension">Sheet size</p>
                     <span class="pricing-card__price">$20</span>
-                    <p class="pricing-card__subtitle">Perfect for fast turns</p>
-                    <a href="gang-builder.html" class="btn btn-block">Build this sheet</a>
+                    <p class="pricing-card__subtitle" data-i18n="pricing.sub1">Perfect for fast turns</p>
+                    <a href="gang-builder.html" class="btn btn-block" data-i18n="pricing.btnBuild">Build this sheet</a>
                 </article>
                 <article class="pricing-card pricing-card--featured reveal">
-                    <span class="pricing-card__badge">Most Popular</span>
+                    <span class="pricing-card__badge" data-i18n="pricing.badge">Most Popular</span>
                     <h3>22" × 36"</h3>
-                    <p class="pricing-card__dimension">Sheet size</p>
+                    <p class="pricing-card__dimension" data-i18n="pricing.dimension">Sheet size</p>
                     <span class="pricing-card__price">$30</span>
-                    <p class="pricing-card__subtitle">Balanced size for brands</p>
-                    <a href="gang-builder.html" class="btn btn-block">Start designing</a>
+                    <p class="pricing-card__subtitle" data-i18n="pricing.sub2">Balanced size for brands</p>
+                    <a href="gang-builder.html" class="btn btn-block" data-i18n="pricing.btnStart">Start designing</a>
                 </article>
                 <article class="pricing-card reveal">
                     <h3>22" × 48"</h3>
-                    <p class="pricing-card__dimension">Sheet size</p>
+                    <p class="pricing-card__dimension" data-i18n="pricing.dimension">Sheet size</p>
                     <span class="pricing-card__price">$40</span>
-                    <p class="pricing-card__subtitle">More space for bulk runs</p>
-                    <a href="gang-builder.html" class="btn btn-block">Build this sheet</a>
+                    <p class="pricing-card__subtitle" data-i18n="pricing.sub3">More space for bulk runs</p>
+                    <a href="gang-builder.html" class="btn btn-block" data-i18n="pricing.btnBuild">Build this sheet</a>
                 </article>
                 <article class="pricing-card reveal">
                     <h3>22" × 60"</h3>
-                    <p class="pricing-card__dimension">Sheet size</p>
+                    <p class="pricing-card__dimension" data-i18n="pricing.dimension">Sheet size</p>
                     <span class="pricing-card__price">$50</span>
-                    <p class="pricing-card__subtitle">Max layout for big drops</p>
-                    <a href="gang-builder.html" class="btn btn-block">Build this sheet</a>
+                    <p class="pricing-card__subtitle" data-i18n="pricing.sub4">Max layout for big drops</p>
+                    <a href="gang-builder.html" class="btn btn-block" data-i18n="pricing.btnBuild">Build this sheet</a>
                 </article>
             </div>
-            <p class="pricing-note">Overlapped or stacked designs may be subject to higher pricing. Need a custom sheet size? <a href="#contact">Contact us</a> for a tailored quote.</p>
+            <p class="pricing-note"><span data-i18n="pricing.note">Overlapped or stacked designs may be subject to higher pricing. Need a custom sheet size?</span> <a href="#contact" data-i18n="pricing.noteLink">Contact us</a> <span data-i18n="pricing.noteEnd">for a tailored quote.</span></p>
         </section>
 
         <section id="signage-quote" class="signage-quote-section section-padding">
             <div class="section-header">
-                <h2 class="text-gradient-blue">Get a Signage Quote</h2>
-                <p>Signage is priced per project — tell us the basics and we'll follow up with firm pricing and a timeline, usually same day.</p>
+                <h2 class="text-gradient-blue" data-i18n="signage.h2">Get a Signage Quote</h2>
+                <p data-i18n="signage.p">Signage is priced per project — tell us the basics and we'll follow up with firm pricing and a timeline, usually same day.</p>
             </div>
             <form class="signage-quote-form" id="signageQuoteForm">
                 <div class="form-row">
                     <div class="form-field">
-                        <label for="signageType">What do you need?</label>
+                        <label for="signageType" data-i18n="signage.type">What do you need?</label>
                         <select id="signageType">
-                            <option value="Business sign">Business sign</option>
-                            <option value="Banner / flag">Banner / flag</option>
-                            <option value="Yard sign">Yard sign</option>
-                            <option value="Window graphics">Window graphics</option>
-                            <option value="Vinyl lettering">Vinyl lettering</option>
-                            <option value="LED / lighted sign">LED / lighted sign</option>
-                            <option value="Vehicle wrap or magnet">Vehicle wrap or magnet</option>
-                            <option value="Something else">Something else</option>
+                            <option value="Business sign" data-i18n="signage.typeBusiness">Business sign</option>
+                            <option value="Banner / flag" data-i18n="signage.typeBanner">Banner / flag</option>
+                            <option value="Yard sign" data-i18n="signage.typeYard">Yard sign</option>
+                            <option value="Window graphics" data-i18n="signage.typeWindow">Window graphics</option>
+                            <option value="Vinyl lettering" data-i18n="signage.typeVinyl">Vinyl lettering</option>
+                            <option value="LED / lighted sign" data-i18n="signage.typeLed">LED / lighted sign</option>
+                            <option value="Vehicle wrap or magnet" data-i18n="signage.typeVehicle">Vehicle wrap or magnet</option>
+                            <option value="Something else" data-i18n="signage.typeOther">Something else</option>
                         </select>
                     </div>
                     <div class="form-field">
-                        <label for="signageSize">Approximate size</label>
+                        <label for="signageSize" data-i18n="signage.size">Approximate size</label>
                         <input type="text" id="signageSize" placeholder='e.g. 3ft x 6ft'>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
-                        <label for="signageQuantity">Quantity</label>
+                        <label for="signageQuantity" data-i18n="signage.quantity">Quantity</label>
                         <input type="number" id="signageQuantity" min="1" value="1">
                     </div>
                     <div class="form-field">
-                        <label for="signageInstall">Installation needed?</label>
+                        <label for="signageInstall" data-i18n="signage.install">Installation needed?</label>
                         <select id="signageInstall">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                            <option value="Not sure">Not sure</option>
+                            <option value="Yes" data-i18n="signage.yes">Yes</option>
+                            <option value="No" data-i18n="signage.no">No</option>
+                            <option value="Not sure" data-i18n="signage.notSure">Not sure</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
-                        <label for="signageName">Full name</label>
+                        <label for="signageName" data-i18n="signage.name">Full name</label>
                         <input type="text" id="signageName" required>
                     </div>
                     <div class="form-field">
-                        <label for="signageEmail">Email</label>
+                        <label for="signageEmail" data-i18n="signage.email">Email</label>
                         <input type="email" id="signageEmail" required>
                     </div>
                 </div>
                 <div class="form-field">
-                    <label for="signagePhone">Phone (optional)</label>
+                    <label for="signagePhone" data-i18n="signage.phone">Phone (optional)</label>
                     <input type="tel" id="signagePhone">
                 </div>
                 <div class="form-field">
-                    <label for="signageNotes">Tell us more</label>
-                    <textarea id="signageNotes" rows="3" placeholder="Location, materials, deadline, artwork status..."></textarea>
+                    <label for="signageNotes" data-i18n="signage.notes">Tell us more</label>
+                    <textarea id="signageNotes" rows="3" placeholder="Location, materials, deadline, artwork status..." data-i18n-placeholder="signage.notesPlaceholder"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Signage Quote Request</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> <span data-i18n="signage.submit">Send Signage Quote Request</span></button>
             </form>
             <p id="signageQuoteFeedback" class="order-feedback hidden"></p>
         </section>
 
         <section class="feature-showcase section-padding">
             <div class="section-header">
-                <h2 class="text-gradient">Why Choose Us?</h2>
-                <p>Fast, local, and built to make your brand look sharp in every setting.</p>
+                <h2 class="text-gradient" data-i18n="features.h2">Why Choose Us?</h2>
+                <p data-i18n="features.p">Fast, local, and built to make your brand look sharp in every setting.</p>
             </div>
             <div class="feature-grid">
                 <article class="feature-card reveal" style="--delay: 0.05s;">
                     <i class="fas fa-bolt"></i>
-                    <h3>Fast Turnaround</h3>
-                    <p>Rush-friendly production keeps your launches and installs on schedule.</p>
+                    <h3 data-i18n="features.fast.h3">Fast Turnaround</h3>
+                    <p data-i18n="features.fast.p">Rush-friendly production keeps your launches and installs on schedule.</p>
                 </article>
                 <article class="feature-card reveal" style="--delay: 0.12s;">
                     <i class="fas fa-award"></i>
-                    <h3>High-Quality Materials</h3>
-                    <p>Durable substrates, crisp color, and clean finishing built for long-term use.</p>
+                    <h3 data-i18n="features.quality.h3">High-Quality Materials</h3>
+                    <p data-i18n="features.quality.p">Durable substrates, crisp color, and clean finishing built for long-term use.</p>
                 </article>
                 <article class="feature-card reveal" style="--delay: 0.18s;">
                     <i class="fas fa-pencil-ruler"></i>
-                    <h3>Custom Designs</h3>
-                    <p>We design to your brand standards and offer proofs before production.</p>
+                    <h3 data-i18n="features.custom.h3">Custom Designs</h3>
+                    <p data-i18n="features.custom.p">We design to your brand standards and offer proofs before production.</p>
                 </article>
                 <article class="feature-card reveal" style="--delay: 0.24s;">
                     <i class="fas fa-map-marked-alt"></i>
-                    <h3>Local Install &amp; Support</h3>
-                    <p>On-site installs, fast fixes, and a team you can reach anytime.</p>
+                    <h3 data-i18n="features.local.h3">Local Install &amp; Support</h3>
+                    <p data-i18n="features.local.p">On-site installs, fast fixes, and a team you can reach anytime.</p>
                 </article>
             </div>
         </section>
 
         <section class="cta-banner cta-banner--light">
             <div class="cta-banner__content">
-                <h3>Need interactive tools?</h3>
-                <p>Use our digital Gang Sheet Builder and Tee Designer to prep files before handing them off to our production team.</p>
+                <h3 data-i18n="ctaLight.h3">Need interactive tools?</h3>
+                <p data-i18n="ctaLight.p">Use our digital Gang Sheet Builder and Tee Designer to prep files before handing them off to our production team.</p>
             </div>
             <div class="cta-banner__actions">
-                <a href="gang-builder.html" class="btn">Open Gang Sheet Builder</a>
-                <a href="tee-designer.html" class="btn btn-outline-light">Open Tee Designer</a>
+                <a href="gang-builder.html" class="btn" data-i18n="ctaLight.btn1">Open Gang Sheet Builder</a>
+                <a href="tee-designer.html" class="btn btn-outline-light" data-i18n="ctaLight.btn2">Open Tee Designer</a>
             </div>
         </section>
 <section id="websites" class="case-study-section section-padding">
             <div class="section-header">
-                <h2>Custom Websites That Convert</h2>
-                <p>Beyond print, our team designs, builds, and deploys digital storefronts that look great and drive sales.</p>
+                <h2 data-i18n="websites.h2">Custom Websites That Convert</h2>
+                <p data-i18n="websites.p">Beyond print, our team designs, builds, and deploys digital storefronts that look great and drive sales.</p>
             </div>
             <div class="case-study-grid">
                 <article class="case-study-card">
@@ -420,30 +425,30 @@
                         <img src="https://image.thum.io/get/width/1200/crop/900/https://aratkd.com" alt="Screenshot of aratkd.com homepage">
                     </div>
                     <div class="case-study-body">
-                        <span class="case-study-label">Recent Launch</span>
+                        <span class="case-study-label" data-i18n="websites.label">Recent Launch</span>
                         <h3>aratkd.com</h3>
-                        <p>Clean typography, lightning-fast load times, and a tailored ecommerce experience for a leading martial arts academy. Built on a modular CMS so the client can update classes, apparel, and events in minutes.</p>
+                        <p data-i18n="websites.desc">Clean typography, lightning-fast load times, and a tailored ecommerce experience for a leading martial arts academy. Built on a modular CMS so the client can update classes, apparel, and events in minutes.</p>
                         <ul>
-                            <li><i class="fas fa-check"></i> Mobile-first responsive layout</li>
-                            <li><i class="fas fa-check"></i> Integrated merch and membership flows</li>
-                            <li><i class="fas fa-check"></i> Custom photography and brand palette</li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="websites.li1">Mobile-first responsive layout</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="websites.li2">Integrated merch and membership flows</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="websites.li3">Custom photography and brand palette</span></li>
                         </ul>
                         <div class="case-study-actions">
-                            <a href="https://aratkd.com" target="_blank" rel="noopener" class="btn btn-outline">Visit Site</a>
-                            <a href="#contact" class="btn btn-secondary">Start a Web Project</a>
+                            <a href="https://aratkd.com" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="websites.visit">Visit Site</a>
+                            <a href="#contact" class="btn btn-secondary" data-i18n="websites.start">Start a Web Project</a>
                         </div>
                     </div>
                 </article>
                 <article class="case-study-card case-study-card--secondary">
                     <div class="case-study-body">
-                        <h3>Bring Your Next Site to Life</h3>
-                        <p>Need a Shopify build, booking platform, or marketing site? Our design and dev team can handle UX, copy, and launch strategy alongside your print collateral.</p>
+                        <h3 data-i18n="websites.h3-2">Bring Your Next Site to Life</h3>
+                        <p data-i18n="websites.desc2">Need a Shopify build, booking platform, or marketing site? Our design and dev team can handle UX, copy, and launch strategy alongside your print collateral.</p>
                         <ul>
-                            <li><i class="fas fa-check"></i> Shopify & WooCommerce storefronts</li>
-                            <li><i class="fas fa-check"></i> Landing pages with conversion tracking</li>
-                            <li><i class="fas fa-check"></i> Content updates & ongoing support</li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="websites.li4">Shopify & WooCommerce storefronts</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="websites.li5">Landing pages with conversion tracking</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="websites.li6">Content updates & ongoing support</span></li>
                         </ul>
-                        <a href="#contact" class="btn">Book a discovery call</a>
+                        <a href="#contact" class="btn" data-i18n="websites.book">Book a discovery call</a>
                     </div>
                 </article>
             </div>
@@ -451,8 +456,8 @@
 
         <section id="gallery" class="gallery-section section-padding">
             <div class="section-header">
-                <h2>Fresh Off Our Press</h2>
-                <p>A curated look at recent signs, vehicle wraps, window graphics, and apparel for local businesses.</p>
+                <h2 data-i18n="gallery.h2">Fresh Off Our Press</h2>
+                <p data-i18n="gallery.p">A curated look at recent signs, vehicle wraps, window graphics, and apparel for local businesses.</p>
             </div>
             <div class="gallery-grid">
                 <article class="gallery-card">
@@ -467,9 +472,9 @@
                         </video>
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Vehicle wrap</span>
-                        <h3>HighQuality & Remodeling</h3>
-                        <p>Full truck wrap with photo-real deck and interior panels — a mobile billboard for a local remodeling contractor.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.vehicle">Vehicle wrap</span>
+                        <h3 data-i18n="gallery.item1.h3">HighQuality & Remodeling</h3>
+                        <p data-i18n="gallery.item1.p">Full truck wrap with photo-real deck and interior panels — a mobile billboard for a local remodeling contractor.</p>
                     </div>
                 </article>
                 <article class="gallery-card">
@@ -477,9 +482,9 @@
                         <img src="Material/IMG_5010.jpeg" alt="Little Angels Learning Center post-mounted yard sign">
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Business sign</span>
-                        <h3>Little Angels Learning Center</h3>
-                        <p>Weatherproof post-mounted sign for a Snow Camp, NC childcare center — built to hold up outdoors year-round.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.sign">Business sign</span>
+                        <h3 data-i18n="gallery.item2.h3">Little Angels Learning Center</h3>
+                        <p data-i18n="gallery.item2.p">Weatherproof post-mounted sign for a Snow Camp, NC childcare center — built to hold up outdoors year-round.</p>
                     </div>
                 </article>
                 <article class="gallery-card">
@@ -487,9 +492,9 @@
                         <img src="Material/LA JAROCHA-1.png" alt="La Jarocha restaurant storefront window graphics">
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Window graphics</span>
-                        <h3>La Jarocha Restaurant</h3>
-                        <p>Full storefront window graphics turning blank glass into a menu-driven, eye-catching facade.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.window">Window graphics</span>
+                        <h3 data-i18n="gallery.item3.h3">La Jarocha Restaurant</h3>
+                        <p data-i18n="gallery.item3.p">Full storefront window graphics turning blank glass into a menu-driven, eye-catching facade.</p>
                     </div>
                 </article>
                 <article class="gallery-card">
@@ -497,9 +502,9 @@
                         <img src="Material/IMG_5250.jpeg" alt="Quesabirrias Tia Clau food trailer wrap">
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Trailer wrap</span>
-                        <h3>Quesabirrias Tia Clau</h3>
-                        <p>Full-coverage food trailer wrap with mouth-watering menu photography that sells before customers even order.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.trailer">Trailer wrap</span>
+                        <h3 data-i18n="gallery.item4.h3">Quesabirrias Tia Clau</h3>
+                        <p data-i18n="gallery.item4.p">Full-coverage food trailer wrap with mouth-watering menu photography that sells before customers even order.</p>
                     </div>
                 </article>
                 <article class="gallery-card">
@@ -507,9 +512,9 @@
                         <img src="Material/IMG_5482.jpeg" alt="United Autoglass 837 service van lettering and decals">
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Van lettering</span>
-                        <h3>United Autoglass 837</h3>
-                        <p>Cut-vinyl lettering and decals turning a service van into a rolling ad for a local auto glass company.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.van">Van lettering</span>
+                        <h3 data-i18n="gallery.item5.h3">United Autoglass 837</h3>
+                        <p data-i18n="gallery.item5.p">Cut-vinyl lettering and decals turning a service van into a rolling ad for a local auto glass company.</p>
                     </div>
                 </article>
                 <article class="gallery-card">
@@ -517,9 +522,9 @@
                         <img src="Material/cristo-viene-pronto-truck.jpg" alt="Cristo Viene Pronto ministry box truck wrap">
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Box truck wrap</span>
-                        <h3>Cristo Viene Pronto</h3>
-                        <p>Full box truck wrap with custom scripture artwork for a local ministry — built to turn heads at highway speed.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.boxtruck">Box truck wrap</span>
+                        <h3 data-i18n="gallery.item6.h3">Cristo Viene Pronto</h3>
+                        <p data-i18n="gallery.item6.p">Full box truck wrap with custom scripture artwork for a local ministry — built to turn heads at highway speed.</p>
                     </div>
                 </article>
                 <article class="gallery-card">
@@ -527,9 +532,9 @@
                         <img src="Material/ccm-heat-air-van.jpg" alt="CCM Heat and Air LLC service van wrap">
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Van wrap</span>
-                        <h3>CCM Heat & Air</h3>
-                        <p>Clean, professional van wrap for an HVAC company — logo, licensing badges, and contact info all in one clear layout.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.vanwrap">Van wrap</span>
+                        <h3 data-i18n="gallery.item7.h3">CCM Heat & Air</h3>
+                        <p data-i18n="gallery.item7.p">Clean, professional van wrap for an HVAC company — logo, licensing badges, and contact info all in one clear layout.</p>
                     </div>
                 </article>
                 <article class="gallery-card">
@@ -537,123 +542,124 @@
                         <img src="Material/taquiza-lupita-tee.png" alt="Taquiza Lupita custom event catering t-shirt design">
                     </div>
                     <div class="gallery-card__body">
-                        <span class="gallery-tag">Custom apparel</span>
-                        <h3>Taquiza Lupita</h3>
-                        <p>Front-and-back custom tee design for a local catering service — chest logo up front, full contact card on the back.</p>
+                        <span class="gallery-tag" data-i18n="gallery.tag.apparel">Custom apparel</span>
+                        <h3 data-i18n="gallery.item8.h3">Taquiza Lupita</h3>
+                        <p data-i18n="gallery.item8.p">Front-and-back custom tee design for a local catering service — chest logo up front, full contact card on the back.</p>
                     </div>
                 </article>
             </div>
         </section>
 
         <section id="testimonials" class="testimonials-section section-padding">
-            <h2>Trusted by Merch Makers & Marketers</h2>
+            <h2 data-i18n="testimonials.h2">Trusted by Merch Makers & Marketers</h2>
             <div class="testimonial-carousel">
                 <div class="testimonial-item">
-                    <p>"Asigns handled our festival launch with zero hiccups—gang sheets were perfect and on our doorstep the next morning."</p>
-                    <h4>- Maya R., Event Merch Director</h4>
+                    <p data-i18n="testimonials.q1">"Asigns handled our festival launch with zero hiccups—gang sheets were perfect and on our doorstep the next morning."</p>
+                    <h4 data-i18n="testimonials.a1">- Maya R., Event Merch Director</h4>
                 </div>
                 <div class="testimonial-item">
-                    <p>"Color accuracy has always been a challenge for us. Their team nailed our gradients and even matched specialty Pantones."</p>
-                    <h4>- Colin T., Streetwear Founder</h4>
+                    <p data-i18n="testimonials.q2">"Color accuracy has always been a challenge for us. Their team nailed our gradients and even matched specialty Pantones."</p>
+                    <h4 data-i18n="testimonials.a2">- Colin T., Streetwear Founder</h4>
                 </div>
                 <div class="testimonial-item">
-                    <p>"The builder made layout effortless. We duplicated SKUs fast, downloaded the proof, and the final sheets pressed beautifully."</p>
-                    <h4>- Briana W., Print Shop Owner</h4>
+                    <p data-i18n="testimonials.q3">"The builder made layout effortless. We duplicated SKUs fast, downloaded the proof, and the final sheets pressed beautifully."</p>
+                    <h4 data-i18n="testimonials.a3">- Briana W., Print Shop Owner</h4>
                 </div>
             </div>
         </section>
 
         <section id="faq" class="faq-section section-padding">
-            <h2>Frequently Asked Questions</h2>
+            <h2 data-i18n="faq.h2">Frequently Asked Questions</h2>
             <div class="faq-grid">
                 <details>
-                    <summary>What file types work best?</summary>
-                    <p>We recommend transparent PNG, TIFF, or vector PDF files at 300 DPI. If you only have JPEG or need cleanup, upload what you have and we’ll help prep it.</p>
+                    <summary data-i18n="faq.q1">What file types work best?</summary>
+                    <p data-i18n="faq.a1">We recommend transparent PNG, TIFF, or vector PDF files at 300 DPI. If you only have JPEG or need cleanup, upload what you have and we’ll help prep it.</p>
                 </details>
                 <details>
-                    <summary>How fast can you ship?</summary>
-                    <p>Orders approved before noon typically ship the same day. Local pickup is available, and we can arrange overnight or blind drop shipping nationwide.</p>
+                    <summary data-i18n="faq.q2">How fast can you ship?</summary>
+                    <p data-i18n="faq.a2">Orders approved before noon typically ship the same day. Local pickup is available, and we can arrange overnight or blind drop shipping nationwide.</p>
                 </details>
                 <details>
-                    <summary>Do you have minimums?</summary>
-                    <p>No minimums on gang sheets or single transfers. We offer tiered discounts once you hit 10+ sheets or recurring weekly runs.</p>
+                    <summary data-i18n="faq.q3">Do you have minimums?</summary>
+                    <p data-i18n="faq.a3">No minimums on gang sheets or single transfers. We offer tiered discounts once you hit 10+ sheets or recurring weekly runs.</p>
                 </details>
                 <details>
-                    <summary>Can you help with color matching?</summary>
-                    <p>Absolutely—share Pantone references or merch photos and we’ll dial in the color profile before printing. Hard proofing is available on request.</p>
+                    <summary data-i18n="faq.q4">Can you help with color matching?</summary>
+                    <p data-i18n="faq.a4">Absolutely—share Pantone references or merch photos and we’ll dial in the color profile before printing. Hard proofing is available on request.</p>
                 </details>
                 <details>
-                    <summary>What heat press settings do you recommend?</summary>
-                    <p>Most transfers press at 285°F for 12 seconds with medium pressure. We include a cheat sheet with every order to fit your equipment.</p>
+                    <summary data-i18n="faq.q5">What heat press settings do you recommend?</summary>
+                    <p data-i18n="faq.a5">Most transfers press at 285°F for 12 seconds with medium pressure. We include a cheat sheet with every order to fit your equipment.</p>
                 </details>
                 <details>
-                    <summary>Do you offer fulfillment or finishing?</summary>
-                    <p>Yes, we can press, fold, bag, tag, and ship to your customer under your brand. Let us know what you need in the notes or contact form.</p>
+                    <summary data-i18n="faq.q6">Do you offer fulfillment or finishing?</summary>
+                    <p data-i18n="faq.a6">Yes, we can press, fold, bag, tag, and ship to your customer under your brand. Let us know what you need in the notes or contact form.</p>
                 </details>
             </div>
         </section>
 
         <section id="contact" class="contact-section">
-            <h2>Kick Off Your Next Production Run</h2>
+            <h2 data-i18n="contact.h2">Kick Off Your Next Production Run</h2>
             <div class="contact-content">
                 <div class="contact-form">
-                    <h3>Send project details</h3>
+                    <h3 data-i18n="contact.formH3">Send project details</h3>
                     <form id="contactForm">
-                        <input type="text" id="contactName" placeholder="Name" required>
-                        <input type="email" id="contactEmail" placeholder="Email*" required>
+                        <input type="text" id="contactName" placeholder="Name" data-i18n-placeholder="contact.namePh" required>
+                        <input type="email" id="contactEmail" placeholder="Email*" data-i18n-placeholder="contact.emailPh" required>
                         <div class="file-upload-wrapper">
                             <input type="file" id="projectFile" name="projectFile" class="file-upload-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.ai,.psd,.eps,.svg">
                             <label for="projectFile" class="file-upload-label">
-                                <i class="fas fa-cloud-upload-alt"></i> Upload artwork files
+                                <i class="fas fa-cloud-upload-alt"></i> <span data-i18n="contact.uploadLabel">Upload artwork files</span>
                             </label>
-                            <span id="fileName" class="file-name">No file chosen</span>
+                            <span id="fileName" class="file-name" data-i18n="contact.noFile">No file chosen</span>
                         </div>
-                        <textarea id="contactMessage" placeholder="Tell us about quantities, timelines, and finishing needs" required></textarea>
-                        <button type="submit" class="btn">Send Message</button>
+                        <textarea id="contactMessage" placeholder="Tell us about quantities, timelines, and finishing needs" data-i18n-placeholder="contact.messagePh" required></textarea>
+                        <button type="submit" class="btn" data-i18n="contact.submit">Send Message</button>
                     </form>
                     <p id="contactFeedback" class="order-feedback hidden"></p>
-                    <p class="recaptcha-info">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.</p>
+                    <p class="recaptcha-info"><span data-i18n="contact.recaptcha">This site is protected by reCAPTCHA and the Google</span> <a href="https://policies.google.com/privacy" target="_blank" data-i18n="contact.privacy">Privacy Policy</a> <span data-i18n="contact.and">and</span> <a href="https://policies.google.com/terms" target="_blank" data-i18n="contact.terms">Terms of Service</a> <span data-i18n="contact.apply">apply.</span></p>
                 </div>
                 <div class="contact-info">
-                    <h3>Visit the production studio</h3>
-                    <p>We love walk-ins—bring your ideas, blank garments, or proofs and we’ll craft a plan while you wait.</p>
+                    <h3 data-i18n="contact.visitH3">Visit the production studio</h3>
+                    <p data-i18n="contact.visitP">We love walk-ins—bring your ideas, blank garments, or proofs and we’ll craft a plan while you wait.</p>
                     <h4>Asigns & Printing</h4>
                     <p>420 E 3rd St, Siler City, NC 27344</p>
-                    <h4>Hours</h4>
+                    <h4 data-i18n="contact.hoursH4">Hours</h4>
                     <ul>
-                        <li>Mon - Fri: 09:00 am – 05:00 pm</li>
-                        <li>Sat - Sun: Closed</li>
+                        <li data-i18n="contact.hours1">Mon - Fri: 09:00 am – 05:00 pm</li>
+                        <li data-i18n="contact.hours2">Sat - Sun: Closed</li>
                     </ul>
-                    <h4>Call Us</h4>
+                    <h4 data-i18n="contact.callH4">Call Us</h4>
                     <p><a href="tel:+13362150518">336-215-0518</a></p>
                 </div>
             </div>
         </section>
 
         <section class="subscribe-section">
-            <h3>Stay Updated!</h3>
-            <p>Subscribe for printer tips, launch guides, and early access to specialty finishes.</p>
+            <h3 data-i18n="subscribe.h3">Stay Updated!</h3>
+            <p data-i18n="subscribe.p">Subscribe for printer tips, launch guides, and early access to specialty finishes.</p>
             <form class="subscribe-form">
-                <input type="email" placeholder="Your Email" required>
-                <button type="submit" class="btn">Sign Up</button>
+                <input type="email" placeholder="Your Email" data-i18n-placeholder="subscribe.ph" required>
+                <button type="submit" class="btn" data-i18n="subscribe.btn">Sign Up</button>
             </form>
         </section>
     </main>
 
     <footer>
-        <p>Copyright © 2026 Asigns & Printing - All Rights Reserved. · <a href="resources.html">Guides</a></p>
+        <p><span data-i18n="footer.copyright">Copyright © 2026 Asigns & Printing - All Rights Reserved.</span> · <a href="resources.html" data-i18n="footer.guides">Guides</a></p>
         <div class="social-links">
             <a href="https://www.facebook.com/109847272199158" target="_blank"><i class="fab fa-facebook-f"></i></a>
         </div>
     </footer>
 
-    <a href="#contact" class="sticky-cta">Start a Project</a>
+    <a href="#contact" class="sticky-cta" data-i18n="footer.stickyCta">Start a Project</a>
 
     <div class="cookie-consent">
-        <p>This website uses cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data.</p>
-        <button class="btn accept-cookies">Accept</button>
+        <p data-i18n="cookie.text">This website uses cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data.</p>
+        <button class="btn accept-cookies" data-i18n="cookie.accept">Accept</button>
     </div>
 
+    <script src="i18n.js?v=20260723" defer></script>
     <script src="script.js?v=20260723" defer></script>
     <script src="asigns-chat.js?v=20260723" defer></script>
     <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
