@@ -91,6 +91,11 @@ section {
     transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
+.shop-section {
+    opacity: 1;
+    transform: none;
+}
+
 section.visible {
     opacity: 1;
     transform: translateY(0);
