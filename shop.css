@@ -103,6 +103,21 @@
     display: block;
 }
 
+.shop-card__media--generic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 25% 20%, rgba(255, 167, 40, 0.22), transparent 55%),
+        radial-gradient(circle at 80% 85%, rgba(43, 164, 255, 0.2), transparent 55%),
+        var(--color-dark-soft);
+}
+
+.shop-card__icon-lg {
+    font-size: 46px;
+    opacity: 0.9;
+}
+
 .shop-card__cat {
     font-size: 11px;
     color: var(--color-accent);

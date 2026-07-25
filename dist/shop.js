@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ${product.featured ? `<span class="shop-card__badge">${tt('pricing.badge', 'Most Popular')}</span>` : ''}
         ${product.image
           ? `<div class="shop-card__media"><img src="${product.image}" alt="${product.name}" loading="lazy"></div>`
-          : `<div class="shop-card__icon">${product.icon}</div>`}
+          : `<div class="shop-card__media shop-card__media--generic"><span class="shop-card__icon-lg">${product.icon}</span></div>`}
         <span class="shop-card__cat">${CATEGORY_LABEL[product.cat]}</span>
         <h3>${product.name}</h3>
         <p>${product.desc}</p>
