@@ -191,7 +191,7 @@ take the next step (call, text, visit the shop page, or use the online design to
 - Phone:   336-215-0518
 - Text:    336-215-0518
 - Website: asignsinc.com
-- Hours:   Mon–Fri 9:00 AM–5:00 PM, Sat–Sun Closed
+- Hours:   Mon–Fri 7:00 AM–3:00 PM, Sat 9:00 AM–3:00 PM, Sun by appointment
 - Payment: Zelle accepted, sent to 336-215-0518 (send only after the final price is confirmed)
 - Sales tax: 7% applied to all shop orders (added on top of the listed price)
 

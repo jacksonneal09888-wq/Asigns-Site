@@ -18,7 +18,7 @@
     <meta property="og:url" content="https://asignsinc.com/">
     <meta property="og:image" content="https://asignsinc.com/Material/0dd1a7f8-be16-44ec-a731-c8d05d20c307.jpeg">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="style.css?v=20260734">
+    <link rel="stylesheet" href="style.css?v=20260735">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script type="application/ld+json">
@@ -42,8 +42,14 @@
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "07:00",
+          "closes": "15:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday"],
           "opens": "09:00",
-          "closes": "17:00"
+          "closes": "15:00"
         }
       ],
       "sameAs": [
@@ -109,7 +115,7 @@
                     </div>
                     <ul class="hero-trust-row">
                         <li><i class="fas fa-map-marker-alt"></i> Siler City, NC</li>
-                        <li><i class="fas fa-clock"></i> <span data-i18n="hero.trustHours">Mon–Fri 9am–5pm</span></li>
+                        <li><i class="fas fa-clock"></i> <span data-i18n="hero.trustHours">Mon–Fri 7am–3pm</span></li>
                         <li><i class="fas fa-phone"></i> <a href="tel:+13362150518">336-215-0518</a></li>
                     </ul>
                 </div>
@@ -630,8 +636,9 @@
                     <p>420 E 3rd St, Siler City, NC 27344</p>
                     <h4 data-i18n="contact.hoursH4">Hours</h4>
                     <ul>
-                        <li data-i18n="contact.hours1">Mon - Fri: 09:00 am – 05:00 pm</li>
-                        <li data-i18n="contact.hours2">Sat - Sun: Closed</li>
+                        <li data-i18n="contact.hours1">Mon - Fri: 07:00 am – 03:00 pm</li>
+                        <li data-i18n="contact.hours2">Sat: 09:00 am – 03:00 pm</li>
+                        <li data-i18n="contact.hours3">Sun: By appointment</li>
                     </ul>
                     <h4 data-i18n="contact.callH4">Call Us</h4>
                     <p><a href="tel:+13362150518">336-215-0518</a></p>
@@ -663,9 +670,9 @@
         <button class="btn accept-cookies" data-i18n="cookie.accept">Accept</button>
     </div>
 
-    <script src="i18n.js?v=20260734" defer></script>
-    <script src="script.js?v=20260734" defer></script>
-    <script src="asigns-chat.js?v=20260734" defer></script>
+    <script src="i18n.js?v=20260735" defer></script>
+    <script src="script.js?v=20260735" defer></script>
+    <script src="asigns-chat.js?v=20260735" defer></script>
     <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 </body>
 </html>

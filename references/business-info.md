@@ -12,13 +12,13 @@ Email: asigns025@gmail.com (contact form + order notifications sent here via Res
 Website: asignsinc.com
 
 Hours:
-  Mon: 9:00 AM – 5:00 PM
-  Tue: 9:00 AM – 5:00 PM
-  Wed: 9:00 AM – 5:00 PM
-  Thu: 9:00 AM – 5:00 PM
-  Fri: 9:00 AM – 5:00 PM
-  Sat: Closed
-  Sun: Closed
+  Mon: 7:00 AM – 3:00 PM
+  Tue: 7:00 AM – 3:00 PM
+  Wed: 7:00 AM – 3:00 PM
+  Thu: 7:00 AM – 3:00 PM
+  Fri: 7:00 AM – 3:00 PM
+  Sat: 9:00 AM – 3:00 PM
+  Sun: By appointment
 
 Languages spoken: English and Spanish — site has a full EN/ES toggle (i18n.js), bot responds in Spanish when addressed in Spanish
 

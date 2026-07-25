@@ -29,7 +29,7 @@
     'hero.p': { en: "From storefront signs to vehicle wraps to rush-order tees — designed, printed, and installed right here in Siler City, NC.", es: 'Desde letreros para negocios hasta rotulación de vehículos y playeras urgentes — diseñado, impreso e instalado aquí mismo en Siler City, NC.' },
     'hero.ctaStart': { en: 'Start a Project', es: 'Iniciar un Proyecto' },
     'hero.ctaServices': { en: 'View Services', es: 'Ver Servicios' },
-    'hero.trustHours': { en: 'Mon–Fri 9am–5pm', es: 'Lun–Vie 9am–5pm' },
+    'hero.trustHours': { en: 'Mon–Fri 7am–3pm', es: 'Lun–Vie 7am–3pm' },
 
     // Path section
     'path.h2': { en: 'What are you here for?', es: '¿Qué estás buscando?' },
@@ -237,8 +237,9 @@
     'contact.visitH3': { en: 'Visit the production studio', es: 'Visita el estudio de producción' },
     'contact.visitP': { en: "We love walk-ins—bring your ideas, blank garments, or proofs and we’ll craft a plan while you wait.", es: 'Nos encantan las visitas sin cita—trae tus ideas, prendas en blanco o pruebas y armamos un plan mientras esperas.' },
     'contact.hoursH4': { en: 'Hours', es: 'Horario' },
-    'contact.hours1': { en: 'Mon - Fri: 09:00 am – 05:00 pm', es: 'Lun - Vie: 9:00 am – 5:00 pm' },
-    'contact.hours2': { en: 'Sat - Sun: Closed', es: 'Sáb - Dom: Cerrado' },
+    'contact.hours1': { en: 'Mon - Fri: 07:00 am – 03:00 pm', es: 'Lun - Vie: 7:00 am – 3:00 pm' },
+    'contact.hours2': { en: 'Sat: 09:00 am – 03:00 pm', es: 'Sáb: 9:00 am – 3:00 pm' },
+    'contact.hours3': { en: 'Sun: By appointment', es: 'Dom: Con cita previa' },
     'contact.callH4': { en: 'Call Us', es: 'Llámanos' },
 
     // Subscribe
