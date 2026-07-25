@@ -176,6 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3>${product.name}</h3>
         <p>${product.desc}</p>
         <span class="shop-card__price">${formatPrice(product)}</span>
+        <div class="shop-card__qty">
+          <label for="qty-${product.id}" class="shop-card__qty-label">${tt('shop.qtyLabel', 'Qty')}</label>
+          <div class="shop-card__qty-stepper">
+            <button type="button" class="shop-qty-btn" data-id="${product.id}" data-delta="-1" aria-label="${tt('shop.qtyDecrease', 'Decrease quantity')}">−</button>
+            <input type="number" id="qty-${product.id}" class="shop-card__qty-input" value="1" min="1" max="999" inputmode="numeric">
+            <button type="button" class="shop-qty-btn" data-id="${product.id}" data-delta="1" aria-label="${tt('shop.qtyIncrease', 'Increase quantity')}">+</button>
+          </div>
+        </div>
         <div class="shop-card__actions">
           <button class="btn btn-small shop-add-btn" data-id="${product.id}">${tt('shop.addToCart', 'Add to Cart')}</button>
           ${product.link ? `<a href="${product.link}" class="shop-card__tool-link">${tt('shop.openTool', 'Open design tool →')}</a>` : ''}
@@ -184,13 +192,26 @@ document.addEventListener('DOMContentLoaded', () => {
       shopGrid.appendChild(card);
     });
 
+    shopGrid.querySelectorAll('.shop-qty-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(`qty-${btn.dataset.id}`);
+        const next = (parseInt(input.value, 10) || 1) + Number(btn.dataset.delta);
+        input.value = Math.min(999, Math.max(1, next));
+      });
+    });
+
     shopGrid.querySelectorAll('.shop-add-btn').forEach((btn) => {
-      btn.addEventListener('click', () => addToCart(btn.dataset.id));
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(`qty-${btn.dataset.id}`);
+        const qty = Math.min(999, Math.max(1, parseInt(input?.value, 10) || 1));
+        addToCart(btn.dataset.id, qty);
+        if (input) input.value = 1;
+      });
     });
   }
 
-  function addToCart(id) {
-    cart[id] = (cart[id] || 0) + 1;
+  function addToCart(id, qty = 1) {
+    cart[id] = (cart[id] || 0) + qty;
     renderCart();
     cartPanel.classList.add('is-open');
     cartTray.classList.add('is-open');

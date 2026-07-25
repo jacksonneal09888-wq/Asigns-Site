@@ -307,6 +307,9 @@
     'shop.paidCheckbox': { en: "I've already sent payment via Zelle", es: 'Ya envié el pago por Zelle' },
     // Dynamic (used by shop.js via window.t)
     'shop.addToCart': { en: 'Add to Cart', es: 'Agregar al Carrito' },
+    'shop.qtyLabel': { en: 'Qty', es: 'Cant.' },
+    'shop.qtyDecrease': { en: 'Decrease quantity', es: 'Reducir cantidad' },
+    'shop.qtyIncrease': { en: 'Increase quantity', es: 'Aumentar cantidad' },
     'shop.openTool': { en: 'Open design tool →', es: 'Abrir herramienta →' },
     'shop.tbdQuote': { en: 'TBD — contact for quote', es: 'Por confirmar — contáctanos' },
     'shop.freeQuote': { en: 'Free Quote', es: 'Cotización Gratis' },
