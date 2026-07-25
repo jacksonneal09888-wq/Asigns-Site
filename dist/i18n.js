@@ -15,6 +15,7 @@
     'nav.pricing': { en: 'Pricing', es: 'Precios' },
     'nav.shop': { en: 'Shop', es: 'Tienda' },
     'nav.gangBuilder': { en: 'Gang Sheet Builder', es: 'Creador de Gang Sheets' },
+    'nav.gangBuilderShort': { en: 'Gang Sheets', es: 'Gang Sheets' },
     'nav.teeDesigner': { en: 'Tee Designer', es: 'Diseñador de Playeras' },
     'nav.websites': { en: 'Websites', es: 'Sitios Web' },
     'nav.gallery': { en: 'Gallery', es: 'Galería' },
