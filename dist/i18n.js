@@ -318,6 +318,10 @@
     'shop.sending': { en: 'Sending your order request…', es: 'Enviando tu solicitud de pedido…' },
     'shop.orderSuccess': { en: "Thanks! We've got your order request and will follow up shortly.", es: '¡Gracias! Ya tenemos tu solicitud y te contactaremos pronto.' },
     'shop.orderError': { en: 'Something went wrong sending your request — please call or text us at 336-215-0518 instead.', es: 'Hubo un problema al enviar tu solicitud — mejor llámanos o envíanos un mensaje de texto al 336-215-0518.' },
+    'shop.subtotal': { en: 'Subtotal', es: 'Subtotal' },
+    'shop.taxLabel': { en: 'Sales Tax (7%)', es: 'Impuesto de Venta (7%)' },
+    'shop.totalLabel': { en: 'Total', es: 'Total' },
+    'shop.quoteNote': { en: 'Tax on quote-based items will be calculated once the final price is confirmed.', es: 'El impuesto de los artículos cotizados se calculará una vez confirmado el precio final.' },
 
     // Gang builder page
     'gang.h2': { en: 'Interactive DTF Gang Sheet Builder', es: 'Creador Interactivo de Gang Sheets DTF' },

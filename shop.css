@@ -89,6 +89,20 @@
 
 .shop-card__icon { font-size: 28px; }
 
+.shop-card__media {
+    margin: -22px -22px 4px;
+    height: 140px;
+    overflow: hidden;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.shop-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 .shop-card__cat {
     font-size: 11px;
     color: var(--color-accent);
@@ -193,6 +207,34 @@
 
 .cart-item__price { color: var(--color-primary-light); font-weight: 600; }
 .cart-empty { color: var(--color-muted); font-size: 13px; }
+
+.cart-totals {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.cart-totals__row {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-slate);
+}
+
+.cart-totals__row--total {
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.cart-totals__note {
+    color: var(--color-muted);
+    font-size: 11.5px;
+    margin-top: 2px;
+}
 
 /* Order sheet modal */
 .order-sheet {

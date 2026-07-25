@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'dtf-22x60', cat: 'dtf', name: '22" × 60" DTF Gang Sheet', price: 50, unit: 'sheet', desc: 'Max layout size for big product drops.', icon: '🧵', link: 'gang-builder.html' },
 
     // Signs & Banners
-    { id: 'signs-yard', cat: 'signs', name: 'Yard Signs (18"x24")', price: 15, unit: 'each', desc: 'Corrugated yard signs with stakes — great for real estate and events.', icon: '📍' },
+    { id: 'signs-yard', cat: 'signs', name: 'Yard Signs (18"x24")', price: 15, unit: 'each', desc: 'Corrugated yard signs with stakes — great for real estate and events.', icon: '📍', image: 'Material/IMG_5010.jpeg' },
     { id: 'signs-corrugated', cat: 'signs', name: 'Corrugated Plastic Signs', price: 15, unit: 'sign', startingAt: true, desc: 'Lightweight, weatherproof signage for temporary or seasonal use.', icon: '🪧' },
     { id: 'signs-pvc', cat: 'signs', name: 'PVC Signs', price: 45, unit: 'sign', startingAt: true, desc: 'Rigid, smooth-finish signs for indoor or outdoor display.', icon: '🪧' },
     { id: 'signs-aluminum', cat: 'signs', name: 'Aluminum Signs', price: 65, unit: 'sign', startingAt: true, desc: 'Durable metal signage built to hold up outdoors for years.', icon: '🪧' },
@@ -25,21 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Vinyl Lettering
     { id: 'vinyl-door', cat: 'vinyl', name: 'Door Lettering', price: 45, unit: 'door', startingAt: true, desc: 'Business name and hours lettering for storefront doors.', icon: '✂️' },
-    { id: 'vinyl-window', cat: 'vinyl', name: 'Window Lettering', price: 55, unit: 'window', startingAt: true, desc: 'Cut vinyl text and logos applied directly to storefront glass.', icon: '🪟' },
+    { id: 'vinyl-window', cat: 'vinyl', name: 'Window Lettering', price: 55, unit: 'window', startingAt: true, desc: 'Cut vinyl text and logos applied directly to storefront glass.', icon: '🪟', image: 'Material/LA JAROCHA-1.png' },
     { id: 'vinyl-hours', cat: 'vinyl', name: 'Store Hours', price: 35, unit: 'sign', startingAt: true, desc: 'Simple vinyl hours-of-operation decal for your entrance.', icon: '🕒' },
     { id: 'vinyl-wall', cat: 'vinyl', name: 'Wall Lettering', price: 85, unit: 'wall', startingAt: true, desc: 'Interior wall graphics and lettering for offices and lobbies.', icon: '✂️' },
     { id: 'vinyl-reflective', cat: 'vinyl', name: 'Reflective Vinyl', price: null, desc: 'High-visibility reflective lettering and graphics for safety use.', icon: '✨' },
 
     // Vehicle Graphics
     { id: 'vehicle-doorlogo', cat: 'vehicle', name: 'Door Logos', price: 95, unit: 'set', desc: 'Logo decals for both driver and passenger doors.', icon: '🚗' },
-    { id: 'vehicle-lettering', cat: 'vehicle', name: 'Vehicle Lettering', price: 175, unit: 'vehicle', startingAt: true, desc: 'Business name, phone number, and services lettered on your vehicle.', icon: '🚗' },
+    { id: 'vehicle-lettering', cat: 'vehicle', name: 'Vehicle Lettering', price: 175, unit: 'vehicle', startingAt: true, desc: 'Business name, phone number, and services lettered on your vehicle.', icon: '🚗', image: 'Material/IMG_5482.jpeg' },
     { id: 'vehicle-partial', cat: 'vehicle', name: 'Partial Wrap', price: 850, unit: 'vehicle', startingAt: true, desc: 'Targeted coverage wrap for maximum branding on a budget.', icon: '🚐' },
     { id: 'vehicle-half', cat: 'vehicle', name: 'Half Wrap', price: 1500, unit: 'vehicle', startingAt: true, desc: 'Roughly half the vehicle wrapped for stronger brand presence.', icon: '🚐' },
     { id: 'vehicle-fullcar', cat: 'vehicle', name: 'Full Car Wrap', price: 2500, unit: 'vehicle', startingAt: true, desc: 'Full coverage wrap turning your car into a mobile billboard.', icon: '🚗' },
-    { id: 'vehicle-fullpickup', cat: 'vehicle', name: 'Full Pickup Wrap', price: 2900, unit: 'vehicle', startingAt: true, desc: 'Complete wrap coverage for pickup trucks.', icon: '🛻' },
-    { id: 'vehicle-cargovan', cat: 'vehicle', name: 'Cargo Van Wrap', price: 3000, unit: 'vehicle', startingAt: true, desc: 'Full wrap coverage for cargo and service vans.', icon: '🚐' },
-    { id: 'vehicle-boxtruck', cat: 'vehicle', name: 'Box Truck Wrap', price: 3800, unit: 'vehicle', startingAt: true, desc: 'Full wrap coverage for box trucks — maximum highway visibility.', icon: '🚚' },
-    { id: 'vehicle-trailer', cat: 'vehicle', name: 'Trailer Wrap', price: 2500, unit: 'vehicle', startingAt: true, desc: 'Full wrap coverage for enclosed and cargo trailers.', icon: '🚛' },
+    { id: 'vehicle-fullpickup', cat: 'vehicle', name: 'Full Pickup Wrap', price: 2900, unit: 'vehicle', startingAt: true, desc: 'Complete wrap coverage for pickup trucks.', icon: '🛻', image: 'Material/0dd1a7f8-be16-44ec-a731-c8d05d20c307.jpeg' },
+    { id: 'vehicle-cargovan', cat: 'vehicle', name: 'Cargo Van Wrap', price: 3000, unit: 'vehicle', startingAt: true, desc: 'Full wrap coverage for cargo and service vans.', icon: '🚐', image: 'Material/ccm-heat-air-van.jpg' },
+    { id: 'vehicle-boxtruck', cat: 'vehicle', name: 'Box Truck Wrap', price: 3800, unit: 'vehicle', startingAt: true, desc: 'Full wrap coverage for box trucks — maximum highway visibility.', icon: '🚚', image: 'Material/cristo-viene-pronto-truck.jpg' },
+    { id: 'vehicle-trailer', cat: 'vehicle', name: 'Trailer Wrap', price: 2500, unit: 'vehicle', startingAt: true, desc: 'Full wrap coverage for enclosed and cargo trailers.', icon: '🚛', image: 'Material/IMG_5250.jpeg' },
 
     // Window Tint
     { id: 'tint-front2', cat: 'tint', name: '2 Front Windows', price: 99, unit: 'vehicle', desc: 'Driver and passenger front window tint.', icon: '🚙' },
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'print-blueprints', cat: 'printing', name: 'Blueprints', price: 5, unit: 'each', startingAt: true, desc: 'Large-format blueprint and technical drawing prints.', icon: '📐' },
 
     // Custom Apparel
-    { id: 'apparel-tee', cat: 'apparel', name: 'Custom T-Shirts', price: 15.99, unit: 'shirt', startingAt: true, desc: 'Design in the Tee Designer, then send us your mockup. 24-hour rush available.', icon: '👕', link: 'tee-designer.html' },
+    { id: 'apparel-tee', cat: 'apparel', name: 'Custom T-Shirts', price: 15.99, unit: 'shirt', startingAt: true, desc: 'Design in the Tee Designer, then send us your mockup. 24-hour rush available.', icon: '👕', link: 'tee-designer.html', image: 'Material/taquiza-lupita-tee.png' },
     { id: 'apparel-richardson', cat: 'apparel', name: 'Richardson Hats', price: 16.99, unit: 'hat', startingAt: true, desc: 'Custom Richardson trucker hats with embroidery or patch options.', icon: '🧢' },
     { id: 'apparel-embroidered', cat: 'apparel', name: 'Embroidered Hats', price: 19.95, unit: 'hat', startingAt: true, desc: 'Premium embroidered hats — built to last, made to represent.', icon: '🧢' },
     { id: 'apparel-polo', cat: 'apparel', name: 'Polo Shirts', price: 29.95, unit: 'shirt', startingAt: true, desc: 'Embroidered or printed polos for staff and teams.', icon: '👔' },
@@ -119,12 +119,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartItemsEl = document.getElementById('cartItems');
   const cartCountEl = document.getElementById('cartCount');
   const cartTotalEl = document.getElementById('cartTotal');
+  const cartTotalsEl = document.getElementById('cartTotals');
   const cartCheckoutBtn = document.getElementById('cartCheckoutBtn');
+  const TAX_RATE = 0.07;
 
   const orderSheet = document.getElementById('orderSheet');
   const orderSheetBackdrop = document.getElementById('orderSheetBackdrop');
   const orderSheetClose = document.getElementById('orderSheetClose');
   const orderSheetItems = document.getElementById('orderSheetItems');
+  const orderSheetTotals = document.getElementById('orderSheetTotals');
   const orderSheetForm = document.getElementById('orderSheetForm');
   const orderSheetFeedback = document.getElementById('orderSheetFeedback');
 
@@ -148,7 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'shop-card' + (product.featured ? ' shop-card--featured' : '');
       card.innerHTML = `
         ${product.featured ? `<span class="shop-card__badge">${tt('pricing.badge', 'Most Popular')}</span>` : ''}
-        <div class="shop-card__icon">${product.icon}</div>
+        ${product.image
+          ? `<div class="shop-card__media"><img src="${product.image}" alt="${product.name}" loading="lazy"></div>`
+          : `<div class="shop-card__icon">${product.icon}</div>`}
         <span class="shop-card__cat">${CATEGORY_LABEL[product.cat]}</span>
         <h3>${product.name}</h3>
         <p>${product.desc}</p>
@@ -179,20 +184,47 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
   }
 
+  function round2(n) {
+    return Math.round(n * 100) / 100;
+  }
+
+  function computeTotals() {
+    let subtotal = 0;
+    let hasQuoteItems = false;
+    Object.keys(cart).forEach((id) => {
+      const product = PRODUCTS.find((p) => p.id === id);
+      if (!product) return;
+      if (product.price === null) hasQuoteItems = true;
+      else subtotal += product.price * cart[id];
+    });
+    const tax = round2(subtotal * TAX_RATE);
+    const total = round2(subtotal + tax);
+    return { subtotal: round2(subtotal), tax, total, hasQuoteItems };
+  }
+
+  function renderTotals(container, { subtotal, tax, total, hasQuoteItems }) {
+    if (subtotal <= 0 && !hasQuoteItems) {
+      container.innerHTML = '';
+      return;
+    }
+    container.innerHTML = `
+      <div class="cart-totals__row"><span>${tt('shop.subtotal', 'Subtotal')}</span><span>$${subtotal}${hasQuoteItems ? '+' : ''}</span></div>
+      <div class="cart-totals__row"><span>${tt('shop.taxLabel', 'Sales Tax (7%)')}</span><span>$${tax}${hasQuoteItems ? '+' : ''}</span></div>
+      <div class="cart-totals__row cart-totals__row--total"><span>${tt('shop.totalLabel', 'Total')}</span><span>$${total}${hasQuoteItems ? '+' : ''}</span></div>
+      ${hasQuoteItems ? `<p class="cart-totals__note">${tt('shop.quoteNote', 'Tax on quote-based items will be calculated once the final price is confirmed.')}</p>` : ''}
+    `;
+  }
+
   function renderCart() {
     const ids = Object.keys(cart);
     const count = ids.reduce((sum, id) => sum + cart[id], 0);
     cartCountEl.textContent = `${count} ${count === 1 ? tt('shop.item', 'item') : tt('shop.items', 'items')}`;
 
-    let total = 0;
-    let hasQuoteItems = false;
     cartItemsEl.innerHTML = '';
 
     ids.forEach((id) => {
       const product = PRODUCTS.find((p) => p.id === id);
       if (!product) return;
-      if (product.price === null) hasQuoteItems = true;
-      else total += product.price * cart[id];
 
       const row = document.createElement('div');
       row.className = 'cart-item';
@@ -203,12 +235,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <span>${cart[id]}</span>
           <button class="cart-qty-btn" data-id="${id}" data-delta="1">+</button>
         </div>
-        <span class="cart-item__price">${product.price === null ? tt('shop.freeQuote', 'Free Quote') : '$' + (Math.round(product.price * cart[id] * 100) / 100)}</span>
+        <span class="cart-item__price">${product.price === null ? tt('shop.freeQuote', 'Free Quote') : '$' + round2(product.price * cart[id])}</span>
       `;
       cartItemsEl.appendChild(row);
     });
 
-    cartTotalEl.textContent = count === 0 ? '' : (total > 0 ? `$${Math.round(total * 100) / 100}${hasQuoteItems ? '+' : ''}` : tt('shop.quoteNeeded', 'Quote needed'));
+    const totals = computeTotals();
+    renderTotals(cartTotalsEl, totals);
+
+    cartTotalEl.textContent = count === 0 ? '' : (totals.total > 0 ? `$${totals.total}${totals.hasQuoteItems ? '+' : ''}` : tt('shop.quoteNeeded', 'Quote needed'));
 
     cartItemsEl.querySelectorAll('.cart-qty-btn').forEach((btn) => {
       btn.addEventListener('click', () => updateQty(btn.dataset.id, Number(btn.dataset.delta)));
@@ -242,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const product = PRODUCTS.find((p) => p.id === id);
       return `<div class="order-sheet__item">${cart[id]} × ${product.name} — ${formatPrice(product)}</div>`;
     }).join('');
+    renderTotals(orderSheetTotals, computeTotals());
     orderSheet.classList.add('is-open');
   }
 
@@ -262,6 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const paidViaZelle = document.getElementById('shopPaidViaZelle').checked;
     const notes = document.getElementById('shopOrderNotes').value;
+    const totals = computeTotals();
+
+    const totalsNote = `Subtotal: $${totals.subtotal}${totals.hasQuoteItems ? '+' : ''} | Sales Tax (7%): $${totals.tax}${totals.hasQuoteItems ? '+' : ''} | Total: $${totals.total}${totals.hasQuoteItems ? '+' : ''}${totals.hasQuoteItems ? ' (tax on quote items calculated once final price is set)' : ''}`;
 
     const payload = {
       name: document.getElementById('shopCustomerName').value,
@@ -269,7 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
       phone: document.getElementById('shopCustomerPhone').value,
       category: 'shop-cart',
       items,
-      notes: paidViaZelle ? `[Customer marked: already sent payment via Zelle]\n${notes}`.trim() : notes,
+      subtotal: totals.subtotal,
+      tax: totals.tax,
+      total: totals.total,
+      taxRate: TAX_RATE,
+      notes: [paidViaZelle ? '[Customer marked: already sent payment via Zelle]' : '', totalsNote, notes].filter(Boolean).join('\n'),
     };
 
     orderSheetFeedback.textContent = tt('shop.sending', 'Sending your order request…');

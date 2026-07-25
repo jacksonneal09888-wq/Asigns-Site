@@ -46,6 +46,7 @@ take the next step (call, text, visit the shop page, or use the online design to
 - Website: asignsinc.com
 - Hours:   Mon–Fri 9:00 AM–5:00 PM, Sat–Sun Closed
 - Payment: Zelle accepted, sent to 336-215-0518 (send only after the final price is confirmed)
+- Sales tax: 7% applied to all shop orders (added on top of the listed price)
 
 ## Services / Products & Starting Prices
 All prices below are real starting prices from the current price sheet. "From $X" means the

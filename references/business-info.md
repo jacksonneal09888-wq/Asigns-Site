@@ -78,6 +78,8 @@ Order form sends email to: same as above
 
 Payment methods: Zelle, sent to 336-215-0518 (shown in the shop's order form; customer sends after final price is confirmed, with an "I've already paid" checkbox that flags the order notes)
 
+Sales tax: 7% applied to all shop cart totals (subtotal/tax/total breakdown shown in cart, order sheet, and included in the order notification email)
+
 Google Sheet calendar? N
 
 Bot name: Asigns Bot (Asigns & Printing AI assistant)
