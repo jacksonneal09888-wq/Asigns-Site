@@ -104,18 +104,42 @@
 }
 
 .shop-card__media--generic {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     background:
-        radial-gradient(circle at 25% 20%, rgba(255, 167, 40, 0.22), transparent 55%),
-        radial-gradient(circle at 80% 85%, rgba(43, 164, 255, 0.2), transparent 55%),
+        radial-gradient(circle at 22% 18%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 55%),
+        radial-gradient(circle at 82% 88%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 55%),
         var(--color-dark-soft);
 }
 
+.shop-card__icon-ghost {
+    position: absolute;
+    right: -14px;
+    bottom: -22px;
+    font-size: 96px;
+    opacity: 0.1;
+    transform: rotate(-8deg);
+    filter: grayscale(1) brightness(1.6);
+    pointer-events: none;
+}
+
+.shop-card__icon-glow {
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+    filter: blur(20px);
+    pointer-events: none;
+}
+
 .shop-card__icon-lg {
-    font-size: 46px;
-    opacity: 0.9;
+    position: relative;
+    font-size: 60px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
 }
 
 .shop-card__cat {

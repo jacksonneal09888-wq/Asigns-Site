@@ -317,7 +317,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 80px;
+    height: 88px;
     z-index: 999;
     background: rgba(0, 0, 0, 0.82);
     backdrop-filter: blur(10px);
@@ -327,7 +327,7 @@ header {
 
 header.scrolled {
     background: rgba(0, 0, 0, 0.95);
-    height: 72px;
+    height: 80px;
 }
 
 nav {
@@ -349,7 +349,7 @@ nav {
 }
 
 .header-logo {
-    height: 66px;
+    height: 76px;
     width: auto;
     transition: transform 0.3s ease;
 }
@@ -616,7 +616,7 @@ nav {
 }
 
 .hero-logo {
-    height: 72px;
+    height: 92px;
     width: auto;
     margin-bottom: 18px;
 }
@@ -2347,11 +2347,15 @@ footer .social-links a:hover {
 
 @media (max-width: 1180px) {
     header {
-        height: 72px;
+        height: 78px;
     }
 
     header.scrolled {
-        height: 64px;
+        height: 70px;
+    }
+
+    .header-logo {
+        height: 62px;
     }
 
     .burger {

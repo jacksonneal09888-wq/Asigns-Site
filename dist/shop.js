@@ -111,6 +111,20 @@ document.addEventListener('DOMContentLoaded', () => {
     packages: 'Packages',
   };
 
+  const CATEGORY_ACCENT = {
+    dtf: '#ffa728',
+    signs: '#2ba4ff',
+    vinyl: '#6bc1ff',
+    vehicle: '#ff7a00',
+    tint: '#8b7cf6',
+    printing: '#ffa728',
+    apparel: '#e8394a',
+    design: '#2ba4ff',
+    web: '#22c1a0',
+    branding: '#8b7cf6',
+    packages: '#ffa728',
+  };
+
   const shopGrid = document.getElementById('shopGrid');
   const filterButtons = document.querySelectorAll('.shop-filter');
   const cartTray = document.getElementById('cartTray');
@@ -153,7 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ${product.featured ? `<span class="shop-card__badge">${tt('pricing.badge', 'Most Popular')}</span>` : ''}
         ${product.image
           ? `<div class="shop-card__media"><img src="${product.image}" alt="${product.name}" loading="lazy"></div>`
-          : `<div class="shop-card__media shop-card__media--generic"><span class="shop-card__icon-lg">${product.icon}</span></div>`}
+          : `<div class="shop-card__media shop-card__media--generic" style="--accent: ${CATEGORY_ACCENT[product.cat] || '#ffa728'}">
+              <span class="shop-card__icon-ghost">${product.icon}</span>
+              <span class="shop-card__icon-glow"></span>
+              <span class="shop-card__icon-lg">${product.icon}</span>
+            </div>`}
         <span class="shop-card__cat">${CATEGORY_LABEL[product.cat]}</span>
         <h3>${product.name}</h3>
         <p>${product.desc}</p>
