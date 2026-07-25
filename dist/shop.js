@@ -313,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
       total: totals.total,
       taxRate: TAX_RATE,
       notes: [paidViaZelle ? '[Customer marked: already sent payment via Zelle]' : '', totalsNote, notes].filter(Boolean).join('\n'),
+      honeypot: document.getElementById('orderSheetHoneypot')?.value || '',
     };
 
     orderSheetFeedback.textContent = tt('shop.sending', 'Sending your order request…');

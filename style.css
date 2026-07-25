@@ -1561,6 +1561,18 @@ nav {
     display: none !important;
 }
 
+/* Honeypot: visually hidden from real users but present for bots that
+   auto-fill every field, unlike display:none which many bots skip. */
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
 .canvas-dimensions {
     margin: 12px 0 0;
     font-size: 0.9rem;

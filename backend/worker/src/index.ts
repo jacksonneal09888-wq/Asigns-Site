@@ -33,6 +33,42 @@ async function sendNotificationEmail(env: Bindings, subject: string, text: strin
   }
 }
 
+function getClientIp(c: { req: { header: (name: string) => string | undefined } }): string {
+  return c.req.header('CF-Connecting-IP') ?? 'unknown';
+}
+
+/** Simple D1-backed sliding-window rate limit. Returns true if the request is allowed. */
+async function checkRateLimit(
+  env: Bindings,
+  ip: string,
+  endpoint: string,
+  maxRequests: number,
+  windowMinutes: number
+): Promise<boolean> {
+  if (ip === 'unknown') return true; // fail open if we can't identify the caller
+
+  const windowStart = new Date(Date.now() - windowMinutes * 60_000).toISOString().slice(0, 19).replace('T', ' ');
+
+  const { results } = await env.DB.prepare(
+    `SELECT COUNT(*) as cnt FROM rate_limits WHERE ip = ? AND endpoint = ? AND created_at > ?`
+  )
+    .bind(ip, endpoint, windowStart)
+    .all();
+
+  const count = (results[0] as { cnt: number } | undefined)?.cnt ?? 0;
+  if (count >= maxRequests) return false;
+
+  await env.DB.prepare(`INSERT INTO rate_limits (ip, endpoint) VALUES (?, ?)`).bind(ip, endpoint).run();
+
+  // Cheap opportunistic cleanup so the table doesn't grow forever — no cron needed.
+  if (Math.random() < 0.05) {
+    const dayAgo = new Date(Date.now() - 24 * 60 * 60_000).toISOString().slice(0, 19).replace('T', ' ');
+    await env.DB.prepare(`DELETE FROM rate_limits WHERE created_at < ?`).bind(dayAgo).run();
+  }
+
+  return true;
+}
+
 type OrderArgs = {
   name: string;
   email: string;
@@ -132,6 +168,7 @@ const CHAT_TOOLS = [
 ];
 
 const PLACEHOLDER_PATTERNS = /customer|example\.com|placeholder|your name|your email|full name|n\/a|unknown/i;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function looksLikeRealContact(name: unknown, email: unknown): string | null {
   if (typeof name !== 'string' || typeof email !== 'string') return 'name and email must be text';
@@ -305,11 +342,20 @@ app.use('*', async (c, next) => {
 });
 
 app.post('/api/chat', async (c) => {
+  const ip = getClientIp(c);
+  if (!(await checkRateLimit(c.env, ip, 'chat', 30, 5))) {
+    return c.json({ error: 'Too many requests — please slow down and try again shortly.' }, 429);
+  }
+
   const body = await c.req.json<{ messages?: { role: string; content: string }[] }>();
   const incoming = Array.isArray(body.messages) ? body.messages : [];
 
   if (!incoming.length) {
     return c.json({ error: 'messages array is required' }, 400);
+  }
+
+  if (incoming.some((m) => typeof m.content !== 'string' || m.content.length > 4000)) {
+    return c.json({ error: 'A message is too long or invalid (max 4000 characters).' }, 400);
   }
 
   const messages: any[] = [{ role: 'system', content: SYSTEM_PROMPT }, ...incoming.slice(-20)];
@@ -408,10 +454,28 @@ app.post('/api/chat', async (c) => {
 });
 
 app.post('/api/orders', async (c) => {
-  const body = await c.req.json<OrderArgs>();
+  const ip = getClientIp(c);
+  if (!(await checkRateLimit(c.env, ip, 'orders', 8, 10))) {
+    return c.json({ error: 'Too many requests — please slow down and try again shortly.' }, 429);
+  }
+
+  const body = await c.req.json<OrderArgs & { honeypot?: string }>();
+
+  if (body.honeypot) {
+    // Bot filled in a field real users never see — pretend success, do nothing.
+    return c.json({ ok: true });
+  }
 
   if (!body.name || !body.email || !body.items) {
     return c.json({ error: 'name, email, and items are required' }, 400);
+  }
+
+  const itemsStr = typeof body.items === 'string' ? body.items : JSON.stringify(body.items);
+  if (body.name.length > 200 || body.email.length > 200 || (body.phone ?? '').length > 50 || itemsStr.length > 5000 || (body.notes ?? '').length > 5000) {
+    return c.json({ error: 'One or more fields is too long.' }, 400);
+  }
+  if (!EMAIL_PATTERN.test(body.email)) {
+    return c.json({ error: 'Please provide a valid email address.' }, 400);
   }
 
   await saveOrder(c.env, body);
@@ -421,10 +485,26 @@ app.post('/api/orders', async (c) => {
 });
 
 app.post('/api/contact', async (c) => {
-  const body = await c.req.json<ContactArgs>();
+  const ip = getClientIp(c);
+  if (!(await checkRateLimit(c.env, ip, 'contact', 8, 10))) {
+    return c.json({ error: 'Too many requests — please slow down and try again shortly.' }, 429);
+  }
+
+  const body = await c.req.json<ContactArgs & { honeypot?: string }>();
+
+  if (body.honeypot) {
+    return c.json({ ok: true });
+  }
 
   if (!body.name || !body.email || !body.message) {
     return c.json({ error: 'name, email, and message are required' }, 400);
+  }
+
+  if (body.name.length > 200 || body.email.length > 200 || body.message.length > 5000) {
+    return c.json({ error: 'One or more fields is too long.' }, 400);
+  }
+  if (!EMAIL_PATTERN.test(body.email)) {
+    return c.json({ error: 'Please provide a valid email address.' }, 400);
   }
 
   await saveContact(c.env, body);
@@ -438,12 +518,18 @@ function requireAdmin(c: { req: { header: (name: string) => string | undefined }
 }
 
 app.get('/api/admin/orders', async (c) => {
+  if (!(await checkRateLimit(c.env, getClientIp(c), 'admin', 30, 10))) {
+    return c.json({ error: 'Too many requests.' }, 429);
+  }
   if (!requireAdmin(c)) return c.json({ error: 'unauthorized' }, 401);
   const { results } = await c.env.DB.prepare(`SELECT * FROM orders ORDER BY created_at DESC LIMIT 200`).all();
   return c.json({ orders: results });
 });
 
 app.get('/api/admin/contact-messages', async (c) => {
+  if (!(await checkRateLimit(c.env, getClientIp(c), 'admin', 30, 10))) {
+    return c.json({ error: 'Too many requests.' }, 429);
+  }
   if (!requireAdmin(c)) return c.json({ error: 'unauthorized' }, 401);
   const { results } = await c.env.DB.prepare(`SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT 200`).all();
   return c.json({ messages: results });

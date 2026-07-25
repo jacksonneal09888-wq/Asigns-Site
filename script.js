@@ -639,6 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = customerEmailInput.value.trim();
             const phone = customerPhoneInput.value.trim();
             const shipDate = shipDateInput.value;
+            const honeypot = document.getElementById('orderRequestHoneypot')?.value || '';
 
             if (!name || !email) {
                 showOrderFeedback('Please enter your name and email before sending your request.', true);
@@ -671,6 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             layout: itemsSummary,
                         }],
                         notes: `${notesInput.value.trim() || 'None'}\nDesired ship date: ${shipDate || 'Not specified'}\nDownloaded layout file: ${fileName} (customer keeps a copy to attach if needed)`,
+                        honeypot,
                     }),
                 });
                 if (!response.ok) throw new Error('Request failed');
@@ -1080,6 +1082,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         category: 'apparel',
                         items: [{ quantity, design: summarizeTeeCanvas() }],
                         notes: notes || 'None',
+                        honeypot: document.getElementById('teeOrderHoneypot')?.value || '',
                     }),
                 });
                 if (!response.ok) throw new Error('Request failed');
@@ -1112,6 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 installNeeded: document.getElementById('signageInstall').value,
             }],
             notes: document.getElementById('signageNotes').value,
+            honeypot: document.getElementById('signageHoneypot')?.value || '',
         };
 
         signageQuoteFeedback.textContent = 'Sending your quote request…';
@@ -1143,6 +1147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: document.getElementById('contactName').value,
             email: document.getElementById('contactEmail').value,
             message: document.getElementById('contactMessage').value,
+            honeypot: document.getElementById('contactHoneypot')?.value || '',
         };
 
         contactFeedback.textContent = 'Sending your message…';
