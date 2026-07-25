@@ -2198,7 +2198,7 @@ footer .social-links a:hover {
     padding: 24px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-strong);
-    display: flex;
+    display: none;
     align-items: center;
     gap: 24px;
     z-index: 998;
