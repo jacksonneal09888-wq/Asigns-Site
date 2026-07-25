@@ -33,6 +33,116 @@ async function sendNotificationEmail(env: Bindings, subject: string, text: strin
   }
 }
 
+type OrderArgs = {
+  name: string;
+  email: string;
+  phone?: string;
+  category?: string;
+  items: unknown;
+  notes?: string;
+};
+
+async function saveOrder(env: Bindings, args: OrderArgs) {
+  await env.DB.prepare(
+    `INSERT INTO orders (name, email, phone, category, items_json, notes) VALUES (?, ?, ?, ?, ?, ?)`
+  )
+    .bind(args.name, args.email, args.phone ?? null, args.category ?? null, JSON.stringify(args.items), args.notes ?? null)
+    .run();
+}
+
+function notifyOrder(env: Bindings, ctx: ExecutionContext, args: OrderArgs, source: string) {
+  ctx.waitUntil(
+    sendNotificationEmail(
+      env,
+      `New ${args.category ?? 'order'} request from ${args.name} (${source})`,
+      [
+        `New order/quote request (${source}) — category: ${args.category ?? 'unspecified'}`,
+        '',
+        `Name: ${args.name}`,
+        `Email: ${args.email}`,
+        `Phone: ${args.phone ?? 'Not provided'}`,
+        '',
+        'Items:',
+        typeof args.items === 'string' ? args.items : JSON.stringify(args.items, null, 2),
+        '',
+        `Notes: ${args.notes ?? 'None'}`,
+      ].join('\n'),
+      args.email
+    )
+  );
+}
+
+type ContactArgs = { name: string; email: string; message: string };
+
+async function saveContact(env: Bindings, args: ContactArgs) {
+  await env.DB.prepare(`INSERT INTO contact_messages (name, email, message) VALUES (?, ?, ?)`)
+    .bind(args.name, args.email, args.message)
+    .run();
+}
+
+function notifyContact(env: Bindings, ctx: ExecutionContext, args: ContactArgs, source: string) {
+  ctx.waitUntil(
+    sendNotificationEmail(
+      env,
+      `New website message from ${args.name} (${source})`,
+      [`New contact message (${source})`, '', `Name: ${args.name}`, `Email: ${args.email}`, '', 'Message:', args.message].join('\n'),
+      args.email
+    )
+  );
+}
+
+const CHAT_TOOLS = [
+  {
+    name: 'submit_order',
+    description:
+      "Submit a product or service order/quote request. Only call this after the customer has typed their own real name and a real email address earlier in this conversation, plus a clear description of what they want. Never invent or guess these values. Covers signs, banners, vinyl, vehicle graphics, window tint, printing, apparel, graphic design, websites, branding, and packages.",
+    parameters: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: "The exact name the customer typed in the chat. Never a placeholder." },
+        email: { type: 'string', description: "The exact email address the customer typed in the chat. Never a placeholder." },
+        phone: { type: 'string', description: 'Phone number, only if the customer actually gave one' },
+        category: {
+          type: 'string',
+          description: 'One of: dtf, signs, vinyl, vehicle, tint, printing, apparel, design, web, branding, packages',
+        },
+        items: {
+          type: 'string',
+          description: 'Plain description of what they want — product/service name(s), quantity, size, color, etc.',
+        },
+        notes: { type: 'string', description: 'Any extra details: deadline, artwork status, install needs, etc.' },
+      },
+      required: ['name', 'email', 'items'],
+    },
+  },
+  {
+    name: 'submit_contact_message',
+    description:
+      "Send a general message to the shop when the customer's request isn't a specific product order. Only call this after the customer has typed their own real name and a real email address earlier in this conversation. Never invent or guess these values.",
+    parameters: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: "The exact name the customer typed in the chat. Never a placeholder." },
+        email: { type: 'string', description: "The exact email address the customer typed in the chat. Never a placeholder." },
+        message: { type: 'string', description: 'The message to send to the shop' },
+      },
+      required: ['name', 'email', 'message'],
+    },
+  },
+];
+
+const PLACEHOLDER_PATTERNS = /customer|example\.com|placeholder|your name|your email|full name|n\/a|unknown/i;
+
+function looksLikeRealContact(name: unknown, email: unknown): string | null {
+  if (typeof name !== 'string' || typeof email !== 'string') return 'name and email must be text';
+  if (name.trim().length < 2) return 'name is missing or too short';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return 'email does not look like a valid email address';
+  if (PLACEHOLDER_PATTERNS.test(name) || PLACEHOLDER_PATTERNS.test(email)) {
+    return 'name or email looks like a placeholder/example value, not something the customer actually typed';
+  }
+  return null;
+}
+
 const SYSTEM_PROMPT = `You are Asigns Bot — the friendly, knowledgeable AI guide for Asigns & Printing,
 a sign, print, and apparel shop in Siler City, NC. You help customers get quick answers about
 signs, vehicle wraps, banners, DTF transfers, custom apparel, and websites, and guide them to
@@ -106,6 +216,36 @@ Complete Business Starter Package — from $1,499. Includes: custom logo, profes
 to 5 pages), business cards, social media setup, Google Business Profile, a yard sign or banner,
 and basic brand guidelines.
 
+## Placing Orders and Quotes Yourself
+You can complete an order or quote request directly in the conversation using the submit_order
+and submit_contact_message tools — you don't have to just point people at a form.
+- When a customer says they want to order or get a quote for something, gather what you need
+  through natural conversation: what they want (product/service, size/quantity/color if relevant),
+  their name, and their email (phone is optional, ask once but don't block on it).
+- Once you have name, email, and a clear description of what they want, call submit_order. Don't
+  call it before you have those three things — ask for whatever's missing first.
+- Use the WHOLE conversation, not just the latest message — if they said what they want earlier
+  and just gave you their name/email now, that's enough to submit. Don't re-ask for details
+  they already gave you.
+- Only name, email, and items (what they want) are required. Phone and notes are optional —
+  once you have the three required pieces, submit immediately. Do not stall waiting for phone
+  number or extra notes; ask about those only after submitting, if at all.
+- After a successful submit_order or submit_contact_message call, confirm it warmly: recap what
+  was submitted, remind them the shop will follow up with firm pricing (and mention Zelle payment
+  to 336-215-0518 is accepted once the price is confirmed, if relevant), and offer to help with
+  anything else.
+- If a customer just wants a quick price check or general info, don't push them toward ordering —
+  only move into gathering order details once they've expressed they want to actually order/request
+  a quote.
+- Never fabricate an order confirmation — only claim something was submitted after the tool call
+  actually succeeds.
+- CRITICAL: name and email must be the customer's REAL values typed in THIS conversation. Never
+  invent, guess, or use a placeholder/example value (e.g. never pass literal text like "Customer's
+  full name" or "customer@example.com" — those are field descriptions, not answers). If the
+  customer hasn't actually told you their name and a real email address in the chat, you do not
+  have them — ask for them in plain text and wait for their reply. Do not call submit_order or
+  submit_contact_message until you have copied their actual typed name and email into the call.
+
 ## Website Navigation
 Guide users using these action tags (the front-end converts them into clickable buttons):
 - Shop:                [ACTION:open:shop.html]
@@ -166,94 +306,129 @@ app.use('*', async (c, next) => {
 
 app.post('/api/chat', async (c) => {
   const body = await c.req.json<{ messages?: { role: string; content: string }[] }>();
-  const messages = Array.isArray(body.messages) ? body.messages : [];
+  const incoming = Array.isArray(body.messages) ? body.messages : [];
 
-  if (!messages.length) {
+  if (!incoming.length) {
     return c.json({ error: 'messages array is required' }, 400);
   }
 
-  try {
-    const result = await c.env.AI.run(CHAT_MODEL, {
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages.slice(-20)],
-      max_tokens: 800,
-    });
+  const messages: any[] = [{ role: 'system', content: SYSTEM_PROMPT }, ...incoming.slice(-20)];
 
-    return c.json({ content: (result as { response?: string }).response ?? '' });
+  try {
+    const actionsTaken: string[] = [];
+    // Guards against the model re-issuing the same submission across rounds — once a
+    // given tool has successfully completed once in this request, it can't run again.
+    const completedTools = new Set<string>();
+    let stopOfferingTools = false;
+
+    for (let round = 0; round < 3; round++) {
+      const result = (await c.env.AI.run(CHAT_MODEL, {
+        messages,
+        max_tokens: 800,
+        ...(stopOfferingTools ? {} : { tools: CHAT_TOOLS }),
+      })) as { response?: string; tool_calls?: { name: string; arguments: unknown }[] };
+
+      const toolCalls = result.tool_calls ?? [];
+      if (!toolCalls.length) {
+        return c.json({ content: result.response ?? '', actionsTaken });
+      }
+
+      // Reconstruct in the OpenAI-compatible shape the backend expects when replaying
+      // tool_calls back into the conversation (id/type/function.arguments-as-string) —
+      // this differs from the flat {name, arguments} shape the response itself uses.
+      const idedCalls = toolCalls.map((call, i) => ({
+        id: `call_${round}_${i}`,
+        type: 'function' as const,
+        function: {
+          name: call.name,
+          arguments: typeof call.arguments === 'string' ? call.arguments : JSON.stringify(call.arguments),
+        },
+      }));
+
+      messages.push({ role: 'assistant', content: result.response ?? '', tool_calls: idedCalls });
+
+      for (let i = 0; i < toolCalls.length; i++) {
+        const call = toolCalls[i];
+        const args = typeof call.arguments === 'string' ? JSON.parse(call.arguments) : (call.arguments as Record<string, unknown>);
+        let toolResult = 'OK';
+
+        if (completedTools.has(call.name)) {
+          toolResult = 'This was already submitted successfully earlier in this conversation — do not submit it again. Just confirm with the customer in your reply.';
+        } else {
+          try {
+            if (call.name === 'submit_order') {
+              const orderArgs = args as unknown as OrderArgs;
+              const contactIssue = looksLikeRealContact(orderArgs.name, orderArgs.email);
+              if (contactIssue) {
+                toolResult = `ERROR: ${contactIssue}. Ask the customer directly for their real name and email — do not guess or reuse example values.`;
+              } else if (!orderArgs.items) {
+                toolResult = 'ERROR: missing required field (items) — ask the customer what they want to order.';
+              } else {
+                await saveOrder(c.env, orderArgs);
+                notifyOrder(c.env, c.executionCtx, orderArgs, 'AI chat');
+                toolResult = 'Order submitted successfully.';
+                actionsTaken.push('order');
+                completedTools.add(call.name);
+                stopOfferingTools = true;
+              }
+            } else if (call.name === 'submit_contact_message') {
+              const contactArgs = args as unknown as ContactArgs;
+              const contactIssue = looksLikeRealContact(contactArgs.name, contactArgs.email);
+              if (contactIssue) {
+                toolResult = `ERROR: ${contactIssue}. Ask the customer directly for their real name and email — do not guess or reuse example values.`;
+              } else if (!contactArgs.message) {
+                toolResult = 'ERROR: missing required field (message) — ask the customer what they want to say.';
+              } else {
+                await saveContact(c.env, contactArgs);
+                notifyContact(c.env, c.executionCtx, contactArgs, 'AI chat');
+                toolResult = 'Message submitted successfully.';
+                actionsTaken.push('contact');
+                completedTools.add(call.name);
+                stopOfferingTools = true;
+              }
+            } else {
+              toolResult = `ERROR: unknown tool ${call.name}`;
+            }
+          } catch (toolErr) {
+            toolResult = 'ERROR: something went wrong submitting this — apologize and suggest the customer call/text 336-215-0518 instead.';
+          }
+        }
+
+        messages.push({ role: 'tool', tool_call_id: idedCalls[i].id, content: toolResult });
+      }
+    }
+
+    // Ran out of rounds — ask the model for a final plain-text reply without tools.
+    const fallback = (await c.env.AI.run(CHAT_MODEL, { messages, max_tokens: 400 })) as { response?: string };
+    return c.json({ content: fallback.response ?? '', actionsTaken });
   } catch (err) {
+    console.error('CHAT ERROR', err instanceof Error ? err.message : String(err), err instanceof Error ? err.stack : '');
     return c.json({ error: 'AI request failed' }, 502);
   }
 });
 
 app.post('/api/orders', async (c) => {
-  const body = await c.req.json<{
-    name: string;
-    email: string;
-    phone?: string;
-    category?: string;
-    items: unknown;
-    notes?: string;
-  }>();
+  const body = await c.req.json<OrderArgs>();
 
   if (!body.name || !body.email || !body.items) {
     return c.json({ error: 'name, email, and items are required' }, 400);
   }
 
-  await c.env.DB.prepare(
-    `INSERT INTO orders (name, email, phone, category, items_json, notes) VALUES (?, ?, ?, ?, ?, ?)`
-  )
-    .bind(body.name, body.email, body.phone ?? null, body.category ?? null, JSON.stringify(body.items), body.notes ?? null)
-    .run();
-
-  c.executionCtx.waitUntil(
-    sendNotificationEmail(
-      c.env,
-      `New ${body.category ?? 'order'} request from ${body.name}`,
-      [
-        `New order/quote request from the website (${body.category ?? 'unspecified category'})`,
-        '',
-        `Name: ${body.name}`,
-        `Email: ${body.email}`,
-        `Phone: ${body.phone ?? 'Not provided'}`,
-        '',
-        'Items:',
-        JSON.stringify(body.items, null, 2),
-        '',
-        `Notes: ${body.notes ?? 'None'}`,
-      ].join('\n'),
-      body.email
-    )
-  );
+  await saveOrder(c.env, body);
+  notifyOrder(c.env, c.executionCtx, body, 'website form');
 
   return c.json({ ok: true });
 });
 
 app.post('/api/contact', async (c) => {
-  const body = await c.req.json<{ name: string; email: string; message: string }>();
+  const body = await c.req.json<ContactArgs>();
 
   if (!body.name || !body.email || !body.message) {
     return c.json({ error: 'name, email, and message are required' }, 400);
   }
 
-  await c.env.DB.prepare(`INSERT INTO contact_messages (name, email, message) VALUES (?, ?, ?)`)
-    .bind(body.name, body.email, body.message)
-    .run();
-
-  c.executionCtx.waitUntil(
-    sendNotificationEmail(
-      c.env,
-      `New website message from ${body.name}`,
-      [
-        'New contact form message from the website',
-        '',
-        `Name: ${body.name}`,
-        `Email: ${body.email}`,
-        '',
-        'Message:',
-        body.message,
-      ].join('\n'),
-      body.email
-    )
-  );
+  await saveContact(c.env, body);
+  notifyContact(c.env, c.executionCtx, body, 'website form');
 
   return c.json({ ok: true });
 });

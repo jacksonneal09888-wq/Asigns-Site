@@ -83,5 +83,9 @@ Sales tax: 7% applied to all shop cart totals (subtotal/tax/total breakdown show
 Google Sheet calendar? N
 
 Bot name: Asigns Bot (Asigns & Printing AI assistant)
+Bot capabilities: can complete orders/quotes and general contact messages directly in chat via
+  tool-calling (submit_order, submit_contact_message) — writes to the same D1 tables and triggers
+  the same email notification as the website forms. Hard-validates that name/email are real values
+  typed by the customer (rejects placeholder-looking values) before ever saving to the database.
 Bot personality: Friendly, sharp, helpful
 ```
