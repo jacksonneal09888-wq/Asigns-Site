@@ -349,7 +349,7 @@ nav {
 }
 
 .header-logo {
-    height: 54px;
+    height: 66px;
     width: auto;
     transition: transform 0.3s ease;
 }
@@ -616,7 +616,7 @@ nav {
 }
 
 .hero-logo {
-    height: 54px;
+    height: 72px;
     width: auto;
     margin-bottom: 18px;
 }
