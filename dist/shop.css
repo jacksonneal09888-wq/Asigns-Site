@@ -10,8 +10,6 @@
 }
 
 .shop-filters {
-    position: sticky;
-    top: 110px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -19,6 +17,7 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-md);
     padding: 20px;
+    min-height: 40px;
 }
 
 .shop-filters h3 {
@@ -54,6 +53,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
+    min-height: 200px;
 }
 
 .shop-card {
