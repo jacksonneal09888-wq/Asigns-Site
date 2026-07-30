@@ -43,10 +43,16 @@ async function sendNotificationEmail(
   replyTo?: string,
   attachments?: EmailAttachment[]
 ) {
-  if (!env.RESEND_API_KEY || !env.NOTIFY_EMAIL) return;
+  if (!env.RESEND_API_KEY || !env.NOTIFY_EMAIL) {
+    console.log('EMAIL SKIPPED: missing RESEND_API_KEY or NOTIFY_EMAIL', {
+      hasKey: !!env.RESEND_API_KEY,
+      notifyEmail: env.NOTIFY_EMAIL,
+    });
+    return;
+  }
 
   try {
-    await fetch('https://api.resend.com/emails', {
+    const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${env.RESEND_API_KEY}`,
@@ -61,8 +67,14 @@ async function sendNotificationEmail(
         ...(attachments && attachments.length ? { attachments } : {}),
       }),
     });
+    const bodyText = await res.text();
+    if (!res.ok) {
+      console.log('EMAIL FAILED', res.status, bodyText);
+    } else {
+      console.log('EMAIL SENT OK', res.status, bodyText);
+    }
   } catch (err) {
-    // Notification email is best-effort — never block the form submission on it.
+    console.log('EMAIL THREW', err instanceof Error ? err.message : String(err));
   }
 }
 
