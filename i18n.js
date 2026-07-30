@@ -225,7 +225,7 @@
     'contact.formH3': { en: 'Send project details', es: 'Envía los detalles del proyecto' },
     'contact.namePh': { en: 'Name', es: 'Nombre' },
     'contact.emailPh': { en: 'Email*', es: 'Correo electrónico*' },
-    'contact.uploadLabel': { en: 'Upload artwork files', es: 'Subir archivos de diseño' },
+    'contact.uploadLabel': { en: 'Drag & drop or click to upload artwork', es: 'Arrastra o haz clic para subir tu diseño' },
     'contact.noFile': { en: 'No file chosen', es: 'Ningún archivo elegido' },
     'contact.messagePh': { en: 'Tell us about quantities, timelines, and finishing needs', es: 'Cuéntanos sobre cantidades, tiempos y necesidades de acabado' },
     'contact.submit': { en: 'Send Message', es: 'Enviar Mensaje' },

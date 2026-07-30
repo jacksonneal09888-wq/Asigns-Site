@@ -2076,6 +2076,12 @@ nav {
     border-radius: var(--radius-md);
     background: rgba(8, 8, 10, 0.9);
     text-align: center;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.file-upload-wrapper.is-dragover {
+    border-color: var(--color-primary);
+    background: rgba(255, 167, 40, 0.08);
 }
 
 .file-upload-input {
@@ -2096,6 +2102,10 @@ nav {
     margin-top: 12px;
     color: var(--color-muted);
     font-size: 0.9rem;
+}
+
+.file-name--error {
+    color: #e94560;
 }
 
 .contact-info h3 {

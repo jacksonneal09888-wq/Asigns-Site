@@ -10,7 +10,39 @@ type Bindings = {
   NOTIFY_EMAIL: string;
 };
 
-async function sendNotificationEmail(env: Bindings, subject: string, text: string, replyTo?: string) {
+type EmailAttachment = { filename: string; content: string };
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+  }
+  return btoa(binary);
+}
+
+const MAX_ATTACHMENT_MB = 15;
+const ALLOWED_ATTACHMENT_EXTENSIONS = /\.(pdf|docx?|jpe?g|png|ai|psd|eps|svg)$/i;
+
+async function fileToAttachment(file: File): Promise<{ attachment?: EmailAttachment; error?: string }> {
+  if (file.size > MAX_ATTACHMENT_MB * 1024 * 1024) {
+    return { error: `File is larger than ${MAX_ATTACHMENT_MB}MB. Please send a smaller file or call/text us instead.` };
+  }
+  if (!ALLOWED_ATTACHMENT_EXTENSIONS.test(file.name)) {
+    return { error: 'Unsupported file type. Please upload a PDF, Word doc, image, AI, PSD, EPS, or SVG file.' };
+  }
+  const buffer = await file.arrayBuffer();
+  return { attachment: { filename: file.name, content: arrayBufferToBase64(buffer) } };
+}
+
+async function sendNotificationEmail(
+  env: Bindings,
+  subject: string,
+  text: string,
+  replyTo?: string,
+  attachments?: EmailAttachment[]
+) {
   if (!env.RESEND_API_KEY || !env.NOTIFY_EMAIL) return;
 
   try {
@@ -26,6 +58,7 @@ async function sendNotificationEmail(env: Bindings, subject: string, text: strin
         ...(replyTo ? { reply_to: replyTo } : {}),
         subject,
         text,
+        ...(attachments && attachments.length ? { attachments } : {}),
       }),
     });
   } catch (err) {
@@ -116,13 +149,29 @@ async function saveContact(env: Bindings, args: ContactArgs) {
     .run();
 }
 
-function notifyContact(env: Bindings, ctx: Pick<ExecutionContext, 'waitUntil'>, args: ContactArgs, source: string) {
+function notifyContact(
+  env: Bindings,
+  ctx: Pick<ExecutionContext, 'waitUntil'>,
+  args: ContactArgs,
+  source: string,
+  attachment?: EmailAttachment
+) {
   ctx.waitUntil(
     sendNotificationEmail(
       env,
       `New website message from ${args.name} (${source})`,
-      [`New contact message (${source})`, '', `Name: ${args.name}`, `Email: ${args.email}`, '', 'Message:', args.message].join('\n'),
-      args.email
+      [
+        `New contact message (${source})`,
+        '',
+        `Name: ${args.name}`,
+        `Email: ${args.email}`,
+        '',
+        'Message:',
+        args.message,
+        ...(attachment ? ['', `Attached file: ${attachment.filename}`] : []),
+      ].join('\n'),
+      args.email,
+      attachment ? [attachment] : undefined
     )
   );
 }
@@ -500,25 +549,59 @@ app.post('/api/contact', async (c) => {
     return c.json({ error: 'Too many requests — please slow down and try again shortly.' }, 429);
   }
 
-  const body = await c.req.json<ContactArgs & { honeypot?: string }>();
+  const contentType = c.req.header('Content-Type') ?? '';
+  let name = '';
+  let email = '';
+  let message = '';
+  let honeypot = '';
+  let file: File | undefined;
 
-  if (body.honeypot) {
+  if (contentType.includes('multipart/form-data')) {
+    const form = await c.req.parseBody();
+    name = typeof form.name === 'string' ? form.name : '';
+    email = typeof form.email === 'string' ? form.email : '';
+    message = typeof form.message === 'string' ? form.message : '';
+    honeypot = typeof form.honeypot === 'string' ? form.honeypot : '';
+    if (form.file instanceof File && form.file.size > 0) {
+      file = form.file;
+    }
+  } else {
+    const body = await c.req.json<ContactArgs & { honeypot?: string }>();
+    name = body.name ?? '';
+    email = body.email ?? '';
+    message = body.message ?? '';
+    honeypot = body.honeypot ?? '';
+  }
+
+  if (honeypot) {
     return c.json({ ok: true });
   }
 
-  if (!body.name || !body.email || !body.message) {
+  if (!name || !email || !message) {
     return c.json({ error: 'name, email, and message are required' }, 400);
   }
 
-  if (body.name.length > 200 || body.email.length > 200 || body.message.length > 5000) {
+  if (name.length > 200 || email.length > 200 || message.length > 5000) {
     return c.json({ error: 'One or more fields is too long.' }, 400);
   }
-  if (!EMAIL_PATTERN.test(body.email)) {
+  if (!EMAIL_PATTERN.test(email)) {
     return c.json({ error: 'Please provide a valid email address.' }, 400);
   }
 
-  await saveContact(c.env, body);
-  notifyContact(c.env, c.executionCtx, body, 'website form');
+  let attachment: EmailAttachment | undefined;
+  if (file) {
+    const result = await fileToAttachment(file);
+    if (result.error) {
+      return c.json({ error: result.error }, 400);
+    }
+    attachment = result.attachment;
+  }
+
+  const messageWithFileNote = attachment ? `${message}\n\n[Attached file: ${attachment.filename}]` : message;
+  const contactArgs: ContactArgs = { name, email, message: messageWithFileNote };
+
+  await saveContact(c.env, contactArgs);
+  notifyContact(c.env, c.executionCtx, contactArgs, 'website form', attachment);
 
   return c.json({ ok: true });
 });

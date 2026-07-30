@@ -208,16 +208,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // File upload display name
+    // File upload display name + drag-and-drop
     const projectFileInput = document.getElementById('projectFile');
     const fileNameSpan = document.getElementById('fileName');
+    const fileUploadWrapper = document.querySelector('.file-upload-wrapper');
+    const MAX_ATTACHMENT_MB = 15;
 
     if (projectFileInput) {
         projectFileInput.addEventListener('change', function() {
             if (this.files && this.files.length > 0) {
-                fileNameSpan.textContent = this.files[0].name;
+                const file = this.files[0];
+                if (file.size > MAX_ATTACHMENT_MB * 1024 * 1024) {
+                    fileNameSpan.textContent = `${file.name} — too large (max ${MAX_ATTACHMENT_MB}MB)`;
+                    fileNameSpan.classList.add('file-name--error');
+                    this.value = '';
+                    return;
+                }
+                fileNameSpan.classList.remove('file-name--error');
+                fileNameSpan.textContent = file.name;
             } else {
+                fileNameSpan.classList.remove('file-name--error');
                 fileNameSpan.textContent = 'No file chosen';
+            }
+        });
+    }
+
+    if (fileUploadWrapper && projectFileInput) {
+        ['dragenter', 'dragover'].forEach((evtName) => {
+            fileUploadWrapper.addEventListener(evtName, (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                fileUploadWrapper.classList.add('is-dragover');
+            });
+        });
+        ['dragleave', 'dragend', 'drop'].forEach((evtName) => {
+            fileUploadWrapper.addEventListener(evtName, (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                fileUploadWrapper.classList.remove('is-dragover');
+            });
+        });
+        fileUploadWrapper.addEventListener('drop', (event) => {
+            const dt = event.dataTransfer;
+            if (dt && dt.files && dt.files.length > 0) {
+                projectFileInput.files = dt.files;
+                projectFileInput.dispatchEvent(new Event('change'));
             }
         });
     }
@@ -635,6 +670,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         orderForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+            if (orderForm.dataset.submitting === '1') return;
+
             const name = customerNameInput.value.trim();
             const email = customerEmailInput.value.trim();
             const phone = customerPhoneInput.value.trim();
@@ -654,6 +691,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const fileName = downloadCanvasImage();
             const itemsSummary = summarizeCanvasObjects();
             const quantity = quantityInput.value || '1';
+
+            const orderSubmitBtn = orderForm.querySelector('button[type="submit"]');
+            orderForm.dataset.submitting = '1';
+            if (orderSubmitBtn) orderSubmitBtn.disabled = true;
 
             showOrderFeedback('Sending your order request…', false);
 
@@ -679,6 +720,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 showOrderFeedback('Order request sent! Your layout also downloaded as a backup — our team will follow up shortly.', false);
             } catch (error) {
                 showOrderFeedback(`Something went wrong sending your request — please call or text us at 336-215-0518 and mention your downloaded file ${fileName}.`, true);
+            } finally {
+                orderForm.dataset.submitting = '';
+                if (orderSubmitBtn) orderSubmitBtn.disabled = false;
             }
         });
     }
@@ -1054,6 +1098,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         teeOrderForm?.addEventListener('submit', async (event) => {
             event.preventDefault();
+            if (teeOrderForm.dataset.submitting === '1') return;
+
             const name = document.getElementById('teeCustomerName').value.trim();
             const email = document.getElementById('teeCustomerEmail').value.trim();
             const phone = document.getElementById('teeCustomerPhone').value.trim();
@@ -1066,6 +1112,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 teeOrderFeedback.style.background = 'rgba(233, 69, 96, 0.18)';
                 return;
             }
+
+            const teeSubmitBtn = teeOrderForm.querySelector('button[type="submit"]');
+            teeOrderForm.dataset.submitting = '1';
+            if (teeSubmitBtn) teeSubmitBtn.disabled = true;
 
             teeOrderFeedback.textContent = 'Sending your order request…';
             teeOrderFeedback.classList.remove('hidden');
@@ -1092,6 +1142,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 teeOrderFeedback.textContent = 'Something went wrong sending your request — please call or text us at 336-215-0518 instead.';
                 teeOrderFeedback.style.background = 'rgba(233, 69, 96, 0.18)';
+            } finally {
+                teeOrderForm.dataset.submitting = '';
+                if (teeSubmitBtn) teeSubmitBtn.disabled = false;
             }
         });
     }
@@ -1102,6 +1155,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     signageQuoteForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
+        if (signageQuoteForm.dataset.submitting === '1') return;
+        signageQuoteForm.dataset.submitting = '1';
+        const signageSubmitBtn = signageQuoteForm.querySelector('button[type="submit"]');
+        if (signageSubmitBtn) signageSubmitBtn.disabled = true;
 
         const payload = {
             name: document.getElementById('signageName').value,
@@ -1132,6 +1189,9 @@ document.addEventListener('DOMContentLoaded', () => {
             signageQuoteForm.reset();
         } catch (error) {
             signageQuoteFeedback.textContent = 'Something went wrong sending your request — please call or text us at 336-215-0518 instead.';
+        } finally {
+            signageQuoteForm.dataset.submitting = '';
+            if (signageSubmitBtn) signageSubmitBtn.disabled = false;
         }
     });
 
@@ -1143,27 +1203,42 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const payload = {
-            name: document.getElementById('contactName').value,
-            email: document.getElementById('contactEmail').value,
-            message: document.getElementById('contactMessage').value,
-            honeypot: document.getElementById('contactHoneypot')?.value || '',
-        };
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        if (contactForm.dataset.submitting === '1') return;
+        contactForm.dataset.submitting = '1';
+        if (submitBtn) submitBtn.disabled = true;
 
-        contactFeedback.textContent = 'Sending your message…';
+        const formData = new FormData();
+        formData.set('name', document.getElementById('contactName').value);
+        formData.set('email', document.getElementById('contactEmail').value);
+        formData.set('message', document.getElementById('contactMessage').value);
+        formData.set('honeypot', document.getElementById('contactHoneypot')?.value || '');
+        const file = projectFileInput?.files?.[0];
+        if (file) formData.set('file', file);
+
+        contactFeedback.textContent = file ? 'Sending your message and file…' : 'Sending your message…';
         contactFeedback.classList.remove('hidden');
 
         try {
             const response = await fetch(CONTACT_API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                body: formData,
             });
-            if (!response.ok) throw new Error('Request failed');
-            contactFeedback.textContent = "Thanks! We've received your message and will be in touch shortly.";
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data.error || 'Request failed');
+            }
+            contactFeedback.textContent = "Thanks! We've received your message" + (file ? ' and file' : '') + " and will be in touch shortly.";
             contactForm.reset();
+            fileNameSpan.textContent = 'No file chosen';
+            fileNameSpan.classList.remove('file-name--error');
         } catch (error) {
-            contactFeedback.textContent = 'Something went wrong sending your message — please call or text us at 336-215-0518 instead.';
+            contactFeedback.textContent = error.message && error.message !== 'Request failed'
+                ? error.message
+                : 'Something went wrong sending your message — please call or text us at 336-215-0518 instead.';
+        } finally {
+            contactForm.dataset.submitting = '';
+            if (submitBtn) submitBtn.disabled = false;
         }
     });
 });
