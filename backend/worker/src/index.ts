@@ -176,52 +176,65 @@ function notifyContact(
   );
 }
 
+// The Workers AI backend for this model validates `tools` strictly against the
+// OpenAI function-calling schema (tools[].type === 'function' with a nested
+// `function` object) -- the older flat {name, description, parameters} shape
+// that used to be accepted now gets rejected with a 400 from the model backend.
 type ChatTool = {
-  name: string;
-  description: string;
-  parameters: {
-    type: string;
-    properties: Record<string, { type: string; description: string }>;
-    required: string[];
+  type: 'function';
+  function: {
+    name: string;
+    description: string;
+    parameters: {
+      type: string;
+      properties: Record<string, { type: string; description: string }>;
+      required: string[];
+    };
   };
 };
 
 const CHAT_TOOLS: ChatTool[] = [
   {
-    name: 'submit_order',
-    description:
-      "Submit a product or service order/quote request. Only call this after the customer has typed their own real name and a real email address earlier in this conversation, plus a clear description of what they want. Never invent or guess these values. Covers signs, banners, vinyl, vehicle graphics, window tint, printing, apparel, graphic design, websites, branding, and packages.",
-    parameters: {
-      type: 'object',
-      properties: {
-        name: { type: 'string', description: "The exact name the customer typed in the chat. Never a placeholder." },
-        email: { type: 'string', description: "The exact email address the customer typed in the chat. Never a placeholder." },
-        phone: { type: 'string', description: 'Phone number, only if the customer actually gave one' },
-        category: {
-          type: 'string',
-          description: 'One of: dtf, signs, vinyl, vehicle, tint, printing, apparel, design, web, branding, packages',
+    type: 'function',
+    function: {
+      name: 'submit_order',
+      description:
+        "Submit a product or service order/quote request. Only call this after the customer has typed their own real name and a real email address earlier in this conversation, plus a clear description of what they want. Never invent or guess these values. Covers signs, banners, vinyl, vehicle graphics, window tint, printing, apparel, graphic design, websites, branding, and packages.",
+      parameters: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: "The exact name the customer typed in the chat. Never a placeholder." },
+          email: { type: 'string', description: "The exact email address the customer typed in the chat. Never a placeholder." },
+          phone: { type: 'string', description: 'Phone number, only if the customer actually gave one' },
+          category: {
+            type: 'string',
+            description: 'One of: dtf, signs, vinyl, vehicle, tint, printing, apparel, design, web, branding, packages',
+          },
+          items: {
+            type: 'string',
+            description: 'Plain description of what they want — product/service name(s), quantity, size, color, etc.',
+          },
+          notes: { type: 'string', description: 'Any extra details: deadline, artwork status, install needs, etc.' },
         },
-        items: {
-          type: 'string',
-          description: 'Plain description of what they want — product/service name(s), quantity, size, color, etc.',
-        },
-        notes: { type: 'string', description: 'Any extra details: deadline, artwork status, install needs, etc.' },
+        required: ['name', 'email', 'items'],
       },
-      required: ['name', 'email', 'items'],
     },
   },
   {
-    name: 'submit_contact_message',
-    description:
-      "Send a general message to the shop when the customer's request isn't a specific product order. Only call this after the customer has typed their own real name and a real email address earlier in this conversation. Never invent or guess these values.",
-    parameters: {
-      type: 'object',
-      properties: {
-        name: { type: 'string', description: "The exact name the customer typed in the chat. Never a placeholder." },
-        email: { type: 'string', description: "The exact email address the customer typed in the chat. Never a placeholder." },
-        message: { type: 'string', description: 'The message to send to the shop' },
+    type: 'function',
+    function: {
+      name: 'submit_contact_message',
+      description:
+        "Send a general message to the shop when the customer's request isn't a specific product order. Only call this after the customer has typed their own real name and a real email address earlier in this conversation. Never invent or guess these values.",
+      parameters: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: "The exact name the customer typed in the chat. Never a placeholder." },
+          email: { type: 'string', description: "The exact email address the customer typed in the chat. Never a placeholder." },
+          message: { type: 'string', description: 'The message to send to the shop' },
+        },
+        required: ['name', 'email', 'message'],
       },
-      required: ['name', 'email', 'message'],
     },
   },
 ];
@@ -243,6 +256,9 @@ const SYSTEM_PROMPT = `You are Asigns Bot — the friendly, knowledgeable AI gui
 a sign, print, and apparel shop in Siler City, NC. You help customers get quick answers about
 signs, vehicle wraps, banners, DTF transfers, custom apparel, and websites, and guide them to
 take the next step (call, text, visit the shop page, or use the online design tools).
+
+Never narrate your own decision process out loud (no "I don't need to call a function", "I will
+respond with plain text," etc.) — just answer directly, as if the customer can't see your reasoning.
 
 ## Business Info
 - Name:    Asigns & Printing
@@ -315,32 +331,17 @@ and basic brand guidelines.
 ## Placing Orders and Quotes Yourself
 You can complete an order or quote request directly in the conversation using the submit_order
 and submit_contact_message tools — you don't have to just point people at a form.
-- When a customer says they want to order or get a quote for something, gather what you need
-  through natural conversation: what they want (product/service, size/quantity/color if relevant),
-  their name, and their email (phone is optional, ask once but don't block on it).
-- Once you have name, email, and a clear description of what they want, call submit_order. Don't
-  call it before you have those three things — ask for whatever's missing first.
-- Use the WHOLE conversation, not just the latest message — if they said what they want earlier
-  and just gave you their name/email now, that's enough to submit. Don't re-ask for details
-  they already gave you.
-- Only name, email, and items (what they want) are required. Phone and notes are optional —
-  once you have the three required pieces, submit immediately. Do not stall waiting for phone
-  number or extra notes; ask about those only after submitting, if at all.
-- After a successful submit_order or submit_contact_message call, confirm it warmly: recap what
-  was submitted, remind them the shop will follow up with firm pricing (and mention Zelle payment
-  to 336-215-0518 is accepted once the price is confirmed, if relevant), and offer to help with
-  anything else.
-- If a customer just wants a quick price check or general info, don't push them toward ordering —
-  only move into gathering order details once they've expressed they want to actually order/request
-  a quote.
-- Never fabricate an order confirmation — only claim something was submitted after the tool call
-  actually succeeds.
-- CRITICAL: name and email must be the customer's REAL values typed in THIS conversation. Never
-  invent, guess, or use a placeholder/example value (e.g. never pass literal text like "Customer's
-  full name" or "customer@example.com" — those are field descriptions, not answers). If the
-  customer hasn't actually told you their name and a real email address in the chat, you do not
-  have them — ask for them in plain text and wait for their reply. Do not call submit_order or
-  submit_contact_message until you have copied their actual typed name and email into the call.
+- A plain question with no order intent (pricing, "what do you offer," how-to, etc.) gets a direct
+  plain-text answer from the price sheet above and no tool call. Only move toward gathering order
+  details once the customer has actually said they want to order or get a quote submitted.
+- Once you have all three required pieces — name, email, and what they want — anywhere in the
+  conversation (this message or an earlier one), call submit_order in that same reply immediately.
+  Don't recap and ask "should I go ahead?" first — confirmation happens after the tool call
+  succeeds, not before. Phone and notes are optional; never stall waiting on them.
+- name and email must be the customer's own real values actually typed in this conversation —
+  never a placeholder like "Customer" or "customer@example.com". If you don't have their real name
+  and email yet, ask for them in plain text; don't call the tool until you do.
+- Never claim something was submitted unless the tool call actually happened and succeeded.
 
 ## Website Navigation
 Guide users using these action tags (the front-end converts them into clickable buttons):
@@ -379,6 +380,9 @@ answer helpfully using your general knowledge:
   guessing, and offer the contact/call action.
 
 ## Personality & Rules
+- Never narrate your own reasoning or tool-use decisions (e.g. never say things like "I don't
+  need to call a function for this" or "I will respond with plain text") — the customer can't see
+  your internal process, so jump straight into the actual answer with no meta-commentary about it.
 - Warm, confident, and thorough — like a great shop employee who genuinely knows the trade
 - Default to 3–6 sentences; give more detail when the question calls for it (e.g. a how-to or
   comparison), don't pad simple questions
@@ -431,16 +435,27 @@ app.post('/api/chat', async (c) => {
         messages,
         max_tokens: 800,
         ...(stopOfferingTools ? {} : { tools: CHAT_TOOLS }),
-      })) as { response?: string; tool_calls?: { name: string; arguments: unknown }[] };
+      })) as {
+        response?: string;
+        tool_calls?: { name?: string; arguments?: unknown; function?: { name: string; arguments: unknown } }[];
+      };
 
-      const toolCalls = result.tool_calls ?? [];
+      // The response shape for tool_calls has been observed both flat ({name, arguments})
+      // and nested OpenAI-style ({function: {name, arguments}}) depending on backend
+      // version -- normalize defensively rather than assume one or the other.
+      const rawToolCalls = result.tool_calls ?? [];
+      const toolCalls = rawToolCalls.map((call) => ({
+        name: call.function?.name ?? call.name ?? '',
+        arguments: call.function?.arguments ?? call.arguments,
+      }));
+
       if (!toolCalls.length) {
         return c.json({ content: result.response ?? '', actionsTaken });
       }
 
       // Reconstruct in the OpenAI-compatible shape the backend expects when replaying
       // tool_calls back into the conversation (id/type/function.arguments-as-string) —
-      // this differs from the flat {name, arguments} shape the response itself uses.
+      // this differs from the shape the response itself may use.
       const idedCalls = toolCalls.map((call, i) => ({
         id: `call_${round}_${i}`,
         type: 'function' as const,
@@ -465,7 +480,8 @@ app.post('/api/chat', async (c) => {
               const orderArgs = args as unknown as OrderArgs;
               const contactIssue = looksLikeRealContact(orderArgs.name, orderArgs.email);
               if (contactIssue) {
-                toolResult = `ERROR: ${contactIssue}. Ask the customer directly for their real name and email — do not guess or reuse example values.`;
+                toolResult = `ERROR: ${contactIssue}. You should not have called this tool yet. Do not call it again in this reply — instead, respond in plain text: if the customer asked an informational/pricing question, just answer it directly from the info you already have, and only ask for their real name and email if they've actually asked to place an order or send a message.`;
+                stopOfferingTools = true;
               } else if (!orderArgs.items) {
                 toolResult = 'ERROR: missing required field (items) — ask the customer what they want to order.';
               } else {
@@ -480,7 +496,8 @@ app.post('/api/chat', async (c) => {
               const contactArgs = args as unknown as ContactArgs;
               const contactIssue = looksLikeRealContact(contactArgs.name, contactArgs.email);
               if (contactIssue) {
-                toolResult = `ERROR: ${contactIssue}. Ask the customer directly for their real name and email — do not guess or reuse example values.`;
+                toolResult = `ERROR: ${contactIssue}. You should not have called this tool yet. Do not call it again in this reply — instead, respond in plain text: if the customer asked an informational/pricing question, just answer it directly from the info you already have, and only ask for their real name and email if they've actually asked to place an order or send a message.`;
+                stopOfferingTools = true;
               } else if (!contactArgs.message) {
                 toolResult = 'ERROR: missing required field (message) — ask the customer what they want to say.';
               } else {
