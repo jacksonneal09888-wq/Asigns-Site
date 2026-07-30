@@ -1137,6 +1137,8 @@ nav {
     flex-direction: column;
     gap: 18px;
     min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .tee-preview-header {
