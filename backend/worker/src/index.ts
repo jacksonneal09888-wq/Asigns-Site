@@ -131,22 +131,56 @@ async function saveOrder(env: Bindings, args: OrderArgs) {
     .run();
 }
 
+function formatItemsForEmail(items: unknown): string {
+  if (typeof items === 'string') return items;
+  if (Array.isArray(items)) {
+    return items
+      .map((item, i) => {
+        if (item && typeof item === 'object') {
+          const lines = Object.entries(item as Record<string, unknown>).map(
+            ([key, value]) => `    ${key}: ${value}`
+          );
+          return `  Item ${i + 1}:\n${lines.join('\n')}`;
+        }
+        return `  Item ${i + 1}: ${item}`;
+      })
+      .join('\n');
+  }
+  if (items && typeof items === 'object') {
+    return Object.entries(items as Record<string, unknown>)
+      .map(([key, value]) => `  ${key}: ${value}`)
+      .join('\n');
+  }
+  return String(items);
+}
+
+function nowStamp(): string {
+  return new Date().toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' }) + ' ET';
+}
+
 function notifyOrder(env: Bindings, ctx: Pick<ExecutionContext, 'waitUntil'>, args: OrderArgs, source: string) {
   ctx.waitUntil(
     sendNotificationEmail(
       env,
       `New ${args.category ?? 'order'} request from ${args.name} (${source})`,
       [
-        `New order/quote request (${source}) — category: ${args.category ?? 'unspecified'}`,
+        `NEW ORDER / QUOTE REQUEST`,
+        `Received: ${nowStamp()}`,
+        `Source: ${source}`,
+        `Category: ${args.category ?? 'Not specified'}`,
         '',
+        '--- Customer Contact Info ---',
         `Name: ${args.name}`,
         `Email: ${args.email}`,
         `Phone: ${args.phone ?? 'Not provided'}`,
         '',
-        'Items:',
-        typeof args.items === 'string' ? args.items : JSON.stringify(args.items, null, 2),
+        '--- What They Want ---',
+        formatItemsForEmail(args.items),
         '',
-        `Notes: ${args.notes ?? 'None'}`,
+        '--- Notes ---',
+        args.notes ?? 'None',
+        '',
+        `Reply directly to this email to respond to ${args.name} at ${args.email}.`,
       ].join('\n'),
       args.email
     )
@@ -173,14 +207,19 @@ function notifyContact(
       env,
       `New website message from ${args.name} (${source})`,
       [
-        `New contact message (${source})`,
+        `NEW CONTACT MESSAGE`,
+        `Received: ${nowStamp()}`,
+        `Source: ${source}`,
         '',
+        '--- Customer Contact Info ---',
         `Name: ${args.name}`,
         `Email: ${args.email}`,
         '',
-        'Message:',
+        '--- Message ---',
         args.message,
-        ...(attachment ? ['', `Attached file: ${attachment.filename}`] : []),
+        ...(attachment ? ['', `Attached file: ${attachment.filename} (see attachment on this email)`] : []),
+        '',
+        `Reply directly to this email to respond to ${args.name} at ${args.email}.`,
       ].join('\n'),
       args.email,
       attachment ? [attachment] : undefined
