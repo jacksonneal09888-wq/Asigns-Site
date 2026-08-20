@@ -227,6 +227,105 @@ function notifyContact(
   );
 }
 
+// Returns a Date whose UTC getters reflect America/New_York wall-clock time right now,
+// so callers can pull out date/weekday/time without manual DST offset math.
+function nowInBusinessTZ(): Date {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+  }).formatToParts(new Date());
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '00';
+  return new Date(Date.UTC(
+    Number(get('year')), Number(get('month')) - 1, Number(get('day')),
+    Number(get('hour')) % 24, Number(get('minute')), Number(get('second'))
+  ));
+}
+
+function dateStr(d: Date): string {
+  return d.toISOString().slice(0, 10);
+}
+
+function hhmm(d: Date): string {
+  return d.toISOString().slice(11, 16);
+}
+
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const TIME_PATTERN = /^\d{2}:\d{2}$/;
+const SLOT_MINUTES = 30;
+const MAX_BOOKING_DAYS_AHEAD = 60;
+
+// Sunday(0) is "by appointment" (phone/text only) -- not offered as self-serve slots.
+const BUSINESS_HOURS: Record<number, { open: string; close: string } | null> = {
+  0: null,
+  1: { open: '07:00', close: '15:00' },
+  2: { open: '07:00', close: '15:00' },
+  3: { open: '07:00', close: '15:00' },
+  4: { open: '07:00', close: '15:00' },
+  5: { open: '07:00', close: '15:00' },
+  6: { open: '09:00', close: '15:00' },
+};
+
+function weekdayOf(dateOnly: string): number {
+  return new Date(`${dateOnly}T00:00:00Z`).getUTCDay();
+}
+
+function generateSlotsForWeekday(dayOfWeek: number): string[] {
+  const hours = BUSINESS_HOURS[dayOfWeek];
+  if (!hours) return [];
+  const slots: string[] = [];
+  let [h, m] = hours.open.split(':').map(Number);
+  const [closeH, closeM] = hours.close.split(':').map(Number);
+  while (h < closeH || (h === closeH && m < closeM)) {
+    slots.push(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`);
+    m += SLOT_MINUTES;
+    if (m >= 60) {
+      m -= 60;
+      h += 1;
+    }
+  }
+  return slots;
+}
+
+type AppointmentArgs = { name: string; email: string; phone?: string; date: string; time: string; notes?: string };
+
+async function saveAppointment(env: Bindings, args: AppointmentArgs) {
+  await env.DB.prepare(
+    `INSERT INTO appointments (name, email, phone, appt_date, appt_time, notes) VALUES (?, ?, ?, ?, ?, ?)`
+  )
+    .bind(args.name, args.email, args.phone ?? null, args.date, args.time, args.notes ?? null)
+    .run();
+}
+
+function notifyAppointment(env: Bindings, ctx: Pick<ExecutionContext, 'waitUntil'>, args: AppointmentArgs, source: string) {
+  ctx.waitUntil(
+    sendNotificationEmail(
+      env,
+      `New appointment booked: ${args.name} — ${args.date} ${args.time} (${source})`,
+      [
+        `NEW APPOINTMENT BOOKED`,
+        `Received: ${nowStamp()}`,
+        `Source: ${source}`,
+        '',
+        '--- Customer Contact Info ---',
+        `Name: ${args.name}`,
+        `Email: ${args.email}`,
+        `Phone: ${args.phone ?? 'Not provided'}`,
+        '',
+        '--- Appointment ---',
+        `Date: ${args.date}`,
+        `Time: ${args.time}`,
+        '',
+        '--- Notes ---',
+        args.notes ?? 'None',
+        '',
+        `Reply directly to this email to respond to ${args.name} at ${args.email}.`,
+      ].join('\n'),
+      args.email
+    )
+  );
+}
+
 // The Workers AI backend for this model validates `tools` strictly against the
 // OpenAI function-calling schema (tools[].type === 'function' with a nested
 // `function` object) -- the older flat {name, description, parameters} shape
@@ -288,6 +387,45 @@ const CHAT_TOOLS: ChatTool[] = [
       },
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'check_availability',
+      description:
+        "Check real open appointment slots for a specific date. Always call this before telling a customer a time is available, and before calling book_appointment — never guess or assume a time is open.",
+      parameters: {
+        type: 'object',
+        properties: {
+          date: {
+            type: 'string',
+            description:
+              'The date to check, in YYYY-MM-DD format. Compute this from what the customer said (e.g. "tomorrow", "next Monday") using the current date given above in this prompt.',
+          },
+        },
+        required: ['date'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'book_appointment',
+      description:
+        "Book a confirmed appointment slot. Only call this after check_availability has shown the exact date+time is open, AND the customer has typed their own real name and real email earlier in this conversation. Never invent or guess these values.",
+      parameters: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: "The exact name the customer typed in the chat. Never a placeholder." },
+          email: { type: 'string', description: "The exact email address the customer typed in the chat. Never a placeholder." },
+          phone: { type: 'string', description: 'Phone number, only if the customer actually gave one' },
+          date: { type: 'string', description: 'YYYY-MM-DD — must be a date/time check_availability just confirmed is open' },
+          time: { type: 'string', description: 'HH:MM in 24-hour time — must be a time check_availability just confirmed is open' },
+          notes: { type: 'string', description: 'What the appointment is for, if the customer mentioned it' },
+        },
+        required: ['name', 'email', 'date', 'time'],
+      },
+    },
+  },
 ];
 
 const PLACEHOLDER_PATTERNS = /customer|example\.com|placeholder|your name|your email|full name|n\/a|unknown/i;
@@ -303,10 +441,19 @@ function looksLikeRealContact(name: unknown, email: unknown): string | null {
   return null;
 }
 
-const SYSTEM_PROMPT = `You are Asigns Bot — the friendly, knowledgeable AI guide for Asigns & Printing,
+function buildSystemPrompt(): string {
+  const today = nowInBusinessTZ();
+  const todayLabel = today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  const todayStr = dateStr(today);
+
+  return `You are Asigns Bot — the friendly, knowledgeable AI guide for Asigns & Printing,
 a sign, print, and apparel shop in Siler City, NC. You help customers get quick answers about
 signs, vehicle wraps, banners, DTF transfers, custom apparel, and websites, and guide them to
 take the next step (call, text, visit the shop page, or use the online design tools).
+
+Today is ${todayLabel} (${todayStr}), Eastern time. Use this to resolve any relative date the
+customer mentions ("tomorrow", "next Monday", "this Saturday") into an exact YYYY-MM-DD before
+calling check_availability or book_appointment.
 
 Never narrate your own decision process out loud (no "I don't need to call a function", "I will
 respond with plain text," etc.) — just answer directly, as if the customer can't see your reasoning.
@@ -394,9 +541,23 @@ and submit_contact_message tools — you don't have to just point people at a fo
   and email yet, ask for them in plain text; don't call the tool until you do.
 - Never claim something was submitted unless the tool call actually happened and succeeded.
 
+## Booking Appointments
+Customers can book a real 30-minute slot directly in the chat using check_availability and
+book_appointment — this checks and reserves the same calendar as the site's booking page.
+- Booking hours: Mon–Fri 7:00 AM–3:00 PM, Sat 9:00 AM–3:00 PM, all Eastern time, in 30-minute
+  slots. Sunday has no self-serve slots — it's by appointment via phone/text only.
+- When a customer wants to schedule/book/come by, figure out the exact date they mean (using
+  today's date above), then call check_availability for that date before saying anything is open.
+- Only offer the real times check_availability returned — never invent or assume a time is free.
+- Once the customer picks one of the real open times AND you have their real name and email, call
+  book_appointment immediately with that exact date/time — don't recap and ask permission first.
+- If a date turns out to be a Sunday or fully booked, say so and offer to check another day, or
+  point them to [ACTION:open:book.html] to browse the calendar themselves.
+
 ## Website Navigation
 Guide users using these action tags (the front-end converts them into clickable buttons):
 - Shop:                [ACTION:open:shop.html]
+- Book an appointment:  [ACTION:open:book.html]
 - Gang Sheet Builder:   [ACTION:open:gang-builder.html]
 - Tee Designer:         [ACTION:open:tee-designer.html]
 - Signage quote form:   [ACTION:scroll:#signage-quote]
@@ -445,6 +606,7 @@ answer helpfully using your general knowledge:
   say pricing isn't listed and offer to get a quote via the shop or contact form.
 - Never invent other Asigns & Printing-specific facts (dates, stock, order status) — general
   trade knowledge is fine to state confidently`;
+}
 
 const CHAT_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 
@@ -472,7 +634,7 @@ app.post('/api/chat', async (c) => {
     return c.json({ error: 'A message is too long or invalid (max 4000 characters).' }, 400);
   }
 
-  const messages: any[] = [{ role: 'system', content: SYSTEM_PROMPT }, ...incoming.slice(-20)];
+  const messages: any[] = [{ role: 'system', content: buildSystemPrompt() }, ...incoming.slice(-20)];
 
   try {
     const actionsTaken: string[] = [];
@@ -559,6 +721,61 @@ app.post('/api/chat', async (c) => {
                 completedTools.add(call.name);
                 stopOfferingTools = true;
               }
+            } else if (call.name === 'check_availability') {
+              const dateArg = String((args as { date?: unknown }).date ?? '');
+              if (!DATE_PATTERN.test(dateArg)) {
+                toolResult = 'ERROR: date must be in YYYY-MM-DD format. Ask the customer to confirm which day they mean, or compute the exact date yourself from today\'s date above.';
+              } else {
+                const todayStr = dateStr(nowInBusinessTZ());
+                if (dateArg < todayStr) {
+                  toolResult = `ERROR: ${dateArg} is in the past. Ask the customer for a future date.`;
+                } else {
+                  const dow = weekdayOf(dateArg);
+                  const allSlots = generateSlotsForWeekday(dow);
+                  if (!allSlots.length) {
+                    toolResult = `${dateArg} is a Sunday — the shop doesn't take online bookings that day, it's by appointment only. Tell the customer to call/text 336-215-0518 to arrange a Sunday visit, or offer to check a different day.`;
+                  } else {
+                    const { results } = await c.env.DB.prepare(
+                      `SELECT appt_time FROM appointments WHERE appt_date = ? AND status = 'confirmed'`
+                    ).bind(dateArg).all();
+                    const booked = new Set(results.map((r) => (r as { appt_time: string }).appt_time));
+                    const nowHHMM = dateArg === todayStr ? hhmm(nowInBusinessTZ()) : null;
+                    const open = allSlots.filter((t) => !booked.has(t) && (!nowHHMM || t > nowHHMM));
+                    toolResult = open.length
+                      ? `Open slots on ${dateArg}: ${open.join(', ')} (30-minute slots, Eastern time).`
+                      : `No open slots left on ${dateArg}. Offer to check a nearby date instead.`;
+                  }
+                }
+              }
+            } else if (call.name === 'book_appointment') {
+              const apptArgs = args as unknown as AppointmentArgs;
+              const contactIssue = looksLikeRealContact(apptArgs.name, apptArgs.email);
+              if (contactIssue) {
+                toolResult = `ERROR: ${contactIssue}. You should not have called this tool yet — ask the customer directly for their real name and email first.`;
+                stopOfferingTools = true;
+              } else if (!DATE_PATTERN.test(apptArgs.date ?? '') || !TIME_PATTERN.test(apptArgs.time ?? '')) {
+                toolResult = 'ERROR: date must be YYYY-MM-DD and time must be HH:MM. Call check_availability first to get a valid date/time.';
+              } else {
+                const dow = weekdayOf(apptArgs.date);
+                const validSlots = generateSlotsForWeekday(dow);
+                if (!validSlots.includes(apptArgs.time)) {
+                  toolResult = `ERROR: ${apptArgs.time} on ${apptArgs.date} is not a bookable slot. Call check_availability for that date and offer the customer one of the real open times.`;
+                } else {
+                  const { results } = await c.env.DB.prepare(
+                    `SELECT id FROM appointments WHERE appt_date = ? AND appt_time = ? AND status = 'confirmed'`
+                  ).bind(apptArgs.date, apptArgs.time).all();
+                  if (results.length) {
+                    toolResult = `ERROR: ${apptArgs.time} on ${apptArgs.date} was just booked by someone else. Call check_availability again and offer the customer another open time.`;
+                  } else {
+                    await saveAppointment(c.env, apptArgs);
+                    notifyAppointment(c.env, c.executionCtx, apptArgs, 'AI chat');
+                    toolResult = `Appointment booked for ${apptArgs.date} at ${apptArgs.time}.`;
+                    actionsTaken.push('appointment');
+                    completedTools.add(call.name);
+                    stopOfferingTools = true;
+                  }
+                }
+              }
             } else {
               toolResult = `ERROR: unknown tool ${call.name}`;
             }
@@ -607,6 +824,94 @@ app.post('/api/orders', async (c) => {
 
   await saveOrder(c.env, body);
   notifyOrder(c.env, c.executionCtx, body, 'website form');
+
+  return c.json({ ok: true });
+});
+
+app.get('/api/availability', async (c) => {
+  const ip = getClientIp(c);
+  if (!(await checkRateLimit(c.env, ip, 'availability', 60, 5))) {
+    return c.json({ error: 'Too many requests — please slow down and try again shortly.' }, 429);
+  }
+
+  const date = c.req.query('date') ?? '';
+  if (!DATE_PATTERN.test(date)) {
+    return c.json({ error: 'A valid date (YYYY-MM-DD) is required.' }, 400);
+  }
+
+  const todayStr = dateStr(nowInBusinessTZ());
+  if (date < todayStr) {
+    return c.json({ error: 'That date is in the past.' }, 400);
+  }
+  const maxDate = dateStr(new Date(nowInBusinessTZ().getTime() + MAX_BOOKING_DAYS_AHEAD * 86400000));
+  if (date > maxDate) {
+    return c.json({ error: `Please pick a date within the next ${MAX_BOOKING_DAYS_AHEAD} days.` }, 400);
+  }
+
+  const dow = weekdayOf(date);
+  const allSlots = generateSlotsForWeekday(dow);
+  if (!allSlots.length) {
+    return c.json({ date, closed: true, slots: [] });
+  }
+
+  const { results } = await c.env.DB.prepare(
+    `SELECT appt_time FROM appointments WHERE appt_date = ? AND status = 'confirmed'`
+  ).bind(date).all();
+  const booked = new Set(results.map((r) => (r as { appt_time: string }).appt_time));
+  const nowHHMM = date === todayStr ? hhmm(nowInBusinessTZ()) : null;
+
+  const slots = allSlots
+    .filter((t) => !nowHHMM || t > nowHHMM)
+    .map((t) => ({ time: t, available: !booked.has(t) }));
+
+  return c.json({ date, closed: false, slots });
+});
+
+app.post('/api/book', async (c) => {
+  const ip = getClientIp(c);
+  if (!(await checkRateLimit(c.env, ip, 'book', 8, 10))) {
+    return c.json({ error: 'Too many requests — please slow down and try again shortly.' }, 429);
+  }
+
+  const body = await c.req.json<AppointmentArgs & { honeypot?: string }>();
+
+  if (body.honeypot) {
+    return c.json({ ok: true });
+  }
+
+  if (!body.name || !body.email || !body.date || !body.time) {
+    return c.json({ error: 'name, email, date, and time are required' }, 400);
+  }
+  if (body.name.length > 200 || body.email.length > 200 || (body.phone ?? '').length > 50 || (body.notes ?? '').length > 2000) {
+    return c.json({ error: 'One or more fields is too long.' }, 400);
+  }
+  if (!EMAIL_PATTERN.test(body.email)) {
+    return c.json({ error: 'Please provide a valid email address.' }, 400);
+  }
+  if (!DATE_PATTERN.test(body.date) || !TIME_PATTERN.test(body.time)) {
+    return c.json({ error: 'Invalid date or time format.' }, 400);
+  }
+
+  const todayStr = dateStr(nowInBusinessTZ());
+  if (body.date < todayStr) {
+    return c.json({ error: 'That date is in the past.' }, 400);
+  }
+
+  const dow = weekdayOf(body.date);
+  const validSlots = generateSlotsForWeekday(dow);
+  if (!validSlots.includes(body.time)) {
+    return c.json({ error: 'That time is not available for booking.' }, 400);
+  }
+
+  const { results } = await c.env.DB.prepare(
+    `SELECT id FROM appointments WHERE appt_date = ? AND appt_time = ? AND status = 'confirmed'`
+  ).bind(body.date, body.time).all();
+  if (results.length) {
+    return c.json({ error: 'That slot was just booked by someone else — please pick another time.' }, 409);
+  }
+
+  await saveAppointment(c.env, body);
+  notifyAppointment(c.env, c.executionCtx, body, 'website form');
 
   return c.json({ ok: true });
 });
@@ -694,6 +999,27 @@ app.get('/api/admin/contact-messages', async (c) => {
   if (!requireAdmin(c)) return c.json({ error: 'unauthorized' }, 401);
   const { results } = await c.env.DB.prepare(`SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT 200`).all();
   return c.json({ messages: results });
+});
+
+app.get('/api/admin/appointments', async (c) => {
+  if (!(await checkRateLimit(c.env, getClientIp(c), 'admin', 30, 10))) {
+    return c.json({ error: 'Too many requests.' }, 429);
+  }
+  if (!requireAdmin(c)) return c.json({ error: 'unauthorized' }, 401);
+  const { results } = await c.env.DB.prepare(
+    `SELECT * FROM appointments WHERE status = 'confirmed' AND appt_date >= date('now') ORDER BY appt_date, appt_time LIMIT 200`
+  ).all();
+  return c.json({ appointments: results });
+});
+
+app.post('/api/admin/appointments/:id/cancel', async (c) => {
+  if (!(await checkRateLimit(c.env, getClientIp(c), 'admin', 30, 10))) {
+    return c.json({ error: 'Too many requests.' }, 429);
+  }
+  if (!requireAdmin(c)) return c.json({ error: 'unauthorized' }, 401);
+  const id = c.req.param('id');
+  await c.env.DB.prepare(`UPDATE appointments SET status = 'cancelled' WHERE id = ?`).bind(id).run();
+  return c.json({ ok: true });
 });
 
 export default app;

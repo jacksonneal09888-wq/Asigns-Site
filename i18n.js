@@ -14,6 +14,7 @@
     'nav.services': { en: 'Services', es: 'Servicios' },
     'nav.pricing': { en: 'Pricing', es: 'Precios' },
     'nav.shop': { en: 'Shop', es: 'Tienda' },
+    'nav.book': { en: 'Book', es: 'Reservar' },
     'nav.gangBuilder': { en: 'Gang Sheet Builder', es: 'Creador de Gang Sheets' },
     'nav.gangBuilderShort': { en: 'Gang Sheets', es: 'Gang Sheets' },
     'nav.teeDesigner': { en: 'Tee Designer', es: 'Diseñador de Playeras' },
@@ -43,6 +44,9 @@
     'path.web.h3': { en: 'Websites & Digital', es: 'Sitios Web y Digital' },
     'path.web.p': { en: 'Custom site builds and ongoing digital support.', es: 'Sitios web personalizados y soporte digital continuo.' },
     'path.web.cta': { en: 'See our work →', es: 'Ve nuestro trabajo →' },
+    'path.book.h3': { en: 'Book an Appointment', es: 'Reservar una Cita' },
+    'path.book.p': { en: "Pick a real open time slot and we'll be ready when you arrive.", es: 'Elige un horario disponible y estaremos listos cuando llegues.' },
+    'path.book.cta': { en: 'Book a time →', es: 'Reservar horario →' },
 
     // Specialize section
     'specialize.h2': { en: 'We Specialize In:', es: 'Nos Especializamos En:' },
@@ -388,6 +392,24 @@
     'tee.sendOrder': { en: 'Send Order Request', es: 'Enviar Solicitud de Pedido' },
     'tee.readyH3': { en: 'Ready to produce your apparel run?', es: '¿Listo para producir tu pedido de ropa?' },
     'tee.readyP': { en: "Send your mockup and notes to our team and we'll confirm print specs, finishing, and delivery dates.", es: 'Envía tu mockup y notas a nuestro equipo y confirmaremos especificaciones, acabado y fechas de entrega.' },
+
+    // Booking page
+    'bookHero.eyebrow': { en: 'Book a Visit', es: 'Reservar una Visita' },
+    'bookHero.h1': { en: 'Schedule Your Appointment', es: 'Programa tu Cita' },
+    'bookHero.p': { en: "Pick a day and time that works for you — we'll have everything ready when you arrive. 30-minute slots, real-time availability.", es: 'Elige el día y la hora que mejor te convenga — tendremos todo listo cuando llegues. Espacios de 30 minutos, disponibilidad en tiempo real.' },
+    'book.pickDate': { en: 'Pick a date', es: 'Elige una fecha' },
+    'book.hoursNote': { en: 'Mon–Fri 7am–3pm · Sat 9am–3pm · Sun by appointment (call/text)', es: 'Lun–Vie 7am–3pm · Sáb 9am–3pm · Dom con cita previa (llamar/texto)' },
+    'book.pickTime': { en: 'Pick a time', es: 'Elige una hora' },
+    'book.loadingSlots': { en: 'Loading available times…', es: 'Cargando horarios disponibles…' },
+    'book.yourInfo': { en: 'Your info', es: 'Tu información' },
+    'book.namePh': { en: 'Name', es: 'Nombre' },
+    'book.emailPh': { en: 'Email*', es: 'Correo Electrónico*' },
+    'book.phonePh': { en: 'Phone (optional)', es: 'Teléfono (opcional)' },
+    'book.notesPh': { en: "What's this appointment for? (optional)", es: '¿Para qué es esta cita? (opcional)' },
+    'book.confirm': { en: 'Pick a time above to continue', es: 'Elige una hora arriba para continuar' },
+    'book.confirmReady': { en: 'Confirm Appointment', es: 'Confirmar Cita' },
+    'book.callInsteadH3': { en: 'Rather just call?', es: '¿Prefieres solo llamar?' },
+    'book.callInsteadP': { en: "We're happy to book you over the phone or text too.", es: 'Con gusto te agendamos por teléfono o mensaje de texto también.' },
 
     // Resources page
     'resources.article1H2': { en: 'How to Prep Your Artwork for DTF Printing', es: 'Cómo Preparar tu Diseño para Impresión DTF' },

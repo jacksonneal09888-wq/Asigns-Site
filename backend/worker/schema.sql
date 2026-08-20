@@ -27,3 +27,17 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 );
 
 CREATE INDEX IF NOT EXISTS idx_rate_limits_lookup ON rate_limits(ip, endpoint, created_at);
+
+CREATE TABLE IF NOT EXISTS appointments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT,
+  appt_date TEXT NOT NULL,
+  appt_time TEXT NOT NULL,
+  notes TEXT,
+  status TEXT NOT NULL DEFAULT 'confirmed'
+);
+
+CREATE INDEX IF NOT EXISTS idx_appointments_date ON appointments(appt_date, appt_time);

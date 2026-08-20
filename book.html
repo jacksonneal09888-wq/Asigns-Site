@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://image.thum.io; connect-src 'self' https://asigns-worker.jacksonneal09888.workers.dev https://www.google-analytics.com https://region1.google-analytics.com; base-uri 'self'; form-action 'self' https://asigns-worker.jacksonneal09888.workers.dev; object-src 'none';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>Guides & Resources | Asigns & Printing</title>
-    <meta name="description" content="DTF printing guides from Asigns & Printing in Siler City, NC — how to prep artwork for DTF transfers and recommended heat press settings.">
-    <link rel="canonical" href="https://asignsinc.com/resources.html">
-    <meta property="og:type" content="article">
+    <title>Book an Appointment | Asigns & Printing</title>
+    <meta name="description" content="Book a real appointment slot at Asigns & Printing in Siler City, NC — pick a day and time that works for you.">
+    <link rel="canonical" href="https://asignsinc.com/book.html">
+    <meta property="og:type" content="website">
     <meta property="og:site_name" content="Asigns & Printing">
-    <meta property="og:title" content="Guides & Resources | Asigns & Printing">
-    <meta property="og:description" content="DTF printing guides — artwork prep and heat press settings from Asigns & Printing.">
-    <meta property="og:url" content="https://asignsinc.com/resources.html">
+    <meta property="og:title" content="Book an Appointment | Asigns & Printing">
+    <meta property="og:description" content="Pick a day and time that works for you — book a real appointment slot online.">
+    <meta property="og:url" content="https://asignsinc.com/book.html">
     <meta property="og:image" content="https://asignsinc.com/Material/0dd1a7f8-be16-44ec-a731-c8d05d20c307.jpeg">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="style.css?v=20260740">
+    <link rel="stylesheet" href="book.css?v=20260740">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Google Analytics (GA4) - TODO: replace G-XXXXXXXXXX with real Measurement ID -->
@@ -63,41 +64,46 @@
     <main>
         <section class="subpage-hero">
             <div class="subpage-hero__content">
-                <span class="hero-eyebrow" data-i18n="resourcesHero.eyebrow">Guides</span>
-                <h1 data-i18n="resourcesHero.h1">DTF Printing Guides & Resources</h1>
-                <p data-i18n="resourcesHero.p">Everything we tell customers over the counter — now written down so you can prep your files right the first time.</p>
+                <span class="hero-eyebrow" data-i18n="bookHero.eyebrow">Book a Visit</span>
+                <h1 data-i18n="bookHero.h1">Schedule Your Appointment</h1>
+                <p data-i18n="bookHero.p">Pick a day and time that works for you — we'll have everything ready when you arrive. 30-minute slots, real-time availability.</p>
             </div>
         </section>
 
-        <section class="faq-section section-padding">
-            <article style="margin-bottom: 56px;">
-                <h2 data-i18n="resources.article1H2">How to Prep Your Artwork for DTF Printing</h2>
-                <p data-i18n="resources.article1Intro">Getting your file right the first time saves a round of back-and-forth before your gang sheet goes to print. Here's what we look for:</p>
-                <ul style="color: var(--color-slate); line-height: 1.8; padding-left: 20px;">
-                    <li data-i18n="resources.li1"><strong>File type:</strong> Transparent PNG, TIFF, or vector PDF work best. If you only have a JPEG or need cleanup, send what you have — we can help prep it.</li>
-                    <li data-i18n="resources.li2"><strong>Resolution:</strong> 300 DPI at the size you want it printed. Scaling up a low-res image will show on press.</li>
-                    <li data-i18n="resources.li3"><strong>Background:</strong> Keep it transparent unless the design is meant to have a solid background — DTF only prints what's in the file.</li>
-                    <li data-i18n="resources.li4"><strong>Color matching:</strong> Share Pantone references or product photos if brand color accuracy matters, and we'll dial in the color profile before printing.</li>
-                    <li><strong data-i18n="resources.li5">Layout: No minimums on gang sheets — use the</strong> <a href="gang-builder.html" data-i18n="nav.gangBuilder">Gang Sheet Builder</a></li>
-                </ul>
-            </article>
+        <section class="book-section section-padding">
+            <div class="book-layout">
+                <div class="book-panel">
+                    <h3><span class="book-step-num">1</span> <span data-i18n="book.pickDate">Pick a date</span></h3>
+                    <input type="date" id="bookDate" class="book-date-input">
+                    <p id="bookHoursNote" class="book-hours-note" data-i18n="book.hoursNote">Mon–Fri 7am–3pm · Sat 9am–3pm · Sun by appointment (call/text)</p>
 
-            <article>
-                <h2 data-i18n="resources.article2H2">Recommended Heat Press Settings for DTF Transfers</h2>
-                <p data-i18n="resources.article2Intro">Every transfer we send out includes a cheat sheet, but here's the baseline setting that works for most fabrics:</p>
-                <ul style="color: var(--color-slate); line-height: 1.8; padding-left: 20px;">
-                    <li data-i18n="resources.temp"><strong>Temperature:</strong> 285°F</li>
-                    <li data-i18n="resources.time"><strong>Time:</strong> 12 seconds</li>
-                    <li data-i18n="resources.pressure"><strong>Pressure:</strong> Medium</li>
-                </ul>
-                <p><span data-i18n="resources.article2End">Peel cold once the transfer has cooled for the cleanest release. If you're pressing a heat-sensitive fabric (like some polyester blends), test on a scrap piece first or</span> <a href="/#contact" data-i18n="resources.contactUs">contact us</a> <span data-i18n="resources.article2End2">— we're happy to walk through settings for your specific garment.</span></p>
-            </article>
+                    <h3><span class="book-step-num">2</span> <span data-i18n="book.pickTime">Pick a time</span></h3>
+                    <div id="bookSlots" class="book-slots">
+                        <p class="book-slots-empty" data-i18n="book.loadingSlots">Loading available times…</p>
+                    </div>
+                </div>
+
+                <div class="book-panel">
+                    <h3><span class="book-step-num">3</span> <span data-i18n="book.yourInfo">Your info</span></h3>
+                    <div class="book-selected-summary hidden" id="bookSelectedSummary"></div>
+                    <form id="bookForm">
+                        <input type="text" id="bookHoneypot" class="hp-field" name="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <input type="text" id="bookName" placeholder="Name" data-i18n-placeholder="book.namePh" required>
+                        <input type="email" id="bookEmail" placeholder="Email*" data-i18n-placeholder="book.emailPh" required>
+                        <input type="tel" id="bookPhone" placeholder="Phone (optional)" data-i18n-placeholder="book.phonePh">
+                        <textarea id="bookNotes" placeholder="What's this appointment for? (optional)" data-i18n-placeholder="book.notesPh"></textarea>
+                        <button type="submit" class="btn btn-block" id="bookSubmitBtn" disabled data-i18n="book.confirm">Pick a time above to continue</button>
+                    </form>
+                    <p id="bookFeedback" class="order-feedback hidden"></p>
+                    <p class="recaptcha-info"><span data-i18n="contact.recaptcha">This site is protected by reCAPTCHA and the Google</span> <a href="https://policies.google.com/privacy" target="_blank" data-i18n="contact.privacy">Privacy Policy</a> <span data-i18n="contact.and">and</span> <a href="https://policies.google.com/terms" target="_blank" data-i18n="contact.terms">Terms of Service</a> <span data-i18n="contact.apply">apply.</span></p>
+                </div>
+            </div>
         </section>
 
         <section class="subpage-cta">
-            <h3 data-i18n="resources.readyH3">Ready to send us a file?</h3>
-            <p data-i18n="resources.readyP">Build your layout in the Gang Sheet Builder or reach out with questions before you order.</p>
-            <a href="gang-builder.html" class="btn" data-i18n="ctaLight.btn1">Open Gang Sheet Builder</a>
+            <h3 data-i18n="book.callInsteadH3">Rather just call?</h3>
+            <p data-i18n="book.callInsteadP">We're happy to book you over the phone or text too.</p>
+            <a href="tel:+13362150518" class="btn">336-215-0518</a>
         </section>
     </main>
 
@@ -115,6 +121,7 @@
 
     <script src="i18n.js?v=20260740" defer></script>
     <script src="script.js?v=20260740" defer></script>
+    <script src="book.js?v=20260740" defer></script>
     <script src="asigns-chat.js?v=20260740" defer></script>
     <button id="backToTopBtn" title="Go to top" data-i18n-title="ui.goToTop"><i class="fas fa-arrow-up"></i></button>
 </body>
