@@ -14,7 +14,7 @@
     'nav.services': { en: 'Services', es: 'Servicios' },
     'nav.pricing': { en: 'Pricing', es: 'Precios' },
     'nav.shop': { en: 'Shop', es: 'Tienda' },
-    'nav.book': { en: 'Book', es: 'Reservar' },
+    'nav.book': { en: 'Book Now', es: 'Reservar Ahora' },
     'nav.gangBuilder': { en: 'Gang Sheet Builder', es: 'Creador de Gang Sheets' },
     'nav.gangBuilderShort': { en: 'Gang Sheets', es: 'Gang Sheets' },
     'nav.teeDesigner': { en: 'Tee Designer', es: 'Diseñador de Playeras' },
@@ -30,6 +30,7 @@
     'hero.p': { en: "From storefront signs to vehicle wraps to rush-order tees — designed, printed, and installed right here in Siler City, NC.", es: 'Desde letreros para negocios hasta rotulación de vehículos y playeras urgentes — diseñado, impreso e instalado aquí mismo en Siler City, NC.' },
     'hero.ctaStart': { en: 'Start a Project', es: 'Iniciar un Proyecto' },
     'hero.ctaServices': { en: 'View Services', es: 'Ver Servicios' },
+    'hero.ctaBook': { en: 'Book an Appointment', es: 'Reservar una Cita' },
     'hero.trustHours': { en: 'Mon–Fri 7am–3pm', es: 'Lun–Vie 7am–3pm' },
 
     // Path section
@@ -44,6 +45,7 @@
     'path.web.h3': { en: 'Websites & Digital', es: 'Sitios Web y Digital' },
     'path.web.p': { en: 'Custom site builds and ongoing digital support.', es: 'Sitios web personalizados y soporte digital continuo.' },
     'path.web.cta': { en: 'See our work →', es: 'Ve nuestro trabajo →' },
+    'path.book.badge': { en: 'Instant Confirmation', es: 'Confirmación Instantánea' },
     'path.book.h3': { en: 'Book an Appointment', es: 'Reservar una Cita' },
     'path.book.p': { en: "Pick a real open time slot and we'll be ready when you arrive.", es: 'Elige un horario disponible y estaremos listos cuando llegues.' },
     'path.book.cta': { en: 'Book a time →', es: 'Reservar horario →' },

@@ -399,6 +399,27 @@ nav {
     width: 100%;
 }
 
+.nav-link-cta {
+    background: var(--gradient-gold);
+    color: #0a0a0a !important;
+    padding: 7px 16px !important;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 6px 16px rgba(255, 122, 0, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+}
+
+.nav-link-cta::after { display: none; }
+
+.nav-link-cta:hover {
+    color: #0a0a0a;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 10px 22px rgba(255, 122, 0, 0.45);
+    filter: brightness(1.05);
+}
+
 .nav-actions {
     display: flex;
     align-items: center;
@@ -467,6 +488,19 @@ nav {
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 22px 45px rgba(255, 122, 0, 0.45);
     filter: brightness(1.05);
+}
+
+.btn-book {
+    background: linear-gradient(135deg, #2ba4ff 0%, #1c6fd6 100%);
+    color: #fff;
+    box-shadow: 0 18px 35px rgba(43, 164, 255, 0.35);
+}
+
+.btn-book:hover,
+.btn-book:focus-visible {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+    box-shadow: 0 22px 45px rgba(43, 164, 255, 0.45);
 }
 
 .btn-outline {
@@ -2703,6 +2737,7 @@ footer .social-links a:hover {
 }
 
 .path-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -2713,6 +2748,30 @@ footer .social-links a:hover {
     text-decoration: none;
     color: inherit;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.path-card--book {
+    border-color: rgba(43, 164, 255, 0.35);
+    background: linear-gradient(160deg, rgba(43, 164, 255, 0.1), var(--color-card) 55%);
+}
+
+.path-card--book:hover {
+    border-color: rgba(43, 164, 255, 0.6);
+    box-shadow: 0 20px 40px rgba(43, 164, 255, 0.2);
+}
+
+.path-card--book i { color: #2ba4ff; }
+
+.path-card__badge {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: linear-gradient(135deg, #2ba4ff 0%, #1c6fd6 100%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
 }
 
 .path-card:hover {
