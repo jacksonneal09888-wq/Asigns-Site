@@ -2287,7 +2287,18 @@ footer .social-links a:hover {
     font-weight: 700;
     letter-spacing: 0.03em;
     box-shadow: 0 18px 35px rgba(255, 122, 0, 0.35);
-    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease, visibility 0.25s;
+}
+
+.sticky-cta.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
 .sticky-cta:hover {

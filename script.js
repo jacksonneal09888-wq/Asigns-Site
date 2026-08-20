@@ -25,6 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Sticky "Start a Project" CTA — only show once the hero (which has its own
+    // identical CTA) has scrolled out of view, so they never overlap.
+    const stickyCta = document.querySelector('.sticky-cta');
+    const heroSection = document.querySelector('#home');
+    if (stickyCta && heroSection) {
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                stickyCta.classList.toggle('is-visible', !entry.isIntersecting);
+            });
+        }, { threshold: 0 });
+        heroObserver.observe(heroSection);
+    } else if (stickyCta) {
+        stickyCta.classList.add('is-visible');
+    }
+
     // Section scroll animations
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links li a'); // Select all nav links

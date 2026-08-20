@@ -151,7 +151,7 @@
         targetOnThisPage.scrollIntoView({ behavior: 'smooth' });
         return;
       }
-      window.location.href = 'index.html' + action.target;
+      window.location.href = '/' + action.target;
     } else if (action.type === 'open') {
       window.location.href = action.target;
     }

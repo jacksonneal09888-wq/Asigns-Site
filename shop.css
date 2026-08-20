@@ -280,6 +280,13 @@
     padding: 0 24px 20px;
 }
 
+/* Keep clear of the floating chat launcher parked in the bottom-right corner
+   (60px circle at right:22px) so the button's right edge stays tappable. */
+#cartCheckoutBtn {
+    margin-right: 74px;
+    width: calc(100% - 74px);
+}
+
 .cart-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
 
 .cart-item {
